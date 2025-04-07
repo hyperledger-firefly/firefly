@@ -14,12 +14,12 @@ ARG GIT_REF
 FROM $FIREFLY_BUILDER_TAG AS firefly-builder
 ARG BUILD_VERSION
 ARG GIT_REF
-RUN apk add --no-cache \
-  make>=4.4.1-r2 \
-  gcc>=14.2.0-r4 \
-  build-base>=0.5-r3 \
-  curl>=8.14.1-r2 \
-  git>=2.47.3-r0
+
+# Makes an assumption that that base image is debian based 
+# so it uses apt
+RUN apt update -y \
+    && apt install -y make gcc curl git
+
 WORKDIR /firefly
 RUN chgrp -R 0 /firefly \
   && chmod -R g+rwX /firefly \
@@ -74,20 +74,18 @@ RUN trivy sbom /sbom.spdx.json --ignorefile /SBOM/.trivyignore --severity UNKNOW
 FROM $BASE_TAG
 ARG UI_TAG
 ARG UI_RELEASE
-RUN apk add --update --no-cache \
-  sqlite>=3.48.0-r4 \
-  postgresql16-client>=16.13 \
-  curl>=8.14.1-r2 \
-  jq>=1.7.1-r0
+# Makes an assumption that that base image is ubuntu based 
+# so it uses apt
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt update -y \
+  && apt install -y curl jq sqlite postgresql \
+  && rm -rf /var/lib/apt/lists/*
 WORKDIR /firefly
-RUN chgrp -R 0 /firefly \
-  && chmod -R g+rwX /firefly \
-  && mkdir /etc/firefly \
+RUN chgrp -R 0 /firefly/ \
+  && chmod -R g+rwX /firefly/ \
+  && mkdir /etc/firefly/ \
   && chgrp -R 0 /etc/firefly \
   && chmod -R g+rwX /etc/firefly
-RUN curl -sL "https://github.com/golang-migrate/migrate/releases/download/$(curl -sL https://api.github.com/repos/golang-migrate/migrate/releases/latest | jq -r '.name')/migrate.linux-amd64.tar.gz" | tar xz \
-  && chmod +x ./migrate \
-  && mv ./migrate /usr/bin/migrate
 COPY --from=firefly-builder --chown=1001:0 /firefly/firefly ./firefly
 COPY --from=firefly-builder --chown=1001:0 /firefly/db ./db
 COPY --from=solidity-builder --chown=1001:0 /firefly/solidity_firefly/build/contracts ./contracts
@@ -98,4 +96,4 @@ RUN mkdir /firefly/frontend \
 COPY --from=sbom /sbom.spdx.json /sbom.spdx.json
 RUN ln -s /firefly/firefly /usr/bin/firefly
 USER 1001
-ENTRYPOINT [ "firefly" ]
+ENTRYPOINT [ "/usr/bin/firefly" ]
