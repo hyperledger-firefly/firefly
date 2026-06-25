@@ -44,7 +44,7 @@ func TestDefineFFIResolveFail(t *testing.T) {
 
 	ds.mcm.On("ResolveFFI", context.Background(), ffi).Return(fmt.Errorf("pop"))
 
-	err := ds.DefineFFI(context.Background(), ffi, false)
+	err := ds.DefineFFI(context.Background(), ffi, false, nil)
 	assert.EqualError(t, err, "pop")
 }
 
@@ -63,7 +63,7 @@ func TestDefineFFIFail(t *testing.T) {
 	ds.mcm.On("ResolveFFI", context.Background(), ffi).Return(nil)
 	ds.mim.On("GetRootOrg", context.Background()).Return(nil, fmt.Errorf("pop"))
 
-	err := ds.DefineFFI(context.Background(), ffi, false)
+	err := ds.DefineFFI(context.Background(), ffi, false, nil)
 	assert.EqualError(t, err, "pop")
 }
 
@@ -80,7 +80,7 @@ func TestDefineFFIFailInnerError(t *testing.T) {
 
 	ds.mcm.On("ResolveFFI", context.Background(), ffi).Return(nil)
 	ds.mdi.On("InsertOrGetFFI", mock.Anything, mock.Anything).Return(nil, fmt.Errorf("error2: [%w]", fmt.Errorf("pop")))
-	err := ds.DefineFFI(context.Background(), ffi, false)
+	err := ds.DefineFFI(context.Background(), ffi, false, nil)
 	assert.Regexp(t, "pop", err)
 }
 
@@ -98,7 +98,7 @@ func TestDefineFFIExists(t *testing.T) {
 	ds.mdi.On("GetFFIByNetworkName", context.Background(), "ns1", "ffi1", "1.0").Return(&fftypes.FFI{}, nil)
 	ds.mcm.On("ResolveFFI", context.Background(), ffi).Return(nil)
 
-	err := ds.DefineFFI(context.Background(), ffi, false)
+	err := ds.DefineFFI(context.Background(), ffi, false, nil)
 	assert.Regexp(t, "FF10448", err)
 }
 
@@ -116,7 +116,7 @@ func TestDefineFFIQueryFail(t *testing.T) {
 	ds.mdi.On("GetFFIByNetworkName", context.Background(), "ns1", "ffi1", "1.0").Return(nil, fmt.Errorf("pop"))
 	ds.mcm.On("ResolveFFI", context.Background(), ffi).Return(nil)
 
-	err := ds.DefineFFI(context.Background(), ffi, false)
+	err := ds.DefineFFI(context.Background(), ffi, false, nil)
 	assert.EqualError(t, err, "pop")
 }
 
@@ -144,7 +144,7 @@ func TestDefineFFIOk(t *testing.T) {
 	ds.mbm.On("NewBroadcast", mock.Anything).Return(mms)
 	mms.On("Send", context.Background()).Return(nil)
 
-	err := ds.DefineFFI(context.Background(), ffi, false)
+	err := ds.DefineFFI(context.Background(), ffi, false, nil)
 	assert.NoError(t, err)
 
 	mms.AssertExpectations(t)
@@ -174,7 +174,7 @@ func TestDefineFFIConfirm(t *testing.T) {
 	ds.mbm.On("NewBroadcast", mock.Anything).Return(mms)
 	mms.On("SendAndWait", context.Background()).Return(nil)
 
-	err := ds.DefineFFI(context.Background(), ffi, true)
+	err := ds.DefineFFI(context.Background(), ffi, true, nil)
 	assert.NoError(t, err)
 
 	mms.AssertExpectations(t)
@@ -191,7 +191,7 @@ func TestDefineFFIPublishNonMultiparty(t *testing.T) {
 		Published: true,
 	}
 
-	err := ds.DefineFFI(context.Background(), ffi, false)
+	err := ds.DefineFFI(context.Background(), ffi, false, nil)
 	assert.Regexp(t, "FF10414", err)
 }
 
@@ -208,7 +208,7 @@ func TestDefineFFINonMultiparty(t *testing.T) {
 	ds.mdi.On("InsertOrGetFFI", context.Background(), ffi).Return(nil, nil)
 	ds.mdi.On("InsertEvent", context.Background(), mock.Anything).Return(nil)
 
-	err := ds.DefineFFI(context.Background(), ffi, false)
+	err := ds.DefineFFI(context.Background(), ffi, false, nil)
 	assert.NoError(t, err)
 }
 
@@ -223,8 +223,39 @@ func TestDefineFFINonMultipartyFail(t *testing.T) {
 
 	ds.mcm.On("ResolveFFI", context.Background(), ffi).Return(fmt.Errorf("pop"))
 
-	err := ds.DefineFFI(context.Background(), ffi, false)
+	err := ds.DefineFFI(context.Background(), ffi, false, nil)
 	assert.Regexp(t, "FF10403", err)
+}
+
+// test that we can call defineFFI with custom topics
+func TestDefineFFICustomTopics(t *testing.T) {
+	ds := newTestDefinitionSender(t)
+	defer ds.cleanup(t)
+	ds.multiparty = true
+
+	ffi := &fftypes.FFI{
+		Name:      "ffi1",
+		Version:   "1.0",
+		Published: true,
+	}
+
+	ds.mdi.On("GetFFIByNetworkName", context.Background(), "ns1", "ffi1", "1.0").Return(nil, nil)
+	ds.mcm.On("ResolveFFI", context.Background(), ffi).Return(nil)
+	ds.mim.On("GetRootOrg", context.Background()).Return(&core.Identity{
+		IdentityBase: core.IdentityBase{
+			DID: "firefly:org1",
+		},
+	}, nil)
+	ds.mim.On("ResolveInputSigningIdentity", context.Background(), mock.Anything).Return(nil)
+
+	mms := &syncasyncmocks.Sender{}
+	ds.mbm.On("NewBroadcast", mock.Anything).Return(mms)
+	mms.On("Send", context.Background()).Return(nil)
+
+	err := ds.DefineFFI(context.Background(), ffi, false, []string{"my-custom-topic"})
+	assert.NoError(t, err)
+
+	mms.AssertExpectations(t)
 }
 
 func TestDefineContractAPIResolveFail(t *testing.T) {
@@ -240,7 +271,7 @@ func TestDefineContractAPIResolveFail(t *testing.T) {
 
 	ds.mcm.On("ResolveContractAPI", context.Background(), url, api).Return(fmt.Errorf("pop"))
 
-	err := ds.DefineContractAPI(context.Background(), url, api, false)
+	err := ds.DefineContractAPI(context.Background(), url, api, false, nil)
 	assert.EqualError(t, err, "pop")
 }
 
@@ -259,7 +290,7 @@ func TestDefineContractAPIFail(t *testing.T) {
 	ds.mim.On("GetRootOrg", context.Background()).Return(nil, fmt.Errorf("pop"))
 	ds.mdi.On("GetContractAPIByNetworkName", context.Background(), "ns1", "banana").Return(nil, nil)
 
-	err := ds.DefineContractAPI(context.Background(), url, api, false)
+	err := ds.DefineContractAPI(context.Background(), url, api, false, nil)
 	assert.EqualError(t, err, "pop")
 }
 
@@ -287,7 +318,7 @@ func TestDefineContractAPIOk(t *testing.T) {
 	ds.mbm.On("NewBroadcast", mock.Anything).Return(mms)
 	mms.On("Send", context.Background()).Return(nil)
 
-	err := ds.DefineContractAPI(context.Background(), url, api, false)
+	err := ds.DefineContractAPI(context.Background(), url, api, false, nil)
 	assert.NoError(t, err)
 
 	mms.AssertExpectations(t)
@@ -304,7 +335,7 @@ func TestDefineContractAPINonMultiparty(t *testing.T) {
 	ds.mdi.On("InsertOrGetContractAPI", mock.Anything, mock.Anything).Return(nil, nil)
 	ds.mdi.On("InsertEvent", mock.Anything, mock.Anything).Return(nil)
 
-	err := ds.DefineContractAPI(context.Background(), url, api, false)
+	err := ds.DefineContractAPI(context.Background(), url, api, false, nil)
 	assert.NoError(t, err)
 }
 
@@ -319,7 +350,7 @@ func TestDefineContractAPIPublishNonMultiparty(t *testing.T) {
 		Published: true,
 	}
 
-	err := ds.DefineContractAPI(context.Background(), url, api, false)
+	err := ds.DefineContractAPI(context.Background(), url, api, false, nil)
 	assert.Regexp(t, "FF10414", err)
 }
 
@@ -340,8 +371,39 @@ func TestDefineContractAPINonMultipartyUpdate(t *testing.T) {
 	ds.mdi.On("UpsertContractAPI", mock.Anything, mock.Anything, mock.Anything).Return(nil)
 	ds.mdi.On("InsertEvent", mock.Anything, mock.Anything).Return(nil)
 
-	err := ds.DefineContractAPI(context.Background(), url, api, false)
+	err := ds.DefineContractAPI(context.Background(), url, api, false, nil)
 	assert.NoError(t, err)
+}
+
+// test that we can call defineContractAPI with custom topics
+func TestDefineContractAPICustomTopics(t *testing.T) {
+	ds := newTestDefinitionSender(t)
+	defer ds.cleanup(t)
+	ds.multiparty = true
+
+	url := "http://firefly"
+	api := &core.ContractAPI{
+		Name:      "banana",
+		Published: true,
+	}
+
+	ds.mcm.On("ResolveContractAPI", context.Background(), url, api).Return(nil)
+	ds.mim.On("GetRootOrg", context.Background()).Return(&core.Identity{
+		IdentityBase: core.IdentityBase{
+			DID: "firefly:org1",
+		},
+	}, nil)
+	ds.mim.On("ResolveInputSigningIdentity", context.Background(), mock.Anything).Return(nil)
+	ds.mdi.On("GetContractAPIByNetworkName", context.Background(), "ns1", "banana").Return(nil, nil)
+
+	mms := &syncasyncmocks.Sender{}
+	ds.mbm.On("NewBroadcast", mock.Anything).Return(mms)
+	mms.On("Send", context.Background()).Return(nil)
+
+	err := ds.DefineContractAPI(context.Background(), url, api, false, []string{"my-custom-topic"})
+	assert.NoError(t, err)
+
+	mms.AssertExpectations(t)
 }
 
 func TestPublishFFI(t *testing.T) {
@@ -372,7 +434,7 @@ func TestPublishFFI(t *testing.T) {
 	mms.On("Send", context.Background()).Return(nil)
 	mockRunAsGroupPassthrough(ds.mdi)
 
-	result, err := ds.PublishFFI(context.Background(), "ffi1", "1.0", "ffi1-shared", false)
+	result, err := ds.PublishFFI(context.Background(), "ffi1", "1.0", "ffi1-shared", false, nil)
 	assert.NoError(t, err)
 	assert.Equal(t, ffi, result)
 	assert.True(t, ffi.Published)
@@ -395,7 +457,7 @@ func TestPublishFFIAlreadyPublished(t *testing.T) {
 	ds.mcm.On("GetFFIWithChildren", context.Background(), "ffi1", "1.0").Return(ffi, nil)
 	mockRunAsGroupPassthrough(ds.mdi)
 
-	_, err := ds.PublishFFI(context.Background(), "ffi1", "1.0", "ffi1-shared", false)
+	_, err := ds.PublishFFI(context.Background(), "ffi1", "1.0", "ffi1-shared", false, nil)
 	assert.Regexp(t, "FF10450", err)
 }
 
@@ -407,7 +469,7 @@ func TestPublishFFIQueryFail(t *testing.T) {
 	ds.mcm.On("GetFFIWithChildren", context.Background(), "ffi1", "1.0").Return(nil, fmt.Errorf("pop"))
 	mockRunAsGroupPassthrough(ds.mdi)
 
-	_, err := ds.PublishFFI(context.Background(), "ffi1", "1.0", "ffi1-shared", false)
+	_, err := ds.PublishFFI(context.Background(), "ffi1", "1.0", "ffi1-shared", false, nil)
 	assert.EqualError(t, err, "pop")
 }
 
@@ -427,7 +489,7 @@ func TestPublishFFIResolveFail(t *testing.T) {
 	ds.mcm.On("ResolveFFI", context.Background(), ffi).Return(fmt.Errorf("pop"))
 	mockRunAsGroupPassthrough(ds.mdi)
 
-	_, err := ds.PublishFFI(context.Background(), "ffi1", "1.0", "ffi1-shared", false)
+	_, err := ds.PublishFFI(context.Background(), "ffi1", "1.0", "ffi1-shared", false, nil)
 	assert.EqualError(t, err, "pop")
 }
 
@@ -458,7 +520,7 @@ func TestPublishFFIPrepareFail(t *testing.T) {
 	mms.On("Prepare", context.Background()).Return(fmt.Errorf("pop"))
 	mockRunAsGroupPassthrough(ds.mdi)
 
-	_, err := ds.PublishFFI(context.Background(), "ffi1", "1.0", "ffi1-shared", false)
+	_, err := ds.PublishFFI(context.Background(), "ffi1", "1.0", "ffi1-shared", false, nil)
 	assert.EqualError(t, err, "pop")
 
 	mms.AssertExpectations(t)
@@ -469,7 +531,7 @@ func TestPublishFFINonMultiparty(t *testing.T) {
 	defer ds.cleanup(t)
 	ds.multiparty = false
 
-	_, err := ds.PublishFFI(context.Background(), "ffi1", "1.0", "ffi1-shared", false)
+	_, err := ds.PublishFFI(context.Background(), "ffi1", "1.0", "ffi1-shared", false, nil)
 	assert.Regexp(t, "FF10414", err)
 }
 
@@ -501,7 +563,7 @@ func TestPublishContractAPI(t *testing.T) {
 	mms.On("Send", context.Background()).Return(nil)
 	mockRunAsGroupPassthrough(ds.mdi)
 
-	result, err := ds.PublishContractAPI(context.Background(), url, "api", "api-shared", false)
+	result, err := ds.PublishContractAPI(context.Background(), url, "api", "api-shared", false, nil)
 	assert.NoError(t, err)
 	assert.Equal(t, api, result)
 	assert.True(t, api.Published)
@@ -524,7 +586,7 @@ func TestPublishContractAPIAlreadyPublished(t *testing.T) {
 	ds.mcm.On("GetContractAPI", context.Background(), url, "api").Return(api, nil)
 	mockRunAsGroupPassthrough(ds.mdi)
 
-	_, err := ds.PublishContractAPI(context.Background(), url, "api", "api-shared", false)
+	_, err := ds.PublishContractAPI(context.Background(), url, "api", "api-shared", false, nil)
 	assert.Regexp(t, "FF10450", err)
 }
 
@@ -538,7 +600,7 @@ func TestPublishContractAPIQueryFail(t *testing.T) {
 	ds.mcm.On("GetContractAPI", context.Background(), url, "api").Return(nil, fmt.Errorf("pop"))
 	mockRunAsGroupPassthrough(ds.mdi)
 
-	_, err := ds.PublishContractAPI(context.Background(), url, "api", "api-shared", false)
+	_, err := ds.PublishContractAPI(context.Background(), url, "api", "api-shared", false, nil)
 	assert.EqualError(t, err, "pop")
 }
 
@@ -558,7 +620,7 @@ func TestPublishContractAPIResolveFail(t *testing.T) {
 	ds.mcm.On("ResolveContractAPI", context.Background(), url, api).Return(fmt.Errorf("pop"))
 	mockRunAsGroupPassthrough(ds.mdi)
 
-	_, err := ds.PublishContractAPI(context.Background(), url, "api", "api-shared", false)
+	_, err := ds.PublishContractAPI(context.Background(), url, "api", "api-shared", false, nil)
 	assert.EqualError(t, err, "pop")
 }
 
@@ -569,7 +631,7 @@ func TestPublishContractAPINonMultiparty(t *testing.T) {
 
 	url := "http://firefly"
 
-	_, err := ds.PublishContractAPI(context.Background(), url, "api", "api-shared", false)
+	_, err := ds.PublishContractAPI(context.Background(), url, "api", "api-shared", false, nil)
 	assert.Regexp(t, "FF10414", err)
 }
 
@@ -590,7 +652,7 @@ func TestPublishContractAPINetworkNameFail(t *testing.T) {
 	ds.mcm.On("ResolveContractAPI", context.Background(), url, api).Return(nil)
 	mockRunAsGroupPassthrough(ds.mdi)
 
-	_, err := ds.PublishContractAPI(context.Background(), url, "api", "api-shared", false)
+	_, err := ds.PublishContractAPI(context.Background(), url, "api", "api-shared", false, nil)
 	assert.EqualError(t, err, "pop")
 }
 
@@ -611,7 +673,7 @@ func TestPublishContractAPINetworkNameConflict(t *testing.T) {
 	ds.mcm.On("ResolveContractAPI", context.Background(), url, api).Return(nil)
 	mockRunAsGroupPassthrough(ds.mdi)
 
-	_, err := ds.PublishContractAPI(context.Background(), url, "api", "api-shared", false)
+	_, err := ds.PublishContractAPI(context.Background(), url, "api", "api-shared", false, nil)
 	assert.Regexp(t, "FF10448", err)
 }
 
@@ -636,7 +698,7 @@ func TestPublishContractAPIInterfaceFail(t *testing.T) {
 	mockRunAsGroupPassthrough(ds.mdi)
 	ds.mdi.On("GetFFIByID", context.Background(), "ns1", api.Interface.ID).Return(nil, fmt.Errorf("pop"))
 
-	_, err := ds.PublishContractAPI(context.Background(), url, "api", "api-shared", false)
+	_, err := ds.PublishContractAPI(context.Background(), url, "api", "api-shared", false, nil)
 	assert.EqualError(t, err, "pop")
 }
 
@@ -661,7 +723,7 @@ func TestPublishContractAPIInterfaceNotFound(t *testing.T) {
 	mockRunAsGroupPassthrough(ds.mdi)
 	ds.mdi.On("GetFFIByID", context.Background(), "ns1", api.Interface.ID).Return(nil, nil)
 
-	_, err := ds.PublishContractAPI(context.Background(), url, "api", "api-shared", false)
+	_, err := ds.PublishContractAPI(context.Background(), url, "api", "api-shared", false, nil)
 	assert.Regexp(t, "FF10303", err)
 }
 
@@ -688,6 +750,6 @@ func TestPublishContractAPIInterfaceNotPublished(t *testing.T) {
 		Published: false,
 	}, nil)
 
-	_, err := ds.PublishContractAPI(context.Background(), url, "api", "api-shared", false)
+	_, err := ds.PublishContractAPI(context.Background(), url, "api", "api-shared", false, nil)
 	assert.Regexp(t, "FF10451", err)
 }

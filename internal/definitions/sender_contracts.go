@@ -26,7 +26,7 @@ import (
 	"github.com/hyperledger/firefly/pkg/core"
 )
 
-func (ds *definitionSender) DefineFFI(ctx context.Context, ffi *fftypes.FFI, waitConfirm bool) error {
+func (ds *definitionSender) DefineFFI(ctx context.Context, ffi *fftypes.FFI, waitConfirm bool, topics []string) error {
 	ffi.ID = fftypes.NewUUID()
 	ffi.Namespace = ds.namespace
 	for _, method := range ffi.Methods {
@@ -43,7 +43,7 @@ func (ds *definitionSender) DefineFFI(ctx context.Context, ffi *fftypes.FFI, wai
 		if !ds.multiparty {
 			return i18n.NewError(ctx, coremsgs.MsgActionNotSupported)
 		}
-		_, err := ds.getFFISender(ctx, ffi).send(ctx, waitConfirm)
+		_, err := ds.getFFISender(ctx, ffi, topics).send(ctx, waitConfirm)
 		return err
 	}
 
@@ -60,7 +60,7 @@ func (ds *definitionSender) DefineFFI(ctx context.Context, ffi *fftypes.FFI, wai
 	})
 }
 
-func (ds *definitionSender) getFFISender(ctx context.Context, ffi *fftypes.FFI) *sendWrapper {
+func (ds *definitionSender) getFFISender(ctx context.Context, ffi *fftypes.FFI, topics []string) *sendWrapper {
 	if err := ds.contracts.ResolveFFI(ctx, ffi); err != nil {
 		return wrapSendError(err)
 	}
@@ -82,7 +82,7 @@ func (ds *definitionSender) getFFISender(ctx context.Context, ffi *fftypes.FFI) 
 	ffi.Namespace = ""
 	ffi.Published = true
 
-	sender := ds.getSenderDefault(ctx, ffi, core.SystemTagDefineFFI)
+	sender := ds.getSenderDefault(ctx, ffi, core.SystemTagDefineFFI, topics)
 	if sender.message != nil {
 		ffi.Message = sender.message.Header.ID
 	}
@@ -92,7 +92,7 @@ func (ds *definitionSender) getFFISender(ctx context.Context, ffi *fftypes.FFI) 
 	return sender
 }
 
-func (ds *definitionSender) PublishFFI(ctx context.Context, name, version, networkName string, waitConfirm bool) (ffi *fftypes.FFI, err error) {
+func (ds *definitionSender) PublishFFI(ctx context.Context, name, version, networkName string, waitConfirm bool, topics []string) (ffi *fftypes.FFI, err error) {
 	if !ds.multiparty {
 		return nil, i18n.NewError(ctx, coremsgs.MsgActionNotSupported)
 	}
@@ -106,7 +106,7 @@ func (ds *definitionSender) PublishFFI(ctx context.Context, name, version, netwo
 			return i18n.NewError(ctx, coremsgs.MsgAlreadyPublished)
 		}
 		ffi.NetworkName = networkName
-		sender = ds.getFFISender(ctx, ffi)
+		sender = ds.getFFISender(ctx, ffi, topics)
 		if sender.err != nil {
 			return sender.err
 		}
@@ -120,7 +120,7 @@ func (ds *definitionSender) PublishFFI(ctx context.Context, name, version, netwo
 	return ffi, err
 }
 
-func (ds *definitionSender) DefineContractAPI(ctx context.Context, httpServerURL string, api *core.ContractAPI, waitConfirm bool) error {
+func (ds *definitionSender) DefineContractAPI(ctx context.Context, httpServerURL string, api *core.ContractAPI, waitConfirm bool, topics []string) error {
 	if api.ID == nil {
 		api.ID = fftypes.NewUUID()
 	}
@@ -130,7 +130,7 @@ func (ds *definitionSender) DefineContractAPI(ctx context.Context, httpServerURL
 		if !ds.multiparty {
 			return i18n.NewError(ctx, coremsgs.MsgActionNotSupported)
 		}
-		_, err := ds.getContractAPISender(ctx, httpServerURL, api).send(ctx, waitConfirm)
+		_, err := ds.getContractAPISender(ctx, httpServerURL, api, topics).send(ctx, waitConfirm)
 		return err
 	}
 
@@ -141,7 +141,7 @@ func (ds *definitionSender) DefineContractAPI(ctx context.Context, httpServerURL
 	})
 }
 
-func (ds *definitionSender) getContractAPISender(ctx context.Context, httpServerURL string, api *core.ContractAPI) *sendWrapper {
+func (ds *definitionSender) getContractAPISender(ctx context.Context, httpServerURL string, api *core.ContractAPI, topics []string) *sendWrapper {
 	if err := ds.contracts.ResolveContractAPI(ctx, httpServerURL, api); err != nil {
 		return wrapSendError(err)
 	}
@@ -174,7 +174,7 @@ func (ds *definitionSender) getContractAPISender(ctx context.Context, httpServer
 	api.Namespace = ""
 	api.Published = true
 
-	sender := ds.getSenderDefault(ctx, api, core.SystemTagDefineContractAPI)
+	sender := ds.getSenderDefault(ctx, api, core.SystemTagDefineContractAPI, topics)
 	if sender.message != nil {
 		api.Message = sender.message.Header.ID
 	}
@@ -184,7 +184,7 @@ func (ds *definitionSender) getContractAPISender(ctx context.Context, httpServer
 	return sender
 }
 
-func (ds *definitionSender) PublishContractAPI(ctx context.Context, httpServerURL, name, networkName string, waitConfirm bool) (api *core.ContractAPI, err error) {
+func (ds *definitionSender) PublishContractAPI(ctx context.Context, httpServerURL, name, networkName string, waitConfirm bool, topics []string) (api *core.ContractAPI, err error) {
 	if !ds.multiparty {
 		return nil, i18n.NewError(ctx, coremsgs.MsgActionNotSupported)
 	}
@@ -198,7 +198,7 @@ func (ds *definitionSender) PublishContractAPI(ctx context.Context, httpServerUR
 			return i18n.NewError(ctx, coremsgs.MsgAlreadyPublished)
 		}
 		api.NetworkName = networkName
-		sender = ds.getContractAPISender(ctx, httpServerURL, api)
+		sender = ds.getContractAPISender(ctx, httpServerURL, api, topics)
 		if sender.err != nil {
 			return sender.err
 		}

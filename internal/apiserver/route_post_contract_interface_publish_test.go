@@ -42,7 +42,26 @@ func TestPostContractInterfacePublish(t *testing.T) {
 	res := httptest.NewRecorder()
 	ffi := &fftypes.FFI{}
 
-	mds.On("PublishFFI", mock.Anything, "ffi1", "1.0", "", false).Return(ffi, nil)
+	mds.On("PublishFFI", mock.Anything, "ffi1", "1.0", "", false, mock.Anything).Return(ffi, nil)
+	r.ServeHTTP(res, req)
+
+	assert.Equal(t, 202, res.Result().StatusCode)
+}
+
+func TestPostContractInterfacePublishWithTopics(t *testing.T) {
+	o, r := newTestAPIServer()
+	o.On("Authorize", mock.Anything, mock.Anything).Return(nil)
+	mds := &definitionsmocks.Sender{}
+	o.On("DefinitionSender").Return(mds)
+	input := core.TokenPool{}
+	var buf bytes.Buffer
+	json.NewEncoder(&buf).Encode(&input)
+	req := httptest.NewRequest("POST", "/api/v1/namespaces/ns1/contracts/interfaces/ffi1/1.0/publish?topics=my-topic", &buf)
+	req.Header.Set("Content-Type", "application/json; charset=utf-8")
+	res := httptest.NewRecorder()
+	ffi := &fftypes.FFI{}
+
+	mds.On("PublishFFI", mock.Anything, "ffi1", "1.0", "", false, []string{"my-topic"}).Return(ffi, nil)
 	r.ServeHTTP(res, req)
 
 	assert.Equal(t, 202, res.Result().StatusCode)

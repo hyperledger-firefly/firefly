@@ -171,6 +171,13 @@ paths:
         name: publish
         schema:
           type: string
+      - description: Custom topics for ordering definition broadcast messages
+        in: query
+        name: topics
+        schema:
+          items:
+            type: string
+          type: array
       - description: Server-side request timeout (milliseconds, or set a custom suffix
           like 10s)
         in: header
@@ -1800,6 +1807,13 @@ paths:
         name: confirm
         schema:
           type: string
+      - description: Custom topics for ordering definition broadcast messages
+        in: query
+        name: topics
+        schema:
+          items:
+            type: string
+          type: array
       - description: Server-side request timeout (milliseconds, or set a custom suffix
           like 10s)
         in: header
@@ -2411,6 +2425,13 @@ paths:
         schema:
           example: "true"
           type: string
+      - description: Custom topics for ordering definition broadcast messages
+        in: query
+        name: topics
+        schema:
+          items:
+            type: string
+          type: array
       - description: Server-side request timeout (milliseconds, or set a custom suffix
           like 10s)
         in: header
@@ -3828,6 +3849,13 @@ paths:
         name: publish
         schema:
           type: string
+      - description: Custom topics for ordering definition broadcast messages
+        in: query
+        name: topics
+        schema:
+          items:
+            type: string
+          type: array
       - description: Server-side request timeout (milliseconds, or set a custom suffix
           like 10s)
         in: header
@@ -4856,6 +4884,13 @@ paths:
         name: confirm
         schema:
           type: string
+      - description: Custom topics for ordering definition broadcast messages
+        in: query
+        name: topics
+        schema:
+          items:
+            type: string
+          type: array
       - description: Server-side request timeout (milliseconds, or set a custom suffix
           like 10s)
         in: header
@@ -13721,6 +13756,13 @@ paths:
         name: publish
         schema:
           type: string
+      - description: Custom topics for ordering definition broadcast messages
+        in: query
+        name: topics
+        schema:
+          items:
+            type: string
+          type: array
       - description: Server-side request timeout (milliseconds, or set a custom suffix
           like 10s)
         in: header
@@ -15610,6 +15652,13 @@ paths:
         name: confirm
         schema:
           type: string
+      - description: Custom topics for ordering definition broadcast messages
+        in: query
+        name: topics
+        schema:
+          items:
+            type: string
+          type: array
       - description: Server-side request timeout (milliseconds, or set a custom suffix
           like 10s)
         in: header
@@ -16501,6 +16550,13 @@ paths:
         schema:
           example: "true"
           type: string
+      - description: Custom topics for ordering definition broadcast messages
+        in: query
+        name: topics
+        schema:
+          items:
+            type: string
+          type: array
       - description: Server-side request timeout (milliseconds, or set a custom suffix
           like 10s)
         in: header
@@ -17981,6 +18037,13 @@ paths:
         name: publish
         schema:
           type: string
+      - description: Custom topics for ordering definition broadcast messages
+        in: query
+        name: topics
+        schema:
+          items:
+            type: string
+          type: array
       - description: Server-side request timeout (milliseconds, or set a custom suffix
           like 10s)
         in: header
@@ -19037,6 +19100,13 @@ paths:
         name: confirm
         schema:
           type: string
+      - description: Custom topics for ordering definition broadcast messages
+        in: query
+        name: topics
+        schema:
+          items:
+            type: string
+          type: array
       - description: Server-side request timeout (milliseconds, or set a custom suffix
           like 10s)
         in: header

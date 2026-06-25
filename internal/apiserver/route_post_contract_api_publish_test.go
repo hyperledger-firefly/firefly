@@ -41,7 +41,26 @@ func TestPostContractAPIPublish(t *testing.T) {
 	res := httptest.NewRecorder()
 	api := &core.ContractAPI{}
 
-	mds.On("PublishContractAPI", mock.Anything, "http://127.0.0.1:5000/api/v1/namespaces/ns1", "banana", "banana-net", false).Return(api, nil)
+	mds.On("PublishContractAPI", mock.Anything, "http://127.0.0.1:5000/api/v1/namespaces/ns1", "banana", "banana-net", false, mock.Anything).Return(api, nil)
+	r.ServeHTTP(res, req)
+
+	assert.Equal(t, 202, res.Result().StatusCode)
+}
+
+func TestPostContractAPIPublishWithTopics(t *testing.T) {
+	o, r := newTestAPIServer()
+	o.On("Authorize", mock.Anything, mock.Anything).Return(nil)
+	mds := &definitionsmocks.Sender{}
+	o.On("DefinitionSender").Return(mds)
+	input := core.DefinitionPublish{NetworkName: "banana-net"}
+	var buf bytes.Buffer
+	json.NewEncoder(&buf).Encode(&input)
+	req := httptest.NewRequest("POST", "/api/v1/namespaces/ns1/apis/banana/publish?topics=my-topic", &buf)
+	req.Header.Set("Content-Type", "application/json; charset=utf-8")
+	res := httptest.NewRecorder()
+	api := &core.ContractAPI{}
+
+	mds.On("PublishContractAPI", mock.Anything, "http://127.0.0.1:5000/api/v1/namespaces/ns1", "banana", "banana-net", false, []string{"my-topic"}).Return(api, nil)
 	r.ServeHTTP(res, req)
 
 	assert.Equal(t, 202, res.Result().StatusCode)

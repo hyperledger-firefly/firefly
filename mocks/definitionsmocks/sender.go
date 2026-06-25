@@ -35,17 +35,17 @@ func (_m *Sender) ClaimIdentity(ctx context.Context, def *core.IdentityClaim, si
 	return r0
 }
 
-// DefineContractAPI provides a mock function with given fields: ctx, httpServerURL, api, waitConfirm
-func (_m *Sender) DefineContractAPI(ctx context.Context, httpServerURL string, api *core.ContractAPI, waitConfirm bool) error {
-	ret := _m.Called(ctx, httpServerURL, api, waitConfirm)
+// DefineContractAPI provides a mock function with given fields: ctx, httpServerURL, api, waitConfirm, topics
+func (_m *Sender) DefineContractAPI(ctx context.Context, httpServerURL string, api *core.ContractAPI, waitConfirm bool, topics []string) error {
+	ret := _m.Called(ctx, httpServerURL, api, waitConfirm, topics)
 
 	if len(ret) == 0 {
 		panic("no return value specified for DefineContractAPI")
 	}
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(context.Context, string, *core.ContractAPI, bool) error); ok {
-		r0 = rf(ctx, httpServerURL, api, waitConfirm)
+	if rf, ok := ret.Get(0).(func(context.Context, string, *core.ContractAPI, bool, []string) error); ok {
+		r0 = rf(ctx, httpServerURL, api, waitConfirm, topics)
 	} else {
 		r0 = ret.Error(0)
 	}
@@ -71,17 +71,17 @@ func (_m *Sender) DefineDatatype(ctx context.Context, datatype *core.Datatype, w
 	return r0
 }
 
-// DefineFFI provides a mock function with given fields: ctx, ffi, waitConfirm
-func (_m *Sender) DefineFFI(ctx context.Context, ffi *fftypes.FFI, waitConfirm bool) error {
-	ret := _m.Called(ctx, ffi, waitConfirm)
+// DefineFFI provides a mock function with given fields: ctx, ffi, waitConfirm, topics
+func (_m *Sender) DefineFFI(ctx context.Context, ffi *fftypes.FFI, waitConfirm bool, topics []string) error {
+	ret := _m.Called(ctx, ffi, waitConfirm, topics)
 
 	if len(ret) == 0 {
 		panic("no return value specified for DefineFFI")
 	}
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(context.Context, *fftypes.FFI, bool) error); ok {
-		r0 = rf(ctx, ffi, waitConfirm)
+	if rf, ok := ret.Get(0).(func(context.Context, *fftypes.FFI, bool, []string) error); ok {
+		r0 = rf(ctx, ffi, waitConfirm, topics)
 	} else {
 		r0 = ret.Error(0)
 	}
@@ -125,9 +125,9 @@ func (_m *Sender) Name() string {
 	return r0
 }
 
-// PublishContractAPI provides a mock function with given fields: ctx, httpServerURL, name, networkName, waitConfirm
-func (_m *Sender) PublishContractAPI(ctx context.Context, httpServerURL string, name string, networkName string, waitConfirm bool) (*core.ContractAPI, error) {
-	ret := _m.Called(ctx, httpServerURL, name, networkName, waitConfirm)
+// PublishContractAPI provides a mock function with given fields: ctx, httpServerURL, name, networkName, waitConfirm, topics
+func (_m *Sender) PublishContractAPI(ctx context.Context, httpServerURL string, name string, networkName string, waitConfirm bool, topics []string) (*core.ContractAPI, error) {
+	ret := _m.Called(ctx, httpServerURL, name, networkName, waitConfirm, topics)
 
 	if len(ret) == 0 {
 		panic("no return value specified for PublishContractAPI")
@@ -135,19 +135,19 @@ func (_m *Sender) PublishContractAPI(ctx context.Context, httpServerURL string, 
 
 	var r0 *core.ContractAPI
 	var r1 error
-	if rf, ok := ret.Get(0).(func(context.Context, string, string, string, bool) (*core.ContractAPI, error)); ok {
-		return rf(ctx, httpServerURL, name, networkName, waitConfirm)
+	if rf, ok := ret.Get(0).(func(context.Context, string, string, string, bool, []string) (*core.ContractAPI, error)); ok {
+		return rf(ctx, httpServerURL, name, networkName, waitConfirm, topics)
 	}
-	if rf, ok := ret.Get(0).(func(context.Context, string, string, string, bool) *core.ContractAPI); ok {
-		r0 = rf(ctx, httpServerURL, name, networkName, waitConfirm)
+	if rf, ok := ret.Get(0).(func(context.Context, string, string, string, bool, []string) *core.ContractAPI); ok {
+		r0 = rf(ctx, httpServerURL, name, networkName, waitConfirm, topics)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*core.ContractAPI)
 		}
 	}
 
-	if rf, ok := ret.Get(1).(func(context.Context, string, string, string, bool) error); ok {
-		r1 = rf(ctx, httpServerURL, name, networkName, waitConfirm)
+	if rf, ok := ret.Get(1).(func(context.Context, string, string, string, bool, []string) error); ok {
+		r1 = rf(ctx, httpServerURL, name, networkName, waitConfirm, topics)
 	} else {
 		r1 = ret.Error(1)
 	}
@@ -155,9 +155,9 @@ func (_m *Sender) PublishContractAPI(ctx context.Context, httpServerURL string, 
 	return r0, r1
 }
 
-// PublishFFI provides a mock function with given fields: ctx, name, version, networkName, waitConfirm
-func (_m *Sender) PublishFFI(ctx context.Context, name string, version string, networkName string, waitConfirm bool) (*fftypes.FFI, error) {
-	ret := _m.Called(ctx, name, version, networkName, waitConfirm)
+// PublishFFI provides a mock function with given fields: ctx, name, version, networkName, waitConfirm, topics
+func (_m *Sender) PublishFFI(ctx context.Context, name string, version string, networkName string, waitConfirm bool, topics []string) (*fftypes.FFI, error) {
+	ret := _m.Called(ctx, name, version, networkName, waitConfirm, topics)
 
 	if len(ret) == 0 {
 		panic("no return value specified for PublishFFI")
@@ -165,19 +165,19 @@ func (_m *Sender) PublishFFI(ctx context.Context, name string, version string, n
 
 	var r0 *fftypes.FFI
 	var r1 error
-	if rf, ok := ret.Get(0).(func(context.Context, string, string, string, bool) (*fftypes.FFI, error)); ok {
-		return rf(ctx, name, version, networkName, waitConfirm)
+	if rf, ok := ret.Get(0).(func(context.Context, string, string, string, bool, []string) (*fftypes.FFI, error)); ok {
+		return rf(ctx, name, version, networkName, waitConfirm, topics)
 	}
-	if rf, ok := ret.Get(0).(func(context.Context, string, string, string, bool) *fftypes.FFI); ok {
-		r0 = rf(ctx, name, version, networkName, waitConfirm)
+	if rf, ok := ret.Get(0).(func(context.Context, string, string, string, bool, []string) *fftypes.FFI); ok {
+		r0 = rf(ctx, name, version, networkName, waitConfirm, topics)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*fftypes.FFI)
 		}
 	}
 
-	if rf, ok := ret.Get(1).(func(context.Context, string, string, string, bool) error); ok {
-		r1 = rf(ctx, name, version, networkName, waitConfirm)
+	if rf, ok := ret.Get(1).(func(context.Context, string, string, string, bool, []string) error); ok {
+		r1 = rf(ctx, name, version, networkName, waitConfirm, topics)
 	} else {
 		r1 = ret.Error(1)
 	}

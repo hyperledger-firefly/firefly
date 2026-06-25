@@ -35,6 +35,7 @@ var postContractAPIPublish = &ffapi.Route{
 	},
 	QueryParams: []*ffapi.QueryParam{
 		{Name: "confirm", Description: coremsgs.APIConfirmMsgQueryParam, IsBool: true},
+		{Name: "topics", Description: coremsgs.APICustomTopicsQueryParam, IsArray: true},
 	},
 	Description:     coremsgs.APIEndpointsPostContractAPIPublish,
 	JSONInputValue:  func() interface{} { return &core.DefinitionPublish{} },
@@ -45,7 +46,7 @@ var postContractAPIPublish = &ffapi.Route{
 			waitConfirm := strings.EqualFold(r.QP["confirm"], "true")
 			r.SuccessStatus = syncRetcode(waitConfirm)
 			input := r.Input.(*core.DefinitionPublish)
-			return cr.or.DefinitionSender().PublishContractAPI(cr.ctx, cr.apiBaseURL, r.PP["apiName"], input.NetworkName, waitConfirm)
+			return cr.or.DefinitionSender().PublishContractAPI(cr.ctx, cr.apiBaseURL, r.PP["apiName"], input.NetworkName, waitConfirm, r.QAP["topics"])
 		},
 	},
 }

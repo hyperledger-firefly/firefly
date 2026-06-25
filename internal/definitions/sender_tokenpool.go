@@ -97,7 +97,7 @@ func (ds *definitionSender) getTokenPoolSender(ctx context.Context, pool *core.T
 	pool.Active = false
 	definition := &core.TokenPoolDefinition{Pool: pool}
 
-	sender := ds.getSenderDefault(ctx, definition, core.SystemTagDefinePool)
+	sender := ds.getSenderDefault(ctx, definition, core.SystemTagDefinePool, nil)
 	if sender.message != nil {
 		pool.Message = sender.message.Header.ID
 	}

@@ -43,10 +43,10 @@ type Sender interface {
 	DefineDatatype(ctx context.Context, datatype *core.Datatype, waitConfirm bool) error
 	DefineTokenPool(ctx context.Context, pool *core.TokenPool, waitConfirm bool) error
 	PublishTokenPool(ctx context.Context, poolNameOrID, networkName string, waitConfirm bool) (*core.TokenPool, error)
-	DefineFFI(ctx context.Context, ffi *fftypes.FFI, waitConfirm bool) error
-	PublishFFI(ctx context.Context, name, version, networkName string, waitConfirm bool) (*fftypes.FFI, error)
-	DefineContractAPI(ctx context.Context, httpServerURL string, api *core.ContractAPI, waitConfirm bool) error
-	PublishContractAPI(ctx context.Context, httpServerURL, name, networkName string, waitConfirm bool) (api *core.ContractAPI, err error)
+	DefineFFI(ctx context.Context, ffi *fftypes.FFI, waitConfirm bool, topics []string) error
+	PublishFFI(ctx context.Context, name, version, networkName string, waitConfirm bool, topics []string) (*fftypes.FFI, error)
+	DefineContractAPI(ctx context.Context, httpServerURL string, api *core.ContractAPI, waitConfirm bool, topics []string) error
+	PublishContractAPI(ctx context.Context, httpServerURL, name, networkName string, waitConfirm bool, topics []string) (api *core.ContractAPI, err error)
 }
 
 type definitionSender struct {
@@ -135,35 +135,46 @@ func (w *sendWrapper) send(ctx context.Context, waitConfirm bool) (*core.Message
 	}
 }
 
-func (ds *definitionSender) getSenderDefault(ctx context.Context, def core.Definition, tag string) *sendWrapper {
+func (ds *definitionSender) getSenderDefault(ctx context.Context, def core.Definition, tag string, customTopics []string) *sendWrapper {
 	org, err := ds.identity.GetRootOrg(ctx)
 	if err != nil {
 		return wrapSendError(err)
 	}
 	return ds.getSender(ctx, def, &core.SignerRef{ /* resolve to node default */
 		Author: org.DID,
-	}, tag)
+	}, tag, customTopics)
 }
 
-func (ds *definitionSender) getSender(ctx context.Context, def core.Definition, signingIdentity *core.SignerRef, tag string) *sendWrapper {
+func (ds *definitionSender) getSender(ctx context.Context, def core.Definition, signingIdentity *core.SignerRef, tag string, customTopics []string) *sendWrapper {
 	err := ds.identity.ResolveInputSigningIdentity(ctx, signingIdentity)
 	if err != nil {
 		return wrapSendError(err)
 	}
-	return ds.getSenderResolved(ctx, def, signingIdentity, tag)
+	return ds.getSenderResolved(ctx, def, signingIdentity, tag, customTopics)
 }
 
-func (ds *definitionSender) getSenderResolved(ctx context.Context, def core.Definition, signingIdentity *core.SignerRef, tag string) *sendWrapper {
+func (ds *definitionSender) getSenderResolved(ctx context.Context, def core.Definition, signingIdentity *core.SignerRef, tag string, customTopics []string) *sendWrapper {
 	b, err := json.Marshal(&def)
 	if err != nil {
 		return wrapSendError(i18n.WrapError(ctx, err, coremsgs.MsgSerializationFailed))
+	}
+	topics := fftypes.FFStringArray{def.Topic()}
+
+	var filtered []string
+	for _, t := range customTopics {
+		if t != "" {
+			filtered = append(filtered, t)
+		}
+	}
+	if len(filtered) > 0 {
+		topics = fftypes.FFStringArray(filtered)
 	}
 	dataValue := fftypes.JSONAnyPtrBytes(b)
 	message := &core.MessageInOut{
 		Message: core.Message{
 			Header: core.MessageHeader{
 				Type:      core.MessageTypeDefinition,
-				Topics:    fftypes.FFStringArray{def.Topic()},
+				Topics:    topics,
 				Tag:       tag,
 				TxType:    core.TransactionTypeBatchPin,
 				SignerRef: *signingIdentity,
