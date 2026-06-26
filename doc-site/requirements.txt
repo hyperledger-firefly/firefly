@@ -2,3 +2,4 @@ mkdocs-material
 mkdocs-literate-nav
 mkdocs-include-markdown-plugin
 mike
+pygments>=2.20.0 # not directly required, pinned by Snyk to avoid a vulnerability
