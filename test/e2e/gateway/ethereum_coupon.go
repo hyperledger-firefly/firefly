@@ -297,9 +297,9 @@ func (suite *EthereumCouponTestSuite) TestDirectInvokeMethod() {
 		Location: fftypes.JSONAnyPtrBytes(locationBytes),
 		Method:   couponFFIGetAllCouponIDs(),
 	}
-	res, err = suite.testState.client1.QueryContractMethod(suite.T(), queryContractRequest)
+	queryRes, err := suite.testState.client1.QueryContractMethod(suite.T(), queryContractRequest)
 	assert.NoError(suite.T(), err)
-	resJSON, err := json.Marshal(res)
+	resJSON, err := json.Marshal(queryRes)
 	assert.NoError(suite.T(), err)
 	assert.Equal(suite.T(), `{"allCreatedIds":["1"]}`, string(resJSON))
 	suite.testState.client1.DeleteContractListener(suite.T(), listener.ID)

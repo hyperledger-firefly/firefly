@@ -21,6 +21,7 @@ import (
 	"crypto/rand"
 	"crypto/sha256"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"math/big"
@@ -821,13 +822,13 @@ func (client *FireFlyClient) DeleteContractListener(t *testing.T, id *fftypes.UU
 	require.Equal(t, 204, resp.StatusCode(), "DELETE %s [%d]: %s", path, resp.StatusCode(), resp.String())
 }
 
-func (client *FireFlyClient) InvokeContractMethod(t *testing.T, req *core.ContractCallRequest, expectedStatus ...int) (interface{}, error) {
-	var res interface{}
+func (client *FireFlyClient) InvokeContractMethod(t *testing.T, req *core.ContractCallRequest, expectedStatus ...int) (*core.Operation, error) {
+	res := &core.Operation{}
 	path := client.namespaced(urlContractInvoke)
 	var errResult fftypes.RESTError
 	resp, err := client.Client.R().
 		SetBody(req).
-		SetResult(&res).
+		SetResult(res).
 		SetError(&errResult).
 		Post(path)
 	require.NoError(t, err)
@@ -836,7 +837,7 @@ func (client *FireFlyClient) InvokeContractMethod(t *testing.T, req *core.Contra
 	}
 	require.Equal(t, expectedStatus[0], resp.StatusCode(), "POST %s [%d]: %s", path, resp.StatusCode(), resp.String())
 	if err == nil && errResult.Error != "" {
-		return res, fmt.Errorf(errResult.Error)
+		return nil, errors.New(errResult.Error)
 	}
 	return res, err
 }
@@ -1053,6 +1054,16 @@ func (client *FireFlyClient) GetOperations(t *testing.T, startTime time.Time) (o
 	require.NoError(t, err)
 	require.Equal(t, 200, resp.StatusCode(), "GET %s [%d]: %s", path, resp.StatusCode(), resp.String())
 	return operations
+}
+
+func (client *FireFlyClient) GetOperation(t *testing.T, operationID string) (operation *core.Operation) {
+	path := client.namespaced(urlOperations + "/" + operationID)
+	resp, err := client.Client.R().
+		SetResult(&operation).
+		Get(path)
+	require.NoError(t, err)
+	require.Equal(t, 200, resp.StatusCode(), "GET %s [%d]: %s", path, resp.StatusCode(), resp.String())
+	return operation
 }
 
 func (client *FireFlyClient) NetworkAction(t *testing.T, action core.NetworkActionType) {

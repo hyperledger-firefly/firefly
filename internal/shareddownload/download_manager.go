@@ -20,6 +20,7 @@ import (
 	"context"
 	"database/sql/driver"
 	"math"
+	"sync/atomic"
 	"time"
 
 	"github.com/hyperledger/firefly-common/pkg/config"
@@ -71,7 +72,7 @@ type downloadManager struct {
 type downloadWork struct {
 	dispatchedAt     time.Time
 	preparedOp       *core.PreparedOperation
-	attempts         int
+	attempts         atomic.Int32
 	idempotentSubmit bool
 }
 
@@ -209,19 +210,20 @@ func (dm *downloadManager) recoverDownloads(startupTime *fftypes.FFTime) {
 func (dm *downloadManager) dispatchWork(work *downloadWork) {
 	dm.work <- work
 	// Log after dispatching so we can see the dispatch delay if the queue got full
-	log.L(dm.ctx).Debugf("Dispatched download operation %s/%s (attempts=%d) to worker pool", work.preparedOp.Type, work.preparedOp.ID, work.attempts)
+	log.L(dm.ctx).Debugf("Dispatched download operation %s/%s (attempts=%d) to worker pool", work.preparedOp.Type, work.preparedOp.ID, work.attempts.Load())
 }
 
 // waitAndRetryDownload is a go routine to wait and re-dispatch a retrying download.
 // Note this go routine is short lived and completely separate to the workers.
 func (dm *downloadManager) waitAndRetryDownload(work *downloadWork) {
 	startedWaiting := time.Now()
-	delay := dm.calcDelay(work.attempts)
+	attempts := int(work.attempts.Load())
+	delay := dm.calcDelay(attempts)
 	<-time.After(delay)
 	delayTimeMS := time.Since(startedWaiting).Milliseconds()
 	totalTimeMS := time.Since(work.dispatchedAt).Milliseconds()
 	log.L(dm.ctx).Infof("Retrying download operation %s/%s after %dms (total=%dms,attempts=%d)",
-		work.preparedOp.Type, work.preparedOp.ID, delayTimeMS, totalTimeMS, work.attempts)
+		work.preparedOp.Type, work.preparedOp.ID, delayTimeMS, totalTimeMS, attempts)
 	dm.dispatchWork(work)
 }
 

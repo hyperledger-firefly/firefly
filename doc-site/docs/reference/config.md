@@ -832,7 +832,7 @@ title: Configuration Reference
 |---|-----------|----|-------------|
 |count|The maximum number of times to retry|`int`|`5`
 |enabled|Enables retries|`boolean`|`false`
-|errorStatusCodeRegex|The regex that the error response status code must match to trigger retry|`string`|`<nil>`
+|errorStatusCodeRegex|The regex that the error response status code must match to trigger retry|`string`|`^5|^429$`
 |factor|The retry backoff factor|`float32`|`2`
 |initWaitTime|The initial retry delay|[`time.Duration`](https://pkg.go.dev/time#Duration)|`250ms`
 |maxWaitTime|The maximum retry delay|[`time.Duration`](https://pkg.go.dev/time#Duration)|`30s`

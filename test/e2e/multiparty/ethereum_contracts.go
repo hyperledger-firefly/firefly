@@ -23,6 +23,7 @@ import (
 	"os"
 	"os/exec"
 	"testing"
+	"time"
 
 	"github.com/aidarkhanov/nanoid"
 	"github.com/go-resty/resty/v2"
@@ -189,9 +190,9 @@ func (suite *EthereumContractTestSuite) TestDirectInvokeMethod() {
 		Location: fftypes.JSONAnyPtrBytes(locationBytes),
 		Method:   simpleStorageFFIGet(),
 	}
-	res, err = suite.testState.client1.QueryContractMethod(suite.T(), queryContractRequest)
+	queryRes, err := suite.testState.client1.QueryContractMethod(suite.T(), queryContractRequest)
 	assert.NoError(suite.T(), err)
-	resJSON, err := json.Marshal(res)
+	resJSON, err := json.Marshal(queryRes)
 	assert.NoError(suite.T(), err)
 	assert.Equal(suite.T(), `{"output":"2"}`, string(resJSON))
 	suite.testState.client1.DeleteContractListener(suite.T(), listener.ID)
@@ -231,6 +232,19 @@ func (suite *EthereumContractTestSuite) TestFFIInvokeMethod() {
 	assert.NoError(suite.T(), err)
 	assert.NotNil(suite.T(), res)
 
+	// Wait for the operation to succeed before idempotency check
+	// If the operation never succeeds, the larger test timeout will fail
+	for {
+		suite.T().Logf("Waiting for invoke operation to succeed: %s", res.ID.String())
+		op := suite.testState.client1.GetOperation(suite.T(), res.ID.String())
+		if op.Status == core.OpStatusSucceeded {
+			suite.T().Logf("Invoke operation succeeded: %s", res.ID.String())
+			break
+		}
+		time.Sleep(100 * time.Millisecond)
+		suite.T().Logf("Retrying, invoke operation status: %s", op.Status)
+	}
+
 	// Idempotency check
 	_, err = suite.testState.client1.InvokeContractMethod(suite.T(), invokeContractRequest, 409)
 	assert.Regexp(suite.T(), "FF10431|FF10458" /* idempotency check could come from FF or blockchain connector, depending on the operation update that is async */, err)
@@ -253,9 +267,9 @@ func (suite *EthereumContractTestSuite) TestFFIInvokeMethod() {
 		Interface:  suite.interfaceID,
 		MethodPath: "get",
 	}
-	res, err = suite.testState.client1.QueryContractMethod(suite.T(), queryContractRequest)
+	queryRes, err := suite.testState.client1.QueryContractMethod(suite.T(), queryContractRequest)
 	assert.NoError(suite.T(), err)
-	resJSON, err := json.Marshal(res)
+	resJSON, err := json.Marshal(queryRes)
 	assert.NoError(suite.T(), err)
 	assert.Equal(suite.T(), `{"output":"42"}`, string(resJSON))
 	suite.testState.client1.DeleteContractListener(suite.T(), listener.ID)

@@ -296,7 +296,11 @@ func TestDownloadManagerStartupRecoveryCombinations(t *testing.T) {
 		assert.Equal(t, core.OpPhaseComplete, phase)
 		called <- true
 	})
-	mom.On("SubmitOperationUpdate", mock.Anything).Return(nil)
+	//mom.On("SubmitOperationUpdate", mock.Anything).Return(nil)
+	updateCalled := make(chan bool)
+	mom.On("SubmitOperationUpdate", mock.Anything).Return(nil).Run(func(args mock.Arguments) {
+		updateCalled <- true
+	})
 
 	mci := dm.callbacks.(*shareddownloadmocks.Callbacks)
 	mci.On("SharedStorageBatchDownloaded", "ref2", []byte("some batch data")).Return(batchID, nil)
@@ -307,12 +311,12 @@ func TestDownloadManagerStartupRecoveryCombinations(t *testing.T) {
 	<-called
 	<-called
 	<-dm.recoveryComplete
+	<-updateCalled
 
 	mss.AssertExpectations(t)
 	mdi.AssertExpectations(t)
 	mci.AssertExpectations(t)
 	mom.AssertExpectations(t)
-
 }
 
 func TestPrepareOperationUnknown(t *testing.T) {

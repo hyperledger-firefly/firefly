@@ -117,6 +117,17 @@ func resetConf(e *Ethereum) {
 	e.InitConfig(utConfig)
 }
 
+func newTestRestyClientWithRetry() *resty.Client {
+	return resty.New().SetBaseURL("http://localhost:12345").
+		SetRetryCount(2).
+		AddRetryCondition(func(r *resty.Response, err error) bool {
+			return r.StatusCode() > 499 || r.StatusCode() == 429
+		}).
+		SetRetryAfter(func(c *resty.Client, r *resty.Response) (time.Duration, error) {
+			return 10 * time.Millisecond, nil
+		})
+}
+
 func newTestEthereum() (*Ethereum, func()) {
 	ctx, cancel := context.WithCancel(context.Background())
 	mm := &metricsmocks.Manager{}
@@ -3220,6 +3231,41 @@ func TestInvokeContractEVMConnectRejectErr(t *testing.T) {
 	submissionRejected, err := e.InvokeContract(context.Background(), "", signingKey, fftypes.JSONAnyPtrBytes(locationBytes), parsedMethod, params, options, nil)
 	assert.Regexp(t, "FF10111", err)
 	assert.True(t, submissionRejected)
+}
+
+func TestInvokeContract409ConflictNotRejectedOnRetry(t *testing.T) {
+	e, cancel := newTestEthereum()
+	e.client = newTestRestyClientWithRetry()
+	defer cancel()
+	httpmock.ActivateNonDefault(e.client.GetClient())
+	defer httpmock.DeactivateAndReset()
+	signingKey := ethHexFormatB32(fftypes.NewRandB32())
+	location := &Location{
+		Address: "0x12345",
+	}
+	method := testFFIMethod()
+	testErrors := testFFIErrors()
+	params := map[string]interface{}{
+		"x": float64(1),
+		"y": float64(2),
+	}
+	options := map[string]interface{}{}
+	locationBytes, err := json.Marshal(location)
+	assert.NoError(t, err)
+	numCalls := 0
+	httpmock.RegisterResponder("POST", `http://localhost:12345/`,
+		func(req *http.Request) (*http.Response, error) {
+			defer func() { numCalls++ }()
+			if numCalls < 1 {
+				return httpmock.NewJsonResponderOrPanic(500, fftypes.JSONAnyPtr(`{"error":"something went wrong, but connector is successfully processing the transaction"}`))(req)
+			}
+			return httpmock.NewJsonResponderOrPanic(409, fftypes.JSONAnyPtr(`{"error":"FF21065: ID 'an-id' is not unique", "submissionRejected": false}`))(req)
+		})
+	parsedMethod, err := e.ParseInterface(context.Background(), method, testErrors)
+	assert.NoError(t, err)
+	submissionRejected, err := e.InvokeContract(context.Background(), "an-id", signingKey, fftypes.JSONAnyPtrBytes(locationBytes), parsedMethod, params, options, nil)
+	assert.NoError(t, err)
+	assert.False(t, submissionRejected)
 }
 
 func TestInvokeContractPrepareFail(t *testing.T) {
