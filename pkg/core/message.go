@@ -235,22 +235,84 @@ func (m *Message) DupDataCheck(ctx context.Context) (err error) {
 }
 
 func (m *Message) VerifyFields(ctx context.Context) error {
-	switch m.Header.TxType {
-	case TransactionTypeBatchPin,
-		TransactionTypeUnpinned,
-		TransactionTypeContractInvokePin:
-	default:
-		return i18n.NewError(ctx, i18n.MsgInvalidTXTypeForMessage, m.Header.TxType)
+	// Validate topics
+	if len(m.Header.Topics) == 0 {
+		return i18n.NewError(ctx, i18n.MsgEmptyTopics)
 	}
-	if err := m.Header.Topics.Validate(ctx, "header.topics", true, 10 /* Pins need 96 chars each*/); err != nil {
-		return err
-	}
-	if m.Header.Tag != "" {
-		if err := fftypes.ValidateFFNameField(ctx, m.Header.Tag, "header.tag"); err != nil {
-			return err
+	for i, topic := range m.Header.Topics {
+		if topic == "" {
+			return i18n.NewError(ctx, i18n.MsgEmptyTopic, i)
+		}
+		// Add security check for topic length and characters
+		if len(topic) > 256 {
+			return i18n.NewError(ctx, i18n.MsgTopicTooLong, i)
+		}
+		if !isValidTopicString(topic) {
+			return i18n.NewError(ctx, i18n.MsgInvalidTopicChars, i)
 		}
 	}
-	return m.DupDataCheck(ctx)
+
+	// Validate tag
+	if m.Header.Tag != "" {
+		if !isValidTagString(m.Header.Tag) {
+			return i18n.NewError(ctx, i18n.MsgInvalidTagChars)
+		}
+		if len(m.Header.Tag) > 64 {
+			return i18n.NewError(ctx, i18n.MsgTagTooLong)
+		}
+	}
+
+	// Validate author
+	if m.Header.Author == "" {
+		return i18n.NewError(ctx, i18n.MsgMissingAuthor)
+	}
+	if len(m.Header.Author) > 256 {
+		return i18n.NewError(ctx, i18n.MsgAuthorTooLong)
+	}
+
+	// Validate data references
+	if err := m.DupDataCheck(ctx); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// isValidTopicString checks if a topic string contains only valid characters
+func isValidTopicString(s string) bool {
+	for _, r := range s {
+		if !isValidTopicChar(r) {
+			return false
+		}
+	}
+	return true
+}
+
+// isValidTopicChar checks if a rune is valid for a topic string
+func isValidTopicChar(r rune) bool {
+	return (r >= 'a' && r <= 'z') ||
+		(r >= 'A' && r <= 'Z') ||
+		(r >= '0' && r <= '9') ||
+		r == '-' || r == '_' || r == '.' ||
+		r == '/' || r == ':' || r == '@'
+}
+
+// isValidTagString checks if a tag string contains only valid characters
+func isValidTagString(s string) bool {
+	for _, r := range s {
+		if !isValidTagChar(r) {
+			return false
+		}
+	}
+	return true
+}
+
+// isValidTagChar checks if a rune is valid for a tag string
+func isValidTagChar(r rune) bool {
+	return (r >= 'a' && r <= 'z') ||
+		(r >= 'A' && r <= 'Z') ||
+		(r >= '0' && r <= '9') ||
+		r == '-' || r == '_'
 }
 
 func (m *Message) Verify(ctx context.Context) error {
