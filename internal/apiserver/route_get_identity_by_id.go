@@ -25,6 +25,13 @@ import (
 	"github.com/hyperledger/firefly/pkg/core"
 )
 
+// @Summary Get identity by ID
+// @ID getIdentityByID
+// @Tags identities
+// @Produce json
+// @Param iid path string true "Identity ID"
+// @Success 200 {object} core.Identity
+// @Router /identities/{iid} [get]
 var getIdentityByID = &ffapi.Route{
 	Name:   "getIdentityByID",
 	Path:   "identities/{iid}",

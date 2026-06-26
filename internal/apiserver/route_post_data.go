@@ -59,7 +59,10 @@ var postData = &ffapi.Route{
 			if !cr.or.Data().BlobsEnabled() {
 				return nil, i18n.NewError(r.Req.Context(), coremsgs.MsgActionNotSupported)
 			}
-
+			// Check for file upload
+			if r.Part == nil || r.Part.FileName() == "" {
+				return nil, i18n.NewError(r.Req.Context(), coremsgs.MsgMissingFileUpload)
+			}
 			data := &core.DataRefOrValue{}
 			validator := r.FP["validator"]
 			if len(validator) > 0 {

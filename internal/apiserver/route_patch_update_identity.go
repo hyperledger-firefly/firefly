@@ -25,6 +25,15 @@ import (
 	"github.com/hyperledger/firefly/pkg/core"
 )
 
+// @Summary Update an identity
+// @ID patchUpdateIdentity
+// @Tags identities
+// @Accept json
+// @Produce json
+// @Param iid path string true "Identity ID"  <-- THE CRITICAL FIX
+// @Param body body core.IdentityUpdateDTO true "Identity update details"
+// @Success 202 {object} core.Identity
+// @Router /identities/{iid} [patch]
 var patchUpdateIdentity = &ffapi.Route{
 	Name:   "patchUpdateIdentity",
 	Path:   "identities/{iid}",
