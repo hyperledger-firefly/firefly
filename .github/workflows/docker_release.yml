@@ -21,8 +21,30 @@ jobs:
       - name: Get the latest tag
         id: get_latest_tag
         run: |
-          git fetch --tags
-          latest_tag=$(git tag -l | sort -V | tail -n 1)
+          git fetch --tags 
+
+          # Get the most recent tag (including RC candidates) to determine the latest version
+          most_recent_tag=$(git tag -l | sort -V | tail -n 1)
+          echo "most recent tag: $most_recent_tag"
+          
+          # Extract the base version (remove rc/alpha/beta suffixes)
+          base_version=$(echo "$most_recent_tag" | sed -E 's/-?(rc|alpha|beta)[0-9]*$//')
+          echo "base version: $base_version"
+
+          # Look for a stable release of this base version
+          echo "Looking for exact match of: '$base_version'"
+          stable_tag=$(git tag -l | grep "^$base_version$" | head -n 1)
+          echo "stable tag found: '$stable_tag'"
+          
+          # If we found a stable version, use it; otherwise use the most recent tag
+          if [ -n "$stable_tag" ]; then
+            latest_tag="$stable_tag"
+            echo "found stable version: $stable_tag"
+          else
+            latest_tag="$most_recent_tag"
+            echo "using most recent tag: $most_recent_tag"
+          fi
+          
           echo "latest tag: $latest_tag"
           echo "LATEST_TAG=$latest_tag" >> $GITHUB_ENV
       
