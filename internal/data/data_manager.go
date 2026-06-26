@@ -201,7 +201,7 @@ func (dm *dataManager) GetMessageWithDataCached(ctx context.Context, msgID *ffty
 	return msg, data, foundAllData, err
 }
 
-// GetMessageData looks for all the data attached to the message, including caching.
+// GetMessageDataCached looks for all the data attached to the message, including caching.
 // It only returns persistence errors.
 // For all cases where the data is not found (or the hashes mismatch)
 func (dm *dataManager) GetMessageDataCached(ctx context.Context, msg *core.Message, options ...CacheReadOption) (data core.DataArray, foundAll bool, err error) {
