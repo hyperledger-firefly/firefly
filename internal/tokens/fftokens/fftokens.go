@@ -31,12 +31,12 @@ import (
 	"github.com/hyperledger-firefly/common/pkg/log"
 	"github.com/hyperledger-firefly/common/pkg/retry"
 	"github.com/hyperledger-firefly/common/pkg/wsclient"
-	"github.com/hyperledger-firefly/signer/pkg/abi"
-	"github.com/hyperledger-firefly/signer/pkg/ffi2abi"
 	"github.com/hyperledger-firefly/firefly/internal/coremsgs"
 	"github.com/hyperledger-firefly/firefly/pkg/blockchain"
 	"github.com/hyperledger-firefly/firefly/pkg/core"
 	"github.com/hyperledger-firefly/firefly/pkg/tokens"
+	"github.com/hyperledger-firefly/signer/pkg/abi"
+	"github.com/hyperledger-firefly/signer/pkg/ffi2abi"
 )
 
 type ConflictError struct {
@@ -291,7 +291,7 @@ func (ft *FFTokens) ConnectorName() string {
 }
 
 func (ft *FFTokens) Init(ctx context.Context, cancelCtx context.CancelFunc, name string, config config.Section) (err error) {
-	ft.ctx = log.WithLogField(ctx, "proto", "fftokens")
+	ft.ctx = log.WithLogFields(ctx, "proto", "fftokens")
 	ft.cancelCtx = cancelCtx
 	ft.configuredName = name
 	ft.capabilities = &tokens.Capabilities{}

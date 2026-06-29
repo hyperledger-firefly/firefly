@@ -85,7 +85,7 @@ func (c *Cardano) Init(ctx context.Context, cancelCtx context.CancelFunc, conf c
 	c.InitConfig(conf)
 	cardanoconnectConf := c.cardanoconnectConf
 
-	c.ctx = log.WithLogField(ctx, "proto", "cardano")
+	c.ctx = log.WithLogFields(ctx, "proto", "cardano")
 	c.cancelCtx = cancelCtx
 	c.metrics = metrics
 	c.capabilities = &blockchain.Capabilities{}

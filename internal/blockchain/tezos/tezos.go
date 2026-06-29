@@ -144,7 +144,7 @@ func (t *Tezos) Init(ctx context.Context, cancelCtx context.CancelFunc, conf con
 	tezosconnectConf := t.tezosconnectConf
 	addressResolverConf := conf.SubSection(AddressResolverConfigKey)
 
-	t.ctx = log.WithLogField(ctx, "proto", "tezos")
+	t.ctx = log.WithLogFields(ctx, "proto", "tezos")
 	t.cancelCtx = cancelCtx
 	t.metrics = metrics
 	t.capabilities = &blockchain.Capabilities{}

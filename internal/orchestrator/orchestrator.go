@@ -238,7 +238,7 @@ func (or *orchestrator) PreInit(ctx context.Context, cancelCtx context.CancelFun
 	if or.namespace.NetworkName != "" && or.namespace.NetworkName != or.namespace.Name {
 		namespaceLog += "->" + or.namespace.NetworkName
 	}
-	or.ctx, or.cancelCtx = context.WithCancel(log.WithLogField(ctx, "ns", namespaceLog))
+	or.ctx, or.cancelCtx = context.WithCancel(log.WithLogFields(ctx, "ns", namespaceLog))
 	or.initHandlers(or.ctx)
 }
 

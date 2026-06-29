@@ -184,7 +184,7 @@ func (ou *operationUpdater) updaterLoop(index int) {
 	defer close(ou.workersDone[index])
 	workQueue := ou.workQueues[index]
 
-	ctx := log.WithLogField(ou.ctx, "opupdater", fmt.Sprintf("opu_%.3d", index))
+	ctx := log.WithLogFields(ou.ctx, "opupdater", fmt.Sprintf("opu_%.3d", index))
 
 	var batch *operationUpdaterBatch
 	for !ou.closed {

@@ -177,7 +177,7 @@ func (h *FFDX) Name() string {
 }
 
 func (h *FFDX) Init(ctx context.Context, cancelCtx context.CancelFunc, config config.Section, metrics metrics.Manager) (err error) {
-	h.ctx = log.WithLogField(ctx, "dx", "https")
+	h.ctx = log.WithLogFields(ctx, "dx", "https")
 	h.cancelCtx = cancelCtx
 	h.ackChannel = make(chan *ack)
 	h.callbacks = callbacks{

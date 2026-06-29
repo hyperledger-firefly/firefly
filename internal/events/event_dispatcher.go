@@ -90,7 +90,7 @@ func newEventDispatcher(ctx context.Context, enricher *eventEnricher, ei events.
 		batch = *sub.definition.Options.Batch
 	}
 	ed := &eventDispatcher{
-		ctx: log.WithLogField(log.WithLogField(ctx,
+		ctx: log.WithLogFields(log.WithLogFields(ctx,
 			"role", fmt.Sprintf("ed[%s]", connID)),
 			"sub", fmt.Sprintf("%s/%s:%s", sub.definition.ID, sub.definition.Namespace, sub.definition.Name)),
 		enricher:      enricher,

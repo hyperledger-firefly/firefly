@@ -43,7 +43,7 @@ func NewBatchManager(ctx context.Context, ns string, di database.Plugin, dm data
 	if di == nil || dm == nil || im == nil {
 		return nil, i18n.NewError(ctx, coremsgs.MsgInitializationNilDepError, "BatchManager")
 	}
-	pCtx, cancelCtx := context.WithCancel(log.WithLogField(ctx, "role", "batchmgr"))
+	pCtx, cancelCtx := context.WithCancel(log.WithLogFields(ctx, "role", "batchmgr"))
 	readPageSize := uint16(1)
 	confReadPageSize := config.GetUint64(coreconfig.BatchManagerReadPageSize)
 	if confReadPageSize > 0 && confReadPageSize <= 65535 {

@@ -62,7 +62,7 @@ func NewAdminEventManager(ctx context.Context) Manager {
 		blockedWarnInterval: config.GetDuration(coreconfig.SPIWebSocketBlockedWarnInterval),
 	}
 	ae.ctx, ae.cancelCtx = context.WithCancel(
-		log.WithLogField(ctx, "role", "change-event-manager"),
+		log.WithLogFields(ctx, "role", "change-event-manager"),
 	)
 	return ae
 }

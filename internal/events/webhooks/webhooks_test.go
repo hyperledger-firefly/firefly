@@ -1527,7 +1527,7 @@ func TestLoggingContextPreserved(t *testing.T) {
 		Subscription:  core.SubscriptionRef{ID: subID},
 	}
 
-	parentCtx := fflog.WithLogField(context.Background(), "httpReq", "req-123")
+	parentCtx := fflog.WithLogFields(context.Background(), "httpReq", "req-123")
 
 	mcb := wh.callbacks.handlers["ns1"].(*eventsmocks.Callbacks)
 	mcb.On("DeliveryResponse", mock.Anything, mock.MatchedBy(func(resp *core.EventDeliveryResponse) bool {

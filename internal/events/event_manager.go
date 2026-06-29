@@ -136,7 +136,7 @@ func NewEventManager(ctx context.Context, ns *core.Namespace, di database.Plugin
 	}
 
 	em := &eventManager{
-		ctx:            log.WithLogField(ctx, "role", "event-manager"),
+		ctx:            log.WithLogFields(ctx, "role", "event-manager"),
 		namespace:      ns,
 		database:       di,
 		txHelper:       txHelper,

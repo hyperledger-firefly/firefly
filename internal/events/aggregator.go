@@ -98,7 +98,7 @@ func privatePinHash(topic string, group *fftypes.Bytes32, identity string, nonce
 func newAggregator(ctx context.Context, ns string, di database.Plugin, bi blockchain.Plugin, pm privatemessaging.Manager, sh definitions.Handler, im identity.Manager, dm data.Manager, en *eventNotifier, mm metrics.Manager, cacheManager cache.Manager) (*aggregator, error) {
 	batchSize := config.GetUint64(coreconfig.EventAggregatorBatchSize)
 	ag := &aggregator{
-		ctx:          log.WithLogField(ctx, "role", "aggregator"),
+		ctx:          log.WithLogFields(ctx, "role", "aggregator"),
 		namespace:    ns,
 		database:     di,
 		messaging:    pm,

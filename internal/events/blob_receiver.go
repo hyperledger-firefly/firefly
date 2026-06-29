@@ -129,7 +129,7 @@ func (br *blobReceiver) stop() {
 func (br *blobReceiver) blobReceiverLoop(index int) {
 	defer close(br.workersDone[index])
 
-	ctx := log.WithLogField(br.ctx, "blobreceiver", fmt.Sprintf("brcvr_%.3d", index))
+	ctx := log.WithLogFields(br.ctx, "blobreceiver", fmt.Sprintf("brcvr_%.3d", index))
 
 	var batch *blobReceiverBatch
 	for !br.closed {

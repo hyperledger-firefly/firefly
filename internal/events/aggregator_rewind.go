@@ -68,7 +68,7 @@ type rewinder struct {
 
 func newRewinder(ag *aggregator) *rewinder {
 	return &rewinder{
-		ctx:              log.WithLogField(ag.ctx, "role", "aggregator-rewind"),
+		ctx:              log.WithLogFields(ag.ctx, "role", "aggregator-rewind"),
 		aggregator:       ag,
 		database:         ag.database,
 		data:             ag.data,

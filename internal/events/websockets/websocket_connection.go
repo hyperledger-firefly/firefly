@@ -64,7 +64,7 @@ type websocketConnection struct {
 
 func newConnection(pCtx context.Context, ws *WebSockets, wsConn *websocket.Conn, req *http.Request, auth core.Authorizer) *websocketConnection {
 	connID := fftypes.NewUUID().String()
-	ctx := log.WithLogField(pCtx, "websocket", connID)
+	ctx := log.WithLogFields(pCtx, "websocket", connID)
 	ctx, cancelCtx := context.WithCancel(ctx)
 	wc := &websocketConnection{
 		ctx:          ctx,

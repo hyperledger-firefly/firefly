@@ -64,7 +64,7 @@ type eventPollerConf struct {
 
 func newEventPoller(ctx context.Context, di database.Plugin, en *eventNotifier, conf *eventPollerConf) *eventPoller {
 	ep := &eventPoller{
-		ctx:             log.WithLogField(ctx, "role", fmt.Sprintf("ep[%s:%s]", conf.namespace, conf.offsetName)),
+		ctx:             log.WithLogFields(ctx, "role", fmt.Sprintf("ep[%s:%s]", conf.namespace, conf.offsetName)),
 		database:        di,
 		shoulderTaps:    make(chan bool, 1),
 		offsetCommitted: make(chan int64, 1),

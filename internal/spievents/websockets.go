@@ -49,7 +49,7 @@ type webSocket struct {
 
 func newWebSocket(ae *adminEventManager, wsConn *websocket.Conn) *webSocket {
 	connID := fftypes.NewUUID().String()
-	ctx := log.WithLogField(ae.ctx, "admin.ws", connID)
+	ctx := log.WithLogFields(ae.ctx, "admin.ws", connID)
 	ctx, cancelCtx := context.WithCancel(ctx)
 	wc := &webSocket{
 		ctx:          ctx,

@@ -111,7 +111,7 @@ type syncAsyncBridge struct {
 
 func NewSyncAsyncBridge(ctx context.Context, ns string, di database.Plugin, dm data.Manager, om operations.Manager) Bridge {
 	sa := &syncAsyncBridge{
-		ctx:        log.WithLogField(ctx, "role", "sync-async-bridge"),
+		ctx:        log.WithLogFields(ctx, "role", "sync-async-bridge"),
 		namespace:  ns,
 		database:   di,
 		data:       dm,

@@ -192,7 +192,7 @@ func (f *Fabric) Init(ctx context.Context, cancelCtx context.CancelFunc, conf co
 	f.InitConfig(conf)
 	fabconnectConf := f.fabconnectConf
 
-	f.ctx = log.WithLogField(ctx, "proto", "fabric")
+	f.ctx = log.WithLogFields(ctx, "proto", "fabric")
 	f.cancelCtx = cancelCtx
 	f.idCache = make(map[string]*fabIdentity)
 	f.metrics = metrics

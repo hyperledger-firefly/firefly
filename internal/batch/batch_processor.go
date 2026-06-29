@@ -131,7 +131,7 @@ func (dp *DispatchPayload) addMessageUpdate(messages []*core.Message, fromState 
 const batchSizeEstimateBase = int64(512)
 
 func newBatchProcessor(bm *batchManager, conf *batchProcessorConf, baseRetryConf *retry.Retry, txHelper txcommon.Helper) *batchProcessor {
-	pCtx := log.WithLogField(log.WithLogField(bm.ctx, "d", conf.dispatcherName), "p", conf.name)
+	pCtx := log.WithLogFields(log.WithLogFields(bm.ctx, "d", conf.dispatcherName), "p", conf.name)
 	pCtx, cancelCtx := context.WithCancel(pCtx)
 	bp := &batchProcessor{
 		ctx:       pCtx,

@@ -51,7 +51,7 @@ func (i *IPFS) Name() string {
 
 func (i *IPFS) Init(ctx context.Context, config config.Section) (err error) {
 
-	i.ctx = log.WithLogField(ctx, "sharedstorage", "ipfs")
+	i.ctx = log.WithLogFields(ctx, "sharedstorage", "ipfs")
 
 	apiConfig := config.SubSection(IPFSConfAPISubconf)
 	if apiConfig.GetString(ffresty.HTTPConfigURL) == "" {

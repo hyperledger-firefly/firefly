@@ -32,7 +32,7 @@ type downloadWorker struct {
 
 func newDownloadWorker(dm *downloadManager, idx int) *downloadWorker {
 	dw := &downloadWorker{
-		ctx:  log.WithLogField(dm.ctx, "downloadworker", fmt.Sprintf("dw_%.3d", idx)),
+		ctx:  log.WithLogFields(dm.ctx, "downloadworker", fmt.Sprintf("dw_%.3d", idx)),
 		done: make(chan struct{}),
 		dm:   dm,
 	}
