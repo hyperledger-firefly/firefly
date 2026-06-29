@@ -19,7 +19,7 @@ package runners
 import (
 	"testing"
 
-	"github.com/hyperledger/firefly/test/e2e/multiparty"
+	"github.com/hyperledger-firefly/firefly/test/e2e/multiparty"
 	"github.com/stretchr/testify/suite"
 )
 

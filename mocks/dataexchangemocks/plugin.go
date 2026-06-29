@@ -5,17 +5,17 @@ package dataexchangemocks
 import (
 	context "context"
 
-	config "github.com/hyperledger/firefly-common/pkg/config"
+	config "github.com/hyperledger-firefly/firefly-common/pkg/config"
 
-	core "github.com/hyperledger/firefly/pkg/core"
+	core "github.com/hyperledger-firefly/firefly/pkg/core"
 
-	dataexchange "github.com/hyperledger/firefly/pkg/dataexchange"
+	dataexchange "github.com/hyperledger-firefly/firefly/pkg/dataexchange"
 
-	fftypes "github.com/hyperledger/firefly-common/pkg/fftypes"
+	fftypes "github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
 
 	io "io"
 
-	metrics "github.com/hyperledger/firefly/internal/metrics"
+	metrics "github.com/hyperledger-firefly/firefly/internal/metrics"
 
 	mock "github.com/stretchr/testify/mock"
 )

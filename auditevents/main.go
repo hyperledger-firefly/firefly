@@ -24,7 +24,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/hyperledger/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
 	"github.com/spf13/cobra"
 )
 

@@ -19,7 +19,7 @@ package core
 import (
 	"context"
 
-	"github.com/hyperledger/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
 )
 
 type ContractCallType = fftypes.FFEnum

@@ -22,12 +22,12 @@ import (
 	"strconv"
 
 	sq "github.com/Masterminds/squirrel"
-	"github.com/hyperledger/firefly-common/pkg/config"
-	"github.com/hyperledger/firefly-common/pkg/i18n"
-	"github.com/hyperledger/firefly/internal/coreconfig"
-	"github.com/hyperledger/firefly/internal/coremsgs"
-	"github.com/hyperledger/firefly/pkg/core"
-	"github.com/hyperledger/firefly/pkg/database"
+	"github.com/hyperledger-firefly/firefly-common/pkg/config"
+	"github.com/hyperledger-firefly/firefly-common/pkg/i18n"
+	"github.com/hyperledger-firefly/firefly/internal/coreconfig"
+	"github.com/hyperledger-firefly/firefly/internal/coremsgs"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly/pkg/database"
 )
 
 func (s *SQLCommon) getTableNameFromCollection(ctx context.Context, collection database.CollectionName) (tableName string, fieldMap map[string]string, err error) {

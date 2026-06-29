@@ -20,13 +20,13 @@ import (
 	"context"
 	"testing"
 
-	"github.com/hyperledger/firefly/internal/coreconfig"
-	"github.com/hyperledger/firefly/mocks/databasemocks"
-	"github.com/hyperledger/firefly/mocks/dataexchangemocks"
-	"github.com/hyperledger/firefly/mocks/definitionsmocks"
-	"github.com/hyperledger/firefly/mocks/identitymanagermocks"
-	"github.com/hyperledger/firefly/mocks/multipartymocks"
-	"github.com/hyperledger/firefly/mocks/syncasyncmocks"
+	"github.com/hyperledger-firefly/firefly/internal/coreconfig"
+	"github.com/hyperledger-firefly/firefly/mocks/databasemocks"
+	"github.com/hyperledger-firefly/firefly/mocks/dataexchangemocks"
+	"github.com/hyperledger-firefly/firefly/mocks/definitionsmocks"
+	"github.com/hyperledger-firefly/firefly/mocks/identitymanagermocks"
+	"github.com/hyperledger-firefly/firefly/mocks/multipartymocks"
+	"github.com/hyperledger-firefly/firefly/mocks/syncasyncmocks"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -23,10 +23,10 @@ import (
 
 	sq "github.com/Masterminds/squirrel"
 	"github.com/golang-migrate/migrate/v4"
-	"github.com/hyperledger/firefly-common/pkg/fftypes"
-	"github.com/hyperledger/firefly/mocks/databasemocks"
-	"github.com/hyperledger/firefly/pkg/core"
-	"github.com/hyperledger/firefly/pkg/database"
+	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/firefly/mocks/databasemocks"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly/pkg/database"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -57,7 +57,7 @@ func TestTXConcurrency(t *testing.T) {
 	// the well adopted CGO implementation.
 	// When the e2e DB tests move to being able to be run against any database, this
 	// test should be included.
-	// (additional refactor required - see https://github.com/hyperledger/firefly/issues/119)
+	// (additional refactor required - see https://github.com/hyperledger-firefly/firefly/issues/119)
 
 	_, err := s.DB().Exec(`
 		CREATE TABLE testconc ( seq INTEGER PRIMARY KEY AUTOINCREMENT, val VARCHAR(256) );

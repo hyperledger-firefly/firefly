@@ -36,7 +36,7 @@ and you can use Hyperledger FireFly as a high volume staging post for those tran
 - Idempotent APIs assuring that business transactions are submitted exactly once
 
 > For EVM based chains, these features were significantly enhanced in the new EVMConnect
-> connector introduced in v1.1 of FireFly (superseding [EthConnect](https://github.com/hyperledger/firefly-ethconnect)).
+> connector introduced in v1.1 of FireFly (superseding [EthConnect](https://github.com/hyperledger-firefly/firefly-ethconnect)).
 
 ## Index data from the blockchain
 

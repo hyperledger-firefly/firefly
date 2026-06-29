@@ -3,7 +3,7 @@
 package blockchainmocks
 
 import (
-	blockchain "github.com/hyperledger/firefly/pkg/blockchain"
+	blockchain "github.com/hyperledger-firefly/firefly/pkg/blockchain"
 	mock "github.com/stretchr/testify/mock"
 )
 

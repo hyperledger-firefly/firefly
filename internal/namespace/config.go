@@ -17,18 +17,18 @@
 package namespace
 
 import (
-	"github.com/hyperledger/firefly-common/pkg/auth/authfactory"
-	"github.com/hyperledger/firefly-common/pkg/config"
-	"github.com/hyperledger/firefly-common/pkg/fftls"
-	"github.com/hyperledger/firefly/internal/blockchain/bifactory"
-	"github.com/hyperledger/firefly/internal/coreconfig"
-	"github.com/hyperledger/firefly/internal/database/difactory"
-	"github.com/hyperledger/firefly/internal/dataexchange/dxfactory"
-	"github.com/hyperledger/firefly/internal/events/eifactory"
-	"github.com/hyperledger/firefly/internal/identity/iifactory"
-	"github.com/hyperledger/firefly/internal/sharedstorage/ssfactory"
-	"github.com/hyperledger/firefly/internal/tokens/tifactory"
-	"github.com/hyperledger/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly-common/pkg/auth/authfactory"
+	"github.com/hyperledger-firefly/firefly-common/pkg/config"
+	"github.com/hyperledger-firefly/firefly-common/pkg/fftls"
+	"github.com/hyperledger-firefly/firefly/internal/blockchain/bifactory"
+	"github.com/hyperledger-firefly/firefly/internal/coreconfig"
+	"github.com/hyperledger-firefly/firefly/internal/database/difactory"
+	"github.com/hyperledger-firefly/firefly/internal/dataexchange/dxfactory"
+	"github.com/hyperledger-firefly/firefly/internal/events/eifactory"
+	"github.com/hyperledger-firefly/firefly/internal/identity/iifactory"
+	"github.com/hyperledger-firefly/firefly/internal/sharedstorage/ssfactory"
+	"github.com/hyperledger-firefly/firefly/internal/tokens/tifactory"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
 )
 
 const (

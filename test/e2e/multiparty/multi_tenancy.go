@@ -19,10 +19,10 @@ package multiparty
 import (
 	"fmt"
 
-	"github.com/hyperledger/firefly-common/pkg/fftypes"
-	"github.com/hyperledger/firefly/pkg/core"
-	"github.com/hyperledger/firefly/test/e2e"
-	"github.com/hyperledger/firefly/test/e2e/client"
+	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly/test/e2e"
+	"github.com/hyperledger-firefly/firefly/test/e2e/client"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"

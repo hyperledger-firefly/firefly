@@ -19,15 +19,15 @@ package bifactory
 import (
 	"context"
 
-	"github.com/hyperledger/firefly-common/pkg/config"
-	"github.com/hyperledger/firefly-common/pkg/i18n"
-	"github.com/hyperledger/firefly/internal/blockchain/cardano"
-	"github.com/hyperledger/firefly/internal/blockchain/ethereum"
-	"github.com/hyperledger/firefly/internal/blockchain/fabric"
-	"github.com/hyperledger/firefly/internal/blockchain/tezos"
-	"github.com/hyperledger/firefly/internal/coreconfig"
-	"github.com/hyperledger/firefly/internal/coremsgs"
-	"github.com/hyperledger/firefly/pkg/blockchain"
+	"github.com/hyperledger-firefly/firefly-common/pkg/config"
+	"github.com/hyperledger-firefly/firefly-common/pkg/i18n"
+	"github.com/hyperledger-firefly/firefly/internal/blockchain/cardano"
+	"github.com/hyperledger-firefly/firefly/internal/blockchain/ethereum"
+	"github.com/hyperledger-firefly/firefly/internal/blockchain/fabric"
+	"github.com/hyperledger-firefly/firefly/internal/blockchain/tezos"
+	"github.com/hyperledger-firefly/firefly/internal/coreconfig"
+	"github.com/hyperledger-firefly/firefly/internal/coremsgs"
+	"github.com/hyperledger-firefly/firefly/pkg/blockchain"
 )
 
 var pluginsByType = map[string]func() blockchain.Plugin{

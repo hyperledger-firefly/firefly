@@ -19,11 +19,11 @@ package events
 import (
 	"context"
 
-	"github.com/hyperledger/firefly/internal/data"
-	"github.com/hyperledger/firefly/internal/operations"
-	"github.com/hyperledger/firefly/internal/txcommon"
-	"github.com/hyperledger/firefly/pkg/core"
-	"github.com/hyperledger/firefly/pkg/database"
+	"github.com/hyperledger-firefly/firefly/internal/data"
+	"github.com/hyperledger-firefly/firefly/internal/operations"
+	"github.com/hyperledger-firefly/firefly/internal/txcommon"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly/pkg/database"
 )
 
 type eventEnricher struct {

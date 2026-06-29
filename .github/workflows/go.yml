@@ -34,7 +34,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: 1.24
+          go-version: 1.26
 
       - name: Build and Test
         run: make
@@ -54,13 +54,13 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: 1.24
+          go-version: 1.26
 
       - name: Build Docker image
         run: make docker
 
       - name: Save Docker image
-        run: docker save --output firefly.tar.gz hyperledger/firefly
+        run: docker save --output firefly.tar.gz hyperledger-firefly/firefly
 
       - name: Upload Docker image
         uses: actions/upload-artifact@v4
@@ -146,7 +146,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: 1.24
+          go-version: 1.26
 
       - name: Download Docker image
         uses: actions/download-artifact@v4

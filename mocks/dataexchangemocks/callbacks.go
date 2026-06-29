@@ -3,7 +3,7 @@
 package dataexchangemocks
 
 import (
-	dataexchange "github.com/hyperledger/firefly/pkg/dataexchange"
+	dataexchange "github.com/hyperledger-firefly/firefly/pkg/dataexchange"
 	mock "github.com/stretchr/testify/mock"
 )
 

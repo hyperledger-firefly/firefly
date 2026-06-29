@@ -20,9 +20,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/hyperledger/firefly-common/pkg/log"
-	"github.com/hyperledger/firefly/pkg/core"
-	"github.com/hyperledger/firefly/pkg/database"
+	"github.com/hyperledger-firefly/firefly-common/pkg/log"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly/pkg/database"
 )
 
 // DIDDocument - see https://www.w3.org/TR/did-core/#core-properties

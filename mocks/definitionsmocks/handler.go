@@ -5,10 +5,10 @@ package definitionsmocks
 import (
 	context "context"
 
-	definitions "github.com/hyperledger/firefly/internal/definitions"
-	core "github.com/hyperledger/firefly/pkg/core"
+	definitions "github.com/hyperledger-firefly/firefly/internal/definitions"
+	core "github.com/hyperledger-firefly/firefly/pkg/core"
 
-	fftypes "github.com/hyperledger/firefly-common/pkg/fftypes"
+	fftypes "github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
 
 	mock "github.com/stretchr/testify/mock"
 )

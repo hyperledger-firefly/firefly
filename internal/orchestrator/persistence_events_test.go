@@ -20,11 +20,11 @@ import (
 	"context"
 	"testing"
 
-	"github.com/hyperledger/firefly-common/pkg/fftypes"
-	"github.com/hyperledger/firefly/mocks/batchmocks"
-	"github.com/hyperledger/firefly/mocks/eventmocks"
-	"github.com/hyperledger/firefly/pkg/core"
-	"github.com/hyperledger/firefly/pkg/database"
+	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/firefly/mocks/batchmocks"
+	"github.com/hyperledger-firefly/firefly/mocks/eventmocks"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly/pkg/database"
 )
 
 func TestMessageCreated(t *testing.T) {

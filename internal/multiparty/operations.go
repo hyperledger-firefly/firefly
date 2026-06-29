@@ -19,13 +19,13 @@ package multiparty
 import (
 	"context"
 
-	"github.com/hyperledger/firefly-common/pkg/fftypes"
-	"github.com/hyperledger/firefly-common/pkg/i18n"
-	"github.com/hyperledger/firefly/internal/coremsgs"
-	"github.com/hyperledger/firefly/internal/operations"
-	"github.com/hyperledger/firefly/internal/txcommon"
-	"github.com/hyperledger/firefly/pkg/blockchain"
-	"github.com/hyperledger/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/firefly-common/pkg/i18n"
+	"github.com/hyperledger-firefly/firefly/internal/coremsgs"
+	"github.com/hyperledger-firefly/firefly/internal/operations"
+	"github.com/hyperledger-firefly/firefly/internal/txcommon"
+	"github.com/hyperledger-firefly/firefly/pkg/blockchain"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
 )
 
 type networkActionData struct {

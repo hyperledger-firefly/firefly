@@ -21,15 +21,15 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/hyperledger/firefly-common/pkg/fftypes"
-	"github.com/hyperledger/firefly-common/pkg/i18n"
-	"github.com/hyperledger/firefly-common/pkg/log"
-	"github.com/hyperledger/firefly/internal/batch"
-	"github.com/hyperledger/firefly/internal/coremsgs"
-	"github.com/hyperledger/firefly/internal/data"
-	"github.com/hyperledger/firefly/internal/txcommon"
-	"github.com/hyperledger/firefly/pkg/blockchain"
-	"github.com/hyperledger/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/firefly-common/pkg/i18n"
+	"github.com/hyperledger-firefly/firefly-common/pkg/log"
+	"github.com/hyperledger-firefly/firefly/internal/batch"
+	"github.com/hyperledger-firefly/firefly/internal/coremsgs"
+	"github.com/hyperledger-firefly/firefly/internal/data"
+	"github.com/hyperledger-firefly/firefly/internal/txcommon"
+	"github.com/hyperledger-firefly/firefly/pkg/blockchain"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
 )
 
 type blockchainContractDeployData struct {

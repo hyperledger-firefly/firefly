@@ -21,11 +21,11 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/hyperledger/firefly-common/pkg/config"
-	"github.com/hyperledger/firefly-common/pkg/fftypes"
-	"github.com/hyperledger/firefly-common/pkg/log"
-	"github.com/hyperledger/firefly/internal/coreconfig"
-	"github.com/hyperledger/firefly/internal/orchestrator"
+	"github.com/hyperledger-firefly/firefly-common/pkg/config"
+	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/firefly-common/pkg/log"
+	"github.com/hyperledger-firefly/firefly/internal/coreconfig"
+	"github.com/hyperledger-firefly/firefly/internal/orchestrator"
 	"github.com/spf13/viper"
 )
 

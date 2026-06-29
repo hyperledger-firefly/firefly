@@ -5,7 +5,7 @@ package coremocks
 import (
 	context "context"
 
-	core "github.com/hyperledger/firefly/pkg/core"
+	core "github.com/hyperledger-firefly/firefly/pkg/core"
 	mock "github.com/stretchr/testify/mock"
 )
 

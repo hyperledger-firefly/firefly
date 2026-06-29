@@ -39,7 +39,7 @@ If the smart contract uses a custom error type, Besu will return the revert reas
  - `"errorMessage":"FF23053: Error return value for custom error: <revert hex string>`
  - `"returnValue":"<revert hex string>"`
 
-A future update to FireFly could be made to automatically decode custom error revert reasons if FireFly knows the ABI for the custom error. See [FireFly issue 1466](https://github.com/hyperledger/firefly/issues/1466) which describes the current limitation.
+A future update to FireFly could be made to automatically decode custom error revert reasons if FireFly knows the ABI for the custom error. See [FireFly issue 1466](https://github.com/hyperledger-firefly/firefly/issues/1466) which describes the current limitation.
 
 If FireFly is configured to connect to Besu without `revert-reason-enabled=true` the error message will be set to:
 

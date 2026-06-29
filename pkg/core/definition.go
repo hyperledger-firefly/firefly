@@ -16,7 +16,7 @@
 
 package core
 
-import "github.com/hyperledger/firefly-common/pkg/fftypes"
+import "github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
 
 // Definition is implemented by all objects that can be broadcast as system definitions to the network
 type Definition interface {

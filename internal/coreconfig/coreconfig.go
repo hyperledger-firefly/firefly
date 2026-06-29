@@ -17,8 +17,8 @@
 package coreconfig
 
 import (
-	"github.com/hyperledger/firefly-common/pkg/config"
-	"github.com/hyperledger/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly-common/pkg/config"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
 	"github.com/spf13/viper"
 )
 

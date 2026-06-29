@@ -20,9 +20,9 @@
 package difactory
 
 import (
-	"github.com/hyperledger/firefly/internal/database/postgres"
-	"github.com/hyperledger/firefly/internal/database/sqlite3"
-	"github.com/hyperledger/firefly/pkg/database"
+	"github.com/hyperledger-firefly/firefly/internal/database/postgres"
+	"github.com/hyperledger-firefly/firefly/internal/database/sqlite3"
+	"github.com/hyperledger-firefly/firefly/pkg/database"
 )
 
 var pluginsByName = map[string]func() database.Plugin{

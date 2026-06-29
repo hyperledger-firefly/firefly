@@ -30,9 +30,9 @@ import (
 	"testing"
 
 	"github.com/getkin/kin-openapi/openapi3"
-	"github.com/hyperledger/firefly-common/pkg/config"
-	"github.com/hyperledger/firefly-common/pkg/ffapi"
-	"github.com/hyperledger/firefly/internal/coreconfig"
+	"github.com/hyperledger-firefly/firefly-common/pkg/config"
+	"github.com/hyperledger-firefly/firefly-common/pkg/ffapi"
+	"github.com/hyperledger-firefly/firefly/internal/coreconfig"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -5,7 +5,7 @@ package tokenmocks
 import (
 	context "context"
 
-	tokens "github.com/hyperledger/firefly/pkg/tokens"
+	tokens "github.com/hyperledger-firefly/firefly/pkg/tokens"
 	mock "github.com/stretchr/testify/mock"
 )
 

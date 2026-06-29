@@ -1,6 +1,6 @@
 # ARG Definitions
 # Consider adding default values for the ARGs based on this warning:
-# https://github.com/hyperledger/firefly/actions/runs/10795366695/job/29941873807#step:4:171
+# https://github.com/hyperledger-firefly/firefly/actions/runs/10795366695/job/29941873807#step:4:171
 ARG FIREFLY_BUILDER_TAG
 ARG FABRIC_BUILDER_TAG
 ARG FABRIC_BUILDER_PLATFORM
@@ -92,7 +92,7 @@ COPY --from=firefly-builder --chown=1001:0 /firefly/firefly ./firefly
 COPY --from=firefly-builder --chown=1001:0 /firefly/db ./db
 COPY --from=solidity-builder --chown=1001:0 /firefly/solidity_firefly/build/contracts ./contracts
 COPY --from=fabric-builder --chown=1001:0 /firefly/smart_contracts/fabric/firefly-go/firefly_fabric.tar.gz ./contracts/firefly_fabric.tar.gz
-ENV UI_RELEASE=https://github.com/hyperledger/firefly-ui/releases/download/$UI_TAG/$UI_RELEASE.tgz
+ENV UI_RELEASE=https://github.com/hyperledger-firefly/firefly-ui/releases/download/$UI_TAG/$UI_RELEASE.tgz
 RUN mkdir /firefly/frontend \
   && curl -sLo - $UI_RELEASE | tar -C /firefly/frontend -zxvf -
 COPY --from=sbom /sbom.spdx.json /sbom.spdx.json

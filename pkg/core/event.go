@@ -16,7 +16,7 @@
 
 package core
 
-import "github.com/hyperledger/firefly-common/pkg/fftypes"
+import "github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
 
 // EventType indicates what the event means, as well as what the Reference in the event refers to
 type EventType = fftypes.FFEnum

@@ -3,8 +3,8 @@
 package eventsmocks
 
 import (
-	core "github.com/hyperledger/firefly/pkg/core"
-	events "github.com/hyperledger/firefly/pkg/events"
+	core "github.com/hyperledger-firefly/firefly/pkg/core"
+	events "github.com/hyperledger-firefly/firefly/pkg/events"
 
 	mock "github.com/stretchr/testify/mock"
 )

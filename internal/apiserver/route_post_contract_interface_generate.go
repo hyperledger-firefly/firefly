@@ -19,10 +19,10 @@ package apiserver
 import (
 	"net/http"
 
-	"github.com/hyperledger/firefly-common/pkg/ffapi"
-	"github.com/hyperledger/firefly-common/pkg/fftypes"
-	"github.com/hyperledger/firefly/internal/coremsgs"
-	"github.com/hyperledger/firefly/internal/orchestrator"
+	"github.com/hyperledger-firefly/firefly-common/pkg/ffapi"
+	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/firefly/internal/coremsgs"
+	"github.com/hyperledger-firefly/firefly/internal/orchestrator"
 )
 
 var postContractInterfaceGenerate = &ffapi.Route{

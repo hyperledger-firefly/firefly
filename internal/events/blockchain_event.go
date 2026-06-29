@@ -20,10 +20,10 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/hyperledger/firefly-common/pkg/fftypes"
-	"github.com/hyperledger/firefly-common/pkg/log"
-	"github.com/hyperledger/firefly/pkg/blockchain"
-	"github.com/hyperledger/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/firefly-common/pkg/log"
+	"github.com/hyperledger-firefly/firefly/pkg/blockchain"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
 )
 
 type eventBatchContext struct {

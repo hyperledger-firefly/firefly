@@ -20,10 +20,10 @@ import (
 	"context"
 	"errors"
 
-	"github.com/hyperledger/firefly-common/pkg/i18n"
-	"github.com/hyperledger/firefly-common/pkg/log"
-	"github.com/hyperledger/firefly/internal/coremsgs"
-	"github.com/hyperledger/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly-common/pkg/i18n"
+	"github.com/hyperledger-firefly/firefly-common/pkg/log"
+	"github.com/hyperledger-firefly/firefly/internal/coremsgs"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
 )
 
 func (ds *definitionSender) PublishTokenPool(ctx context.Context, poolNameOrID, networkName string, waitConfirm bool) (pool *core.TokenPool, err error) {

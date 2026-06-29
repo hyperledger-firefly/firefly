@@ -28,7 +28,7 @@ the data is unpacked and used to emit this event will differ for each blockchain
 ### Ethereum
 
 ```solidity
-import "@hyperledger/firefly-contracts/contracts/IBatchPin.sol";
+import "@hyperledger-firefly/firefly-contracts/contracts/IBatchPin.sol";
 
 contract CustomPin {
     IBatchPin firefly;
@@ -72,7 +72,7 @@ import (
 	"fmt"
 
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
-	"github.com/hyperledger/firefly/custompin_sample/batchpin"
+	"github.com/hyperledger-firefly/firefly/custompin_sample/batchpin"
 )
 
 type SmartContract struct {

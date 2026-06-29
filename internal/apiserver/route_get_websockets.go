@@ -19,11 +19,11 @@ package apiserver
 import (
 	"net/http"
 
-	"github.com/hyperledger/firefly-common/pkg/ffapi"
-	"github.com/hyperledger/firefly/internal/coremsgs"
-	"github.com/hyperledger/firefly/internal/events/eifactory"
-	"github.com/hyperledger/firefly/internal/events/websockets"
-	"github.com/hyperledger/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly-common/pkg/ffapi"
+	"github.com/hyperledger-firefly/firefly/internal/coremsgs"
+	"github.com/hyperledger-firefly/firefly/internal/events/eifactory"
+	"github.com/hyperledger-firefly/firefly/internal/events/websockets"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
 )
 
 var getWebSockets = &ffapi.Route{

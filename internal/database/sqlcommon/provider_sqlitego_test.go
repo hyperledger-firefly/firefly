@@ -26,10 +26,10 @@ import (
 	sq "github.com/Masterminds/squirrel"
 	migratedb "github.com/golang-migrate/migrate/v4/database"
 	"github.com/golang-migrate/migrate/v4/database/sqlite3"
-	"github.com/hyperledger/firefly-common/pkg/config"
-	"github.com/hyperledger/firefly-common/pkg/dbsql"
-	"github.com/hyperledger/firefly/mocks/databasemocks"
-	"github.com/hyperledger/firefly/pkg/database"
+	"github.com/hyperledger-firefly/firefly-common/pkg/config"
+	"github.com/hyperledger-firefly/firefly-common/pkg/dbsql"
+	"github.com/hyperledger-firefly/firefly/mocks/databasemocks"
+	"github.com/hyperledger-firefly/firefly/pkg/database"
 	"github.com/stretchr/testify/assert"
 
 	// Import SQLite driver

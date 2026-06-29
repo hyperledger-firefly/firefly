@@ -20,7 +20,7 @@ import (
 	"context"
 	"database/sql/driver"
 
-	"github.com/hyperledger/firefly-common/pkg/i18n"
+	"github.com/hyperledger-firefly/firefly-common/pkg/i18n"
 )
 
 // IdempotencyKey is accessed in Go as a string, but when persisted to storage it will be stored as a null

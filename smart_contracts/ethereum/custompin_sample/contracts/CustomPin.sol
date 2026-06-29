@@ -2,7 +2,7 @@
 
 pragma solidity >=0.6.0 <0.9.0;
 
-import "@hyperledger/firefly-contracts/contracts/IBatchPin.sol";
+import "@hyperledger-firefly/firefly-contracts/contracts/IBatchPin.sol";
 
 /**
  * Sample showing a simplistic way to support pinned off-chain messages via a custom method.

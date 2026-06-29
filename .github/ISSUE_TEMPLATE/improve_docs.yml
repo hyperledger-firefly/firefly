@@ -9,7 +9,7 @@ body:
         _The more information you share, the faster we can help you._
         Prior to opening the issue, please make sure that you:
         - Use English (EN/US) to communicate.
-        - Search the [open issues](https://github.com/hyperledger/firefly/issues) to avoid duplicating the issue.
+        - Search the [open issues](https://github.com/hyperledger-firefly/firefly/issues) to avoid duplicating the issue.
 
   - type: textarea
     id: current-state

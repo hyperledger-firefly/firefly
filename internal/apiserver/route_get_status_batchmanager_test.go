@@ -20,8 +20,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/hyperledger/firefly/internal/batch"
-	"github.com/hyperledger/firefly/mocks/batchmocks"
+	"github.com/hyperledger-firefly/firefly/internal/batch"
+	"github.com/hyperledger-firefly/firefly/mocks/batchmocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )

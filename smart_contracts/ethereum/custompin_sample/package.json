@@ -9,6 +9,6 @@
     "typescript": "^5.4.2"
   },
   "dependencies": {
-    "@hyperledger/firefly-contracts": "file:../solidity_firefly"
+    "@hyperledger-firefly/firefly-contracts": "file:../solidity_firefly"
   }
 }

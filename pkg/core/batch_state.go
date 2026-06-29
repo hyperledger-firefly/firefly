@@ -19,7 +19,7 @@ package core
 import (
 	"context"
 
-	"github.com/hyperledger/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
 )
 
 // BatchState tracks the state between definition handlers that run in-line on the pin processing route in the aggregator

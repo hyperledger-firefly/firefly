@@ -24,6 +24,6 @@ Some examples of how the generic concept of a Token Pool maps to various well-de
   partially supported in the same manner as ERC-20/ERC-777, but would require new features for working with partitions
 
 These are provided as examples only - a custom token connector could be backed by any token technology (Ethereum or otherwise)
-as long as it can support the basic operations described here (create pool, mint, burn, transfer). Other FireFly repos include a sample implementation of a token connector for [ERC-20 and ERC-721](https://github.com/hyperledger/firefly-tokens-erc20-erc721) as well as [ERC-1155](https://github.com/hyperledger/firefly-tokens-erc1155).
+as long as it can support the basic operations described here (create pool, mint, burn, transfer). Other FireFly repos include a sample implementation of a token connector for [ERC-20 and ERC-721](https://github.com/hyperledger-firefly/firefly-tokens-erc20-erc721) as well as [ERC-1155](https://github.com/hyperledger-firefly/firefly-tokens-erc1155).
 
 <!--nav-->

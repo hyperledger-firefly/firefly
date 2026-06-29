@@ -24,7 +24,7 @@ a set of re-usable modules that can be used across blockchain implementations.
 [![FireFly Blockchain Connector Toolkit Architecture](../images/firefly_transaction_manager.jpg)](../images/firefly_transaction_manager.jpg)
 
 The core component of the FireFly Connector Framework for Blockchains is a Go module
-called [FireFly Transaction Manager](https://github.com/hyperledger/firefly-transaction-manager) (FFTM).
+called [FireFly Transaction Manager](https://github.com/hyperledger-firefly/firefly-transaction-manager) (FFTM).
 
 FFTM is responsible for:
 
@@ -108,7 +108,7 @@ multiple simple web/mobile wallets used against the same key), but it does not e
 ### Why "at source" nonce management was chosen vs. "at target"
 
 The "at source" approach to ordering used in FFTM could be compared with the "at target" allocation of nonces used in
-[EthConnect](https://github.com/hyperledger/firefly-ethconnect)).
+[EthConnect](https://github.com/hyperledger-firefly/firefly-ethconnect)).
 
 The "at target" approach optimizes for throughput and ability to send new transactions to the chain,
 with an at-least-once delivery assurance to the applications.
@@ -143,7 +143,7 @@ A reference implementation is provided that:
 - Record detailed information about [transaction sub-status and actions](../reference/blockchain_operation_status.md)
 - Emit customized metrics for transaction processing
 
-The reference implementation is available [here](https://github.com/hyperledger/firefly-transaction-manager/blob/main/pkg/txhandler/simple/simple_transaction_handler.go)
+The reference implementation is available [here](https://github.com/hyperledger-firefly/firefly-transaction-manager/blob/main/pkg/txhandler/simple/simple_transaction_handler.go)
 
 ## Event Streams
 

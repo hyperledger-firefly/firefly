@@ -19,7 +19,7 @@ package runners
 import (
 	"testing"
 
-	"github.com/hyperledger/firefly/test/e2e/gateway"
+	"github.com/hyperledger-firefly/firefly/test/e2e/gateway"
 	"github.com/stretchr/testify/suite"
 )
 

@@ -19,12 +19,12 @@ package tifactory
 import (
 	"context"
 
-	"github.com/hyperledger/firefly-common/pkg/config"
-	"github.com/hyperledger/firefly-common/pkg/i18n"
-	"github.com/hyperledger/firefly/internal/coreconfig"
-	"github.com/hyperledger/firefly/internal/coremsgs"
-	"github.com/hyperledger/firefly/internal/tokens/fftokens"
-	"github.com/hyperledger/firefly/pkg/tokens"
+	"github.com/hyperledger-firefly/firefly-common/pkg/config"
+	"github.com/hyperledger-firefly/firefly-common/pkg/i18n"
+	"github.com/hyperledger-firefly/firefly/internal/coreconfig"
+	"github.com/hyperledger-firefly/firefly/internal/coremsgs"
+	"github.com/hyperledger-firefly/firefly/internal/tokens/fftokens"
+	"github.com/hyperledger-firefly/firefly/pkg/tokens"
 )
 
 var pluginsByName = map[string]func() tokens.Plugin{

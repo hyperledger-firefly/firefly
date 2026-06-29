@@ -50,7 +50,7 @@ docker buildx rm firefly --keep-state 2>/dev/null || true
 # Create new firefly builder
 docker buildx create --name firefly --use
 docker buildx build \
-    -t hyperledger/firefly \
+    -t hyperledger-firefly/firefly \
     --build-arg FIREFLY_BUILDER_TAG=$FIREFLY_BUILDER_TAG \
     --build-arg FABRIC_BUILDER_TAG=$FABRIC_BUILDER_TAG \
     --build-arg FABRIC_BUILDER_PLATFORM=$FABRIC_BUILDER_PLATFORM \

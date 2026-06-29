@@ -5,10 +5,10 @@ package apiservermocks
 import (
 	context "context"
 
-	ffapi "github.com/hyperledger/firefly-common/pkg/ffapi"
-	core "github.com/hyperledger/firefly/pkg/core"
+	ffapi "github.com/hyperledger-firefly/firefly-common/pkg/ffapi"
+	core "github.com/hyperledger-firefly/firefly/pkg/core"
 
-	fftypes "github.com/hyperledger/firefly-common/pkg/fftypes"
+	fftypes "github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
 
 	mock "github.com/stretchr/testify/mock"
 )

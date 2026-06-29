@@ -6,8 +6,8 @@ import (
 	"github.com/hyperledger/fabric-chaincode-go/pkg/cid"
 	"github.com/hyperledger/fabric-chaincode-go/shim"
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
-	"github.com/hyperledger/firefly/custompin_sample/chaincode"
-	"github.com/hyperledger/firefly/custompin_sample/chaincode/mocks"
+	"github.com/hyperledger-firefly/firefly/custompin_sample/chaincode"
+	"github.com/hyperledger-firefly/firefly/custompin_sample/chaincode/mocks"
 	"github.com/stretchr/testify/require"
 )
 

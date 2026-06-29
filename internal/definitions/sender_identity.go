@@ -19,8 +19,8 @@ package definitions
 import (
 	"context"
 
-	"github.com/hyperledger/firefly/internal/identity"
-	"github.com/hyperledger/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly/internal/identity"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
 )
 
 // ClaimIdentity is a special form of CreateDefinition where the signing identity does not need to have been pre-registered

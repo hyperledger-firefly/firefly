@@ -433,7 +433,7 @@ You'll notice in the response body that there are a couple of URLs near the bott
 
 ### /invoke/\* endpoints
 
-The `/invoke` endpoints in the generated API are for submitting transactions. These endpoints will be mapped to the `POST /transactions` endpoint of the [FabConnect API](https://github.com/hyperledger/firefly-fabconnect).
+The `/invoke` endpoints in the generated API are for submitting transactions. These endpoints will be mapped to the `POST /transactions` endpoint of the [FabConnect API](https://github.com/hyperledger-firefly/firefly-fabconnect).
 
 ### /query/\* endpoints
 

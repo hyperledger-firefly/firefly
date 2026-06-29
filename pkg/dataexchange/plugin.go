@@ -20,11 +20,11 @@ import (
 	"context"
 	"io"
 
-	"github.com/hyperledger/firefly/internal/metrics"
+	"github.com/hyperledger-firefly/firefly/internal/metrics"
 
-	"github.com/hyperledger/firefly-common/pkg/config"
-	"github.com/hyperledger/firefly-common/pkg/fftypes"
-	"github.com/hyperledger/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly-common/pkg/config"
+	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
 )
 
 // Plugin is the interface implemented by each data exchange plugin

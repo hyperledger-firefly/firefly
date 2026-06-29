@@ -3,7 +3,7 @@
 package cachemocks
 
 import (
-	cache "github.com/hyperledger/firefly/internal/cache"
+	cache "github.com/hyperledger-firefly/firefly/internal/cache"
 	mock "github.com/stretchr/testify/mock"
 )
 

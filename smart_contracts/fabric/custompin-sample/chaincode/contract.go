@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
-	"github.com/hyperledger/firefly/custompin_sample/batchpin"
+	"github.com/hyperledger-firefly/firefly/custompin_sample/batchpin"
 )
 
 /**

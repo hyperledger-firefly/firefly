@@ -19,12 +19,12 @@ package iifactory
 import (
 	"context"
 
-	"github.com/hyperledger/firefly-common/pkg/config"
-	"github.com/hyperledger/firefly-common/pkg/i18n"
-	"github.com/hyperledger/firefly/internal/coreconfig"
-	"github.com/hyperledger/firefly/internal/coremsgs"
-	"github.com/hyperledger/firefly/internal/identity/tbd"
-	"github.com/hyperledger/firefly/pkg/identity"
+	"github.com/hyperledger-firefly/firefly-common/pkg/config"
+	"github.com/hyperledger-firefly/firefly-common/pkg/i18n"
+	"github.com/hyperledger-firefly/firefly/internal/coreconfig"
+	"github.com/hyperledger-firefly/firefly/internal/coremsgs"
+	"github.com/hyperledger-firefly/firefly/internal/identity/tbd"
+	"github.com/hyperledger-firefly/firefly/pkg/identity"
 )
 
 var pluginsByName = map[string]func() identity.Plugin{

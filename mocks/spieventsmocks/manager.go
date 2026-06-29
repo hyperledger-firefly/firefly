@@ -5,7 +5,7 @@ package spieventsmocks
 import (
 	http "net/http"
 
-	core "github.com/hyperledger/firefly/pkg/core"
+	core "github.com/hyperledger-firefly/firefly/pkg/core"
 
 	mock "github.com/stretchr/testify/mock"
 )

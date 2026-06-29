@@ -5,7 +5,7 @@ package apiservermocks
 import (
 	context "context"
 
-	namespace "github.com/hyperledger/firefly/internal/namespace"
+	namespace "github.com/hyperledger-firefly/firefly/internal/namespace"
 	mock "github.com/stretchr/testify/mock"
 )
 

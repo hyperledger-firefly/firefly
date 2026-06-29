@@ -16,7 +16,7 @@
 
 package websockets
 
-import "github.com/hyperledger/firefly-common/pkg/config"
+import "github.com/hyperledger-firefly/firefly-common/pkg/config"
 
 const (
 	bufferSizeDefault = "16Kb"

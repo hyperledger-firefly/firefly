@@ -24,18 +24,18 @@ import (
 	"strings"
 
 	"github.com/go-resty/resty/v2"
-	"github.com/hyperledger/firefly-common/pkg/config"
-	"github.com/hyperledger/firefly-common/pkg/ffresty"
-	"github.com/hyperledger/firefly-common/pkg/fftypes"
-	"github.com/hyperledger/firefly-common/pkg/i18n"
-	"github.com/hyperledger/firefly-common/pkg/log"
-	"github.com/hyperledger/firefly-common/pkg/wsclient"
-	"github.com/hyperledger/firefly/internal/blockchain/common"
-	"github.com/hyperledger/firefly/internal/cache"
-	"github.com/hyperledger/firefly/internal/coremsgs"
-	"github.com/hyperledger/firefly/internal/metrics"
-	"github.com/hyperledger/firefly/pkg/blockchain"
-	"github.com/hyperledger/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly-common/pkg/config"
+	"github.com/hyperledger-firefly/firefly-common/pkg/ffresty"
+	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/firefly-common/pkg/i18n"
+	"github.com/hyperledger-firefly/firefly-common/pkg/log"
+	"github.com/hyperledger-firefly/firefly-common/pkg/wsclient"
+	"github.com/hyperledger-firefly/firefly/internal/blockchain/common"
+	"github.com/hyperledger-firefly/firefly/internal/cache"
+	"github.com/hyperledger-firefly/firefly/internal/coremsgs"
+	"github.com/hyperledger-firefly/firefly/internal/metrics"
+	"github.com/hyperledger-firefly/firefly/pkg/blockchain"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
 )
 
 type Cardano struct {
@@ -476,7 +476,7 @@ func (c *Cardano) GenerateFFI(ctx context.Context, generationRequest *fftypes.FF
 }
 
 func (c *Cardano) GetNetworkVersion(ctx context.Context, location *fftypes.JSONAny) (version int, err error) {
-	// Part of the FIR-12. https://github.com/hyperledger/firefly-fir/pull/12
+	// Part of the FIR-12. https://github.com/hyperledger-firefly/firefly-fir/pull/12
 	// Cardano doesn't support any of this yet, so just pretend we're on the new hotness
 	return 2, nil
 }

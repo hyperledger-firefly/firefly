@@ -19,8 +19,8 @@ package apiserver
 import (
 	"net/http"
 
-	"github.com/hyperledger/firefly-common/pkg/ffapi"
-	"github.com/hyperledger/firefly/internal/coremsgs"
+	"github.com/hyperledger-firefly/firefly-common/pkg/ffapi"
+	"github.com/hyperledger-firefly/firefly/internal/coremsgs"
 )
 
 var deleteContractListener = &ffapi.Route{

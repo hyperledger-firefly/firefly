@@ -38,7 +38,7 @@ A few highlights:
 
   ## Directories
 
-- [internal](https://github.com/hyperledger/firefly/tree/main/internal): The core Golang implementation code
-- [pkg](https://github.com/hyperledger/firefly/tree/main/pkg): Interfaces intended for external project use
-- [cmd](https://github.com/hyperledger/firefly/tree/main/cmd): The command line entry point
-- [smart_contracts](https://github.com/hyperledger/firefly/tree/main/smart_contracts): smart contract code for FireFly's onchain logic
+- [internal](https://github.com/hyperledger-firefly/firefly/tree/main/internal): The core Golang implementation code
+- [pkg](https://github.com/hyperledger-firefly/firefly/tree/main/pkg): Interfaces intended for external project use
+- [cmd](https://github.com/hyperledger-firefly/firefly/tree/main/cmd): The command line entry point
+- [smart_contracts](https://github.com/hyperledger-firefly/firefly/tree/main/smart_contracts): smart contract code for FireFly's onchain logic

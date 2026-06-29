@@ -46,6 +46,6 @@ What are the core runtime responsibilities, and pluggable elements - right side 
 
 What is the code structure _inside_ the core.
 
-- The [README.md](https://github.com/hyperledger/firefly#readme) is the reference for this.
+- The [README.md](https://github.com/hyperledger-firefly/firefly#readme) is the reference for this.
 - Developers contributing to FireFly, on the core, or building new plugins, need this level of detail.
   > - A reconciliation is underway to ensure the medium-level view correlates well with this code structure.

@@ -23,11 +23,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hyperledger/firefly-common/pkg/ffapi"
-	"github.com/hyperledger/firefly-common/pkg/fftypes"
-	"github.com/hyperledger/firefly/mocks/databasemocks"
-	"github.com/hyperledger/firefly/pkg/core"
-	"github.com/hyperledger/firefly/pkg/database"
+	"github.com/hyperledger-firefly/firefly-common/pkg/ffapi"
+	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/firefly/mocks/databasemocks"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly/pkg/database"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )

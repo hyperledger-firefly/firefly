@@ -25,20 +25,20 @@ import (
 
 	"blockwatch.cc/tzgo/micheline"
 	"github.com/go-resty/resty/v2"
-	"github.com/hyperledger/firefly-common/pkg/config"
-	"github.com/hyperledger/firefly-common/pkg/ffresty"
-	"github.com/hyperledger/firefly-common/pkg/fftypes"
-	"github.com/hyperledger/firefly-common/pkg/i18n"
-	"github.com/hyperledger/firefly-common/pkg/log"
-	"github.com/hyperledger/firefly-common/pkg/retry"
-	"github.com/hyperledger/firefly-common/pkg/wsclient"
-	"github.com/hyperledger/firefly/internal/blockchain/common"
-	"github.com/hyperledger/firefly/internal/cache"
-	"github.com/hyperledger/firefly/internal/coreconfig"
-	"github.com/hyperledger/firefly/internal/coremsgs"
-	"github.com/hyperledger/firefly/internal/metrics"
-	"github.com/hyperledger/firefly/pkg/blockchain"
-	"github.com/hyperledger/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly-common/pkg/config"
+	"github.com/hyperledger-firefly/firefly-common/pkg/ffresty"
+	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/firefly-common/pkg/i18n"
+	"github.com/hyperledger-firefly/firefly-common/pkg/log"
+	"github.com/hyperledger-firefly/firefly-common/pkg/retry"
+	"github.com/hyperledger-firefly/firefly-common/pkg/wsclient"
+	"github.com/hyperledger-firefly/firefly/internal/blockchain/common"
+	"github.com/hyperledger-firefly/firefly/internal/cache"
+	"github.com/hyperledger-firefly/firefly/internal/coreconfig"
+	"github.com/hyperledger-firefly/firefly/internal/coremsgs"
+	"github.com/hyperledger-firefly/firefly/internal/metrics"
+	"github.com/hyperledger-firefly/firefly/pkg/blockchain"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
 )
 
 const (
@@ -537,7 +537,7 @@ func (t *Tezos) GenerateFFI(ctx context.Context, generationRequest *fftypes.FFIG
 }
 
 func (t *Tezos) GetNetworkVersion(ctx context.Context, location *fftypes.JSONAny) (version int, err error) {
-	// Part of the FIR-12. https://github.com/hyperledger/firefly-fir/pull/12
+	// Part of the FIR-12. https://github.com/hyperledger-firefly/firefly-fir/pull/12
 	// Not actual for the Tezos as it's batch pin contract was after the proposal.
 	// TODO: get the network version from the batch pin contract
 	return 2, nil

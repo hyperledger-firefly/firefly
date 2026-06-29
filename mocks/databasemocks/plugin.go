@@ -5,15 +5,15 @@ package databasemocks
 import (
 	context "context"
 
-	config "github.com/hyperledger/firefly-common/pkg/config"
+	config "github.com/hyperledger-firefly/firefly-common/pkg/config"
 
-	core "github.com/hyperledger/firefly/pkg/core"
+	core "github.com/hyperledger-firefly/firefly/pkg/core"
 
-	database "github.com/hyperledger/firefly/pkg/database"
+	database "github.com/hyperledger-firefly/firefly/pkg/database"
 
-	ffapi "github.com/hyperledger/firefly-common/pkg/ffapi"
+	ffapi "github.com/hyperledger-firefly/firefly-common/pkg/ffapi"
 
-	fftypes "github.com/hyperledger/firefly-common/pkg/fftypes"
+	fftypes "github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
 
 	mock "github.com/stretchr/testify/mock"
 )

@@ -3,7 +3,7 @@
 package systemeventmocks
 
 import (
-	system "github.com/hyperledger/firefly/internal/events/system"
+	system "github.com/hyperledger-firefly/firefly/internal/events/system"
 	mock "github.com/stretchr/testify/mock"
 )
 

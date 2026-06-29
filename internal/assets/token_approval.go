@@ -19,14 +19,14 @@ package assets
 import (
 	"context"
 
-	"github.com/hyperledger/firefly-common/pkg/ffapi"
-	"github.com/hyperledger/firefly-common/pkg/fftypes"
-	"github.com/hyperledger/firefly-common/pkg/i18n"
-	"github.com/hyperledger/firefly/internal/coremsgs"
-	"github.com/hyperledger/firefly/internal/database/sqlcommon"
-	"github.com/hyperledger/firefly/internal/syncasync"
-	"github.com/hyperledger/firefly/internal/txcommon"
-	"github.com/hyperledger/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly-common/pkg/ffapi"
+	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/firefly-common/pkg/i18n"
+	"github.com/hyperledger-firefly/firefly/internal/coremsgs"
+	"github.com/hyperledger-firefly/firefly/internal/database/sqlcommon"
+	"github.com/hyperledger-firefly/firefly/internal/syncasync"
+	"github.com/hyperledger-firefly/firefly/internal/txcommon"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
 )
 
 func (am *assetManager) GetTokenApprovals(ctx context.Context, filter ffapi.AndFilter) ([]*core.TokenApproval, *ffapi.FilterResult, error) {

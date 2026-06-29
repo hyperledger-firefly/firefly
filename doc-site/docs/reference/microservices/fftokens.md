@@ -6,7 +6,7 @@ title: fftokens
 
 ## Overview
 
-fftokens is a protocol that can be implemented by token connector runtimes in order to be usable by the [fftokens](https://github.com/hyperledger/firefly/blob/main/internal/tokens/fftokens/fftokens.go) plugin in FireFly.
+fftokens is a protocol that can be implemented by token connector runtimes in order to be usable by the [fftokens](https://github.com/hyperledger-firefly/firefly/blob/main/internal/tokens/fftokens/fftokens.go) plugin in FireFly.
 
 The connector runtime must expose an **HTTP and websocket server**, along with a minimum set of HTTP APIs and websocket events. Each connector will be strongly coupled to a specific ledger technology and token standard(s), but **no assumptions are made** in the fftokens spec about what these technologies must be, as long as they can satisfy the basic requirements laid out here.
 
@@ -14,7 +14,7 @@ Note that this is an _internal_ protocol in the FireFly ecosystem - application 
 interact with a token connector runtime. The audience for this document is only developers interested in creating new token connectors (or editing/forking
 existing ones).
 
-Two implementations of this specification have been created to date (both based on common Ethereum token standards) - [firefly-tokens-erc1155](https://github.com/hyperledger/firefly-tokens-erc1155) and [firefly-tokens-erc20-erc721](https://github.com/hyperledger/firefly-tokens-erc20-erc721).
+Two implementations of this specification have been created to date (both based on common Ethereum token standards) - [firefly-tokens-erc1155](https://github.com/hyperledger-firefly/firefly-tokens-erc1155) and [firefly-tokens-erc20-erc721](https://github.com/hyperledger-firefly/firefly-tokens-erc20-erc721).
 
 ## HTTP APIs
 

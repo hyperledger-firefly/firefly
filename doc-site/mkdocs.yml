@@ -1,6 +1,6 @@
 site_name: Hyperledger FireFly
-repo_name: hyperledger/firefly
-repo_url: https://github.com/hyperledger/firefly
+repo_name: hyperledger-firefly/firefly
+repo_url: https://github.com/hyperledger-firefly/firefly
 theme:
   name: material
   custom_dir: overrides

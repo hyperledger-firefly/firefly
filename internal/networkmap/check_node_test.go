@@ -21,10 +21,10 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/hyperledger/firefly-common/pkg/fftypes"
-	"github.com/hyperledger/firefly/mocks/dataexchangemocks"
-	"github.com/hyperledger/firefly/mocks/identitymanagermocks"
-	"github.com/hyperledger/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/firefly/mocks/dataexchangemocks"
+	"github.com/hyperledger-firefly/firefly/mocks/identitymanagermocks"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
 	"github.com/stretchr/testify/assert"
 )
 

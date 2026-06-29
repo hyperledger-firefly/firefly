@@ -20,8 +20,8 @@ import (
 	"context"
 	"io"
 
-	"github.com/hyperledger/firefly-common/pkg/config"
-	"github.com/hyperledger/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly-common/pkg/config"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
 )
 
 // Plugin is the interface implemented by each Shared Storage plugin

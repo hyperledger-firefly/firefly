@@ -5,9 +5,9 @@ package blockchaincommonmocks
 import (
 	context "context"
 
-	common "github.com/hyperledger/firefly/internal/blockchain/common"
+	common "github.com/hyperledger-firefly/firefly/internal/blockchain/common"
 
-	core "github.com/hyperledger/firefly/pkg/core"
+	core "github.com/hyperledger-firefly/firefly/pkg/core"
 
 	mock "github.com/stretchr/testify/mock"
 )

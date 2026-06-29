@@ -19,12 +19,12 @@ package events
 import (
 	"context"
 
-	"github.com/hyperledger/firefly-common/pkg/fftypes"
-	"github.com/hyperledger/firefly-common/pkg/log"
-	"github.com/hyperledger/firefly/internal/txcommon"
-	"github.com/hyperledger/firefly/pkg/core"
-	"github.com/hyperledger/firefly/pkg/database"
-	"github.com/hyperledger/firefly/pkg/tokens"
+	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/firefly-common/pkg/log"
+	"github.com/hyperledger-firefly/firefly/internal/txcommon"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly/pkg/database"
+	"github.com/hyperledger-firefly/firefly/pkg/tokens"
 )
 
 // Determine if this approval event should use a LocalID that was pre-assigned to an operation submitted by this node.

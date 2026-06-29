@@ -19,8 +19,8 @@ package tbd
 import (
 	"context"
 
-	"github.com/hyperledger/firefly-common/pkg/config"
-	"github.com/hyperledger/firefly/pkg/identity"
+	"github.com/hyperledger-firefly/firefly-common/pkg/config"
+	"github.com/hyperledger-firefly/firefly/pkg/identity"
 )
 
 // TBD is a null implementation of the Identity Interface to avoid breaking configuration created with the previous "onchain" plugin

@@ -7,7 +7,7 @@ A tool for managing and migrating config files for Hyperledger FireFly.
 If you have a local Go development environment, and you have included `${GOPATH}/bin` in your path, you can install with:
 
 ```sh
-go install github.com/hyperledger/firefly/ffconfig@latest
+go install github.com/hyperledger-firefly/firefly/ffconfig@latest
 ```
 
 ## Usage

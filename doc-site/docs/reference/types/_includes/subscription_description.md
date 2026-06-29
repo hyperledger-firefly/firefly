@@ -62,8 +62,8 @@ the most popular option for listening to events. WebSockets are well supported
 by all popular application development frameworks, and are very firewall friendly
 for connecting applications into your FireFly server.
 
-> Check out the [@hyperledger/firefly-sdk](https://www.npmjs.com/package/@hyperledger/firefly-sdk)
-> SDK for Node.js applications, and the [hyperledger/firefly-common](https://github.com/hyperledger/firefly-common)
+> Check out the [@hyperledger-firefly/firefly-sdk](https://www.npmjs.com/package/@hyperledger-firefly/firefly-sdk)
+> SDK for Node.js applications, and the [hyperledger-firefly/firefly-common](https://github.com/hyperledger-firefly/firefly-common)
 > module for Golang applications. These both contain reliable WebSocket clients for your event listeners.
 >
 > A Java SDK is a roadmap item for the community.

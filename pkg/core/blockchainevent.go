@@ -16,7 +16,7 @@
 
 package core
 
-import "github.com/hyperledger/firefly-common/pkg/fftypes"
+import "github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
 
 type BlockchainEvent struct {
 	ID         *fftypes.UUID            `ffstruct:"BlockchainEvent" json:"id,omitempty"`

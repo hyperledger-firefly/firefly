@@ -1,8 +1,8 @@
-module github.com/hyperledger/firefly/custompin_sample
+module github.com/hyperledger-firefly/firefly/custompin_sample
 
-go 1.24.0
+go 1.26.0
 
-toolchain go1.24.3
+toolchain go1.26.4
 
 require (
 	github.com/hyperledger/fabric-chaincode-go v0.0.0-20240124143825-7dec3c7e7d45

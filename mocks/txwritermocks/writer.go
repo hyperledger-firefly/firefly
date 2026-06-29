@@ -5,8 +5,8 @@ package txwritermocks
 import (
 	context "context"
 
-	fftypes "github.com/hyperledger/firefly-common/pkg/fftypes"
-	core "github.com/hyperledger/firefly/pkg/core"
+	fftypes "github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	core "github.com/hyperledger-firefly/firefly/pkg/core"
 
 	mock "github.com/stretchr/testify/mock"
 )

@@ -16,7 +16,7 @@ Cardano dApps typically have two components: off-chain and on-chain.
 
 ## Writing a dApp
 
-> **NOTE:** The source code to this dApp is also available [on GitHub](https://github.com/hyperledger/firefly-cardano/tree/main/wasm/simple-tx).
+> **NOTE:** The source code to this dApp is also available [on GitHub](https://github.com/hyperledger-firefly/firefly-cardano/tree/main/wasm/simple-tx).
 
 First, decide on the contract which your dApp will satisfy. FireFly uses [FireFly Interface Format](https://hyperledger.github.io/firefly/latest/reference/firefly_interface_format/) to describe its contracts. Create a file named `contract.json`. An example is below:
 
@@ -122,7 +122,7 @@ edition = "2021"
 
 [dependencies]
 # The version of firefly-balius should match the version of firefly-cardano which you are using.
-firefly-balius = { git = "https://github.com/hyperledger/firefly-cardano", rev = "<firefly cardano version>" }
+firefly-balius = { git = "https://github.com/hyperledger-firefly/firefly-cardano", rev = "<firefly cardano version>" }
 pallas-addresses = "0.32"
 serde = { version = "1", features = ["derive"] }
 
@@ -245,7 +245,7 @@ This tool will
 
 ```sh
 # The version here should match the version of firefly-cardano which you are using.
-cargo install --git https://github.com/hyperledger/firefly-cardano --version <firefly cardano version> firefly-cardano-deploy
+cargo install --git https://github.com/hyperledger-firefly/firefly-cardano --version <firefly cardano version> firefly-cardano-deploy
 
 CONTRACT_PATH="/path/to/your/dapp"
 FIREFLY_URL="http://localhost:5000"

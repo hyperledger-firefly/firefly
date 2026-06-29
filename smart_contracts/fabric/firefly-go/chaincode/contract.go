@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
-	"github.com/hyperledger/firefly/chaincode-go/batchpin"
+	"github.com/hyperledger-firefly/firefly/chaincode-go/batchpin"
 )
 
 type SmartContract struct {

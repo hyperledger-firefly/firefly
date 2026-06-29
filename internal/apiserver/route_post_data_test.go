@@ -24,10 +24,10 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/hyperledger/firefly-common/pkg/log"
-	"github.com/hyperledger/firefly/mocks/datamocks"
-	"github.com/hyperledger/firefly/mocks/multipartymocks"
-	"github.com/hyperledger/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly-common/pkg/log"
+	"github.com/hyperledger-firefly/firefly/mocks/datamocks"
+	"github.com/hyperledger-firefly/firefly/mocks/multipartymocks"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )

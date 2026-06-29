@@ -21,7 +21,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/hyperledger/firefly/ffconfig/migrate"
+	"github.com/hyperledger-firefly/firefly/ffconfig/migrate"
 	"github.com/spf13/cobra"
 )
 

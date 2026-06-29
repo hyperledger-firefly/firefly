@@ -20,8 +20,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/hyperledger/firefly/internal/networkmap"
-	"github.com/hyperledger/firefly/mocks/networkmapmocks"
+	"github.com/hyperledger-firefly/firefly/internal/networkmap"
+	"github.com/hyperledger-firefly/firefly/mocks/networkmapmocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )

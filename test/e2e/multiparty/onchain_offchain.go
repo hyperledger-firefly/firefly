@@ -28,10 +28,10 @@ import (
 	image2ascii "github.com/qeesung/image2ascii/convert"
 
 	"github.com/go-resty/resty/v2"
-	"github.com/hyperledger/firefly-common/pkg/fftypes"
-	"github.com/hyperledger/firefly/pkg/core"
-	"github.com/hyperledger/firefly/test/e2e"
-	"github.com/hyperledger/firefly/test/e2e/client"
+	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly/test/e2e"
+	"github.com/hyperledger-firefly/firefly/test/e2e/client"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
@@ -314,7 +314,7 @@ func (suite *OnChainOffChainTestSuite) TestE2EWebhookExchange() {
 		"name": "myhook",
 		"options": {
 			"withData": true,
-			"url": "https://raw.githubusercontent.com/hyperledger/firefly/main/test/data/config/firefly.core.yaml",
+			"url": "https://raw.githubusercontent.com/hyperledger-firefly/firefly/main/test/data/config/firefly.core.yaml",
 			"reply": true,
 			"replytag": "myreply",
 			"method": "GET"
@@ -369,7 +369,7 @@ func (suite *OnChainOffChainTestSuite) TestE2EWebhookRequestReplyNoTx() {
 		"name": "myhook",
 		"options": {
 			"withData": true,
-			"url": "https://github.com/hyperledger/firefly/raw/main/resources/ff-logo-32.png",
+			"url": "https://github.com/hyperledger-firefly/firefly/raw/main/resources/ff-logo-32.png",
 			"reply": true,
 			"replytag": "myreply",
 			"replytx": "none",

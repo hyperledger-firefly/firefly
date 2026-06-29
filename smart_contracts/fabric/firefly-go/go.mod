@@ -1,8 +1,8 @@
-module github.com/hyperledger/firefly/chaincode-go
+module github.com/hyperledger-firefly/firefly/chaincode-go
 
-go 1.24.0
+go 1.26.0
 
-toolchain go1.24.3
+toolchain go1.26.4
 
 require (
 	github.com/golang/protobuf v1.5.4

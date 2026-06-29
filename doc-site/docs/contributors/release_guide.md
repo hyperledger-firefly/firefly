@@ -14,29 +14,29 @@ FireFly follows semantic versioning. For more details on how we determine which 
 
 ## The `manifest.json` file
 
-FireFly has a [`manifest.json` file in the root of the repo](https://github.com/hyperledger/firefly/blob/main/manifest.json). This file contains a list of versions (both tag and sha) for each of the microservices that should be used with this specific commit. If you need FireFly to use a newer version of a microservice listed in this file, you should update the `manifest.json` file, commit it, and include it in your PR. **This will trigger an end-to-end test run, using the specified versions.**
+FireFly has a [`manifest.json` file in the root of the repo](https://github.com/hyperledger-firefly/firefly/blob/main/manifest.json). This file contains a list of versions (both tag and sha) for each of the microservices that should be used with this specific commit. If you need FireFly to use a newer version of a microservice listed in this file, you should update the `manifest.json` file, commit it, and include it in your PR. **This will trigger an end-to-end test run, using the specified versions.**
 
 Here is an example of what the `manifest.json` looks like:
 
 ```json
 {
   "ethconnect": {
-    "image": "ghcr.io/hyperledger/firefly-ethconnect",
+    "image": "ghcr.io/hyperledger-firefly/firefly-ethconnect",
     "tag": "v3.0.4",
     "sha": "0b7ce0fb175b5910f401ff576ced809fe6f0b83894277c1cc86a73a2d61c6f41"
   },
   "fabconnect": {
-    "image": "ghcr.io/hyperledger/firefly-fabconnect",
+    "image": "ghcr.io/hyperledger-firefly/firefly-fabconnect",
     "tag": "v0.9.0",
     "sha": "a79a4c66b0a2551d5122d019c15c6426e8cdadd6566ce3cbcb36e008fb7861ca"
   },
   "dataexchange-https": {
-    "image": "ghcr.io/hyperledger/firefly-dataexchange-https",
+    "image": "ghcr.io/hyperledger-firefly/firefly-dataexchange-https",
     "tag": "v0.9.0",
     "sha": "0de5b1db891a02871505ba5e0507821416d9fa93c96ccb4b1ba2fac45eb37214"
   },
   "tokens-erc1155": {
-    "image": "ghcr.io/hyperledger/firefly-tokens-erc1155",
+    "image": "ghcr.io/hyperledger-firefly/firefly-tokens-erc1155",
     "tag": "v0.9.0-20211019-01",
     "sha": "aabc6c483db408896838329dab5f4b9e3c16d1e9fa9fffdb7e1ff05b7b2bbdd4"
   }

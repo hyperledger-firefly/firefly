@@ -4,13 +4,13 @@ title: Release Notes
 
 # Release Notes
 
-[Full release notes](https://github.com/hyperledger/firefly/releases)
+[Full release notes](https://github.com/hyperledger-firefly/firefly/releases)
 
-## [v1.4.0 - Jul 17, 2025](https://github.com/hyperledger/firefly/releases/tag/v1.4.0)
+## [v1.4.0 - Jul 17, 2025](https://github.com/hyperledger-firefly/firefly/releases/tag/v1.4.0)
 
 What's New:
 
-- New Cardano connector https://github.com/hyperledger/firefly-cardano
+- New Cardano connector https://github.com/hyperledger-firefly/firefly-cardano
     - Powers a reliable event-stream-based API for applications to react to custom Cardano events
     - Own signer module for managing keys 
     - Incorporates it's own Balius wrapper framework for smart contracts
@@ -22,7 +22,7 @@ What's New:
 - Documentation updates, new Cardano section in the tutorials
 - CVE fixes across the board
 
-## [v1.3.3 - Mar 25, 2025](https://github.com/hyperledger/firefly/releases/tag/v1.3.3)
+## [v1.3.3 - Mar 25, 2025](https://github.com/hyperledger-firefly/firefly/releases/tag/v1.3.3)
 
 What's New:
 
@@ -48,7 +48,7 @@ What's New:
 
 As part of the changes to the metrics to add the new `namespace` label, we changed from using a Prometheus `Counter` to a `CounterVec`. As a result there is no default value of `0` on the counter, which means when users query for a specific metric such as `ff_message_rejected_total` it will not be available until the `CounterVec` associated with that metric is incremented. This has been determined to be an easy upgrade for SRE monitoring these metrics, hence inclusion in a patch release. 
 
-## [v1.3.2 - Oct 3, 2024](https://github.com/hyperledger/firefly/releases/tag/v1.3.2)
+## [v1.3.2 - Oct 3, 2024](https://github.com/hyperledger-firefly/firefly/releases/tag/v1.3.2)
 
 What's New:
 
@@ -60,7 +60,7 @@ What's New:
 - Miscellaneous bug fixes and minor improvements
 - FireFly has been upgraded to use Go 1.22
 
-## [v1.3.1 - Aug 5, 2024](https://github.com/hyperledger/firefly/releases/tag/v1.3.1)
+## [v1.3.1 - Aug 5, 2024](https://github.com/hyperledger-firefly/firefly/releases/tag/v1.3.1)
 
 What's New:
 
@@ -68,7 +68,7 @@ What's New:
     See [Contract Listeners](../reference/types/contractlistener.md) for details
 - New multiparty status API at `/status/multiparty`
 
-## [v1.3.0 - April 25, 2024](https://github.com/hyperledger/firefly/releases/tag/v1.3.0)
+## [v1.3.0 - April 25, 2024](https://github.com/hyperledger-firefly/firefly/releases/tag/v1.3.0)
 
 [Migration guide](1.3_migration_guide.md)
 
@@ -80,7 +80,7 @@ What's New:
 - Support for batching events when delivering over websockets
 - Lots of bug fixes and miscellaneous enhancements
 
-## [v1.2.0 - February 6, 2023](https://github.com/hyperledger/firefly/releases/tag/v1.2.0)
+## [v1.2.0 - February 6, 2023](https://github.com/hyperledger-firefly/firefly/releases/tag/v1.2.0)
 
 [Migration guide](1.2_migration_guide.md)
 
@@ -95,7 +95,7 @@ What's New:
 - Evmconnect is now the default blockchain connector for Ethereum based FireFly stacks
 
 
-## [v1.1.0 - September 12, 2022](https://github.com/hyperledger/firefly/releases/tag/v1.1.0)
+## [v1.1.0 - September 12, 2022](https://github.com/hyperledger-firefly/firefly/releases/tag/v1.1.0)
 
 [Migration guide](1.1_migration_guide.md)
 
@@ -108,7 +108,7 @@ What's New:
 - Pluggable API Security: Plug in your own API security
 - Mass Scale Tokens: Support many parallel copies of token plugins for mass scale
 
-## [v1.0.3 - July 07, 2022](https://github.com/hyperledger/firefly/releases/tag/v1.0.3)
+## [v1.0.3 - July 07, 2022](https://github.com/hyperledger-firefly/firefly/releases/tag/v1.0.3)
 
 What's New:
 
@@ -118,7 +118,7 @@ What's New:
 - Update token connector versions
 - Back port of "FAQ and FireFly Tutorial updates"
 
-## [v1.0.2 - May 12, 2022](https://github.com/hyperledger/firefly/releases/tag/v1.0.2)
+## [v1.0.2 - May 12, 2022](https://github.com/hyperledger-firefly/firefly/releases/tag/v1.0.2)
 
 What's New:
 
@@ -128,14 +128,14 @@ What's New:
 - Default fabconnect calls to async
 - Set message header type of broadcast/private
 
-## [v1.0.1 - May 09, 2022](https://github.com/hyperledger/firefly/releases/tag/v1.0.1)
+## [v1.0.1 - May 09, 2022](https://github.com/hyperledger-firefly/firefly/releases/tag/v1.0.1)
 
 What's New:
 
 - Fixes for token approvals - previously approvals would intermittently be missed by FireFly or recorded with incorrect details.
 - New versions of ERC20/ERC721 connector will assume "no data" support if you create a token pool against an older version of the sample smart contracts.
 
-## [v1.0.0 - April 28, 2022](https://github.com/hyperledger/firefly/releases/tag/v1.0.0)
+## [v1.0.0 - April 28, 2022](https://github.com/hyperledger-firefly/firefly/releases/tag/v1.0.0)
 
 This release includes lots of major hardening, performance improvements, and bug fixes, as well as more complete documentation and OpenAPI specifications.
 
@@ -147,7 +147,7 @@ What's New:
 - Cleaner logs and error messages
 - Lots of bug fixes and miscellaneous enhancements
 
-## [v0.14.0 - March 22, 2022](https://github.com/hyperledger/firefly/releases/tag/v0.14.0)
+## [v0.14.0 - March 22, 2022](https://github.com/hyperledger-firefly/firefly/releases/tag/v0.14.0)
 
 What's New:
 
@@ -158,7 +158,7 @@ What's New:
 - Performance updates
 - Bug fixes
 
-## [v0.13.0 - February 14, 2022](https://github.com/hyperledger/firefly/releases/tag/v0.13.0)
+## [v0.13.0 - February 14, 2022](https://github.com/hyperledger-firefly/firefly/releases/tag/v0.13.0)
 
 What's New:
 
@@ -169,7 +169,7 @@ What's New:
 - Metrics reporting to Prometheus
 - Continued development to support custom on-chain logic (still in preview)
 
-## [v0.12.0 - February 02, 2022](https://github.com/hyperledger/firefly/releases/tag/v0.12.0)
+## [v0.12.0 - February 02, 2022](https://github.com/hyperledger-firefly/firefly/releases/tag/v0.12.0)
 
 What's New:
 
@@ -179,7 +179,7 @@ What's New:
 - Overhaul of Transaction type and new BlockchainEvent type
 - Support for delivery confirmations via DX plugin
 
-## [v0.11.0 - November 22, 2021](https://github.com/hyperledger/firefly/releases/tag/v0.11.0)
+## [v0.11.0 - November 22, 2021](https://github.com/hyperledger-firefly/firefly/releases/tag/v0.11.0)
 
 What's New:
 

@@ -16,7 +16,7 @@
 
 package core
 
-import "github.com/hyperledger/firefly-common/pkg/fftypes"
+import "github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
 
 // NamespaceStatus is a set of information that represents the configuration and status of a given namespace
 type NamespaceStatus struct {

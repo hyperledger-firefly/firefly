@@ -24,7 +24,7 @@ For details about the Fabric Test Network and how to set it up, please see the [
 
 ## Deploy FireFly Chaincode
 
-Next we will need to package and deploy the FireFly chaincode to `mychannel` in our new network. For more details on packaging and deploying chaincode, please see the [Fabric chaincode lifecycle documentation](https://hyperledger-fabric.readthedocs.io/en/latest/chaincode_lifecycle.md). If you already have the [FireFly repo](https://github.com/hyperledger/firefly) cloned in the same directory as your `fabric-samples` repo, you can run the following script from your `test-network` directory:
+Next we will need to package and deploy the FireFly chaincode to `mychannel` in our new network. For more details on packaging and deploying chaincode, please see the [Fabric chaincode lifecycle documentation](https://hyperledger-fabric.readthedocs.io/en/latest/chaincode_lifecycle.md). If you already have the [FireFly repo](https://github.com/hyperledger-firefly/firefly) cloned in the same directory as your `fabric-samples` repo, you can run the following script from your `test-network` directory:
 
 > **NOTE**: This script is provided as a convenience only, and you are not required to use it. You are welcome to package and deploy the chaincode to your test-network any way you would like.
 

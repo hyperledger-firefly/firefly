@@ -16,7 +16,7 @@
 
 package core
 
-import "github.com/hyperledger/firefly-common/pkg/fftypes"
+import "github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
 
 type TokenBalance struct {
 	Pool       *fftypes.UUID    `ffstruct:"TokenBalance" json:"pool,omitempty"`

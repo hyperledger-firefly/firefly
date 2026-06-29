@@ -20,8 +20,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/hyperledger/firefly-common/pkg/log"
-	"github.com/hyperledger/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly-common/pkg/log"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
 )
 
 type downloadWorker struct {

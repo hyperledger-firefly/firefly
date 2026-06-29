@@ -45,10 +45,10 @@ function repository_url() {
     service=$1
     case $service in
         cardano*)
-            echo "https://api.github.com/repos/hyperledger/firefly-cardano"
+            echo "https://api.github.com/repos/hyperledger-firefly/firefly-cardano"
             ;;
         *)
-            echo "https://api.github.com/repos/hyperledger/firefly-$service"
+            echo "https://api.github.com/repos/hyperledger-firefly/firefly-$service"
             ;;
     esac
 }
@@ -72,7 +72,7 @@ echo "{" >> manifest.json
 for (( i=0; i<${SERVICE_COUNT}; i++ ))
 do
     echo "  \"${SERVICES[$i]}\": {" >> manifest.json
-    echo "    \"image\": \"ghcr.io/hyperledger/firefly-${SERVICES[$i]}\"," >> manifest.json
+    echo "    \"image\": \"ghcr.io/hyperledger-firefly/firefly-${SERVICES[$i]}\"," >> manifest.json
 
     if [ $USE_HEAD = false ] ; then
         # Query GitHub API the latest release version
@@ -83,11 +83,11 @@ do
     fi
     
     # Attempt to pull the image from GitHub Container Repository
-    docker pull ghcr.io/hyperledger/firefly-${SERVICES[$i]}:$TAG
+    docker pull ghcr.io/hyperledger-firefly/firefly-${SERVICES[$i]}:$TAG
     # Get the SHA of the downloaded image
-    SHA=$(docker inspect --format='{{index .RepoDigests 0}}' ghcr.io/hyperledger/firefly-${SERVICES[$i]}:$TAG | cut -d ':' -f 2)
+    SHA=$(docker inspect --format='{{index .RepoDigests 0}}' ghcr.io/hyperledger-firefly/firefly-${SERVICES[$i]}:$TAG | cut -d ':' -f 2)
     # Get the tag / build number name of this image from its label
-    TAG_LABEL=$(docker inspect --format='{{index .Config.Labels "tag"}}' ghcr.io/hyperledger/firefly-${SERVICES[$i]}:$TAG)
+    TAG_LABEL=$(docker inspect --format='{{index .Config.Labels "tag"}}' ghcr.io/hyperledger-firefly/firefly-${SERVICES[$i]}:$TAG)
 
     # If the tag / build number wasn't set in the label, use whatever docker tag we fetched
     # This is done for backwards compatability, because not all images have labels yet

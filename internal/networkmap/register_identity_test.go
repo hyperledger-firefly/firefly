@@ -21,12 +21,12 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/hyperledger/firefly-common/pkg/fftypes"
-	"github.com/hyperledger/firefly/internal/syncasync"
-	"github.com/hyperledger/firefly/mocks/definitionsmocks"
-	"github.com/hyperledger/firefly/mocks/identitymanagermocks"
-	"github.com/hyperledger/firefly/mocks/syncasyncmocks"
-	"github.com/hyperledger/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/firefly/internal/syncasync"
+	"github.com/hyperledger-firefly/firefly/mocks/definitionsmocks"
+	"github.com/hyperledger-firefly/firefly/mocks/identitymanagermocks"
+	"github.com/hyperledger-firefly/firefly/mocks/syncasyncmocks"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )

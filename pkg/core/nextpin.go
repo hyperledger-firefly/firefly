@@ -16,7 +16,7 @@
 
 package core
 
-import "github.com/hyperledger/firefly-common/pkg/fftypes"
+import "github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
 
 type NextPin struct {
 	Namespace string           `ffstruct:"NextPin" json:"namespace"`

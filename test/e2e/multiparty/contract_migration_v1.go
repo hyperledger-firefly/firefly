@@ -17,8 +17,8 @@
 package multiparty
 
 import (
-	"github.com/hyperledger/firefly/test/e2e"
-	"github.com/hyperledger/firefly/test/e2e/client"
+	"github.com/hyperledger-firefly/firefly/test/e2e"
+	"github.com/hyperledger-firefly/firefly/test/e2e/client"
 )
 
 type ContractMigrationV1TestSuite struct {

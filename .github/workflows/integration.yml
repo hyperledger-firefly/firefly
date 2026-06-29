@@ -57,15 +57,15 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: 1.24
+          go-version: 1.26
 
       - name: Update manifest to latest commit for every service
         run: ./manifestgen.sh head
 
       - name: Pull latest FireFly build
         run: |
-          docker pull ghcr.io/hyperledger/firefly:head
-          docker tag ghcr.io/hyperledger/firefly:head hyperledger/firefly
+          docker pull ghcr.io/hyperledger-firefly/firefly:head
+          docker tag ghcr.io/hyperledger-firefly/firefly:head hyperledger-firefly/firefly
 
       - name: Run E2E tests
         env:
@@ -94,15 +94,15 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: 1.24
+          go-version: 1.26
 
       - name: Update manifest to latest commit for every service
         run: ./manifestgen.sh head
 
       - name: Pull latest FireFly build
         run: |
-          docker pull ghcr.io/hyperledger/firefly:head
-          docker tag ghcr.io/hyperledger/firefly:head hyperledger/firefly
+          docker pull ghcr.io/hyperledger-firefly/firefly:head
+          docker tag ghcr.io/hyperledger-firefly/firefly:head hyperledger-firefly/firefly
 
       - name: Run E2E tests
         env:

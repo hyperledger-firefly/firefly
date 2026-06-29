@@ -207,7 +207,7 @@ and pipe it into a multi-part form post to FireFly.
 > the `filename`, and `size`, to the JSON part of the `data` object for us._
 
 ```sh
-curl -sLo - https://github.com/hyperledger/firefly/raw/main/docs/firefly_logo.png \
+curl -sLo - https://github.com/hyperledger-firefly/firefly/raw/main/docs/firefly_logo.png \
  | curl --form autometa=true --form file=@- \
    http://localhost:5000/api/v1/namespaces/default/data
 ```

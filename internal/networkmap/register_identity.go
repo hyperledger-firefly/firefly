@@ -19,10 +19,10 @@ package networkmap
 import (
 	"context"
 
-	"github.com/hyperledger/firefly-common/pkg/fftypes"
-	"github.com/hyperledger/firefly-common/pkg/i18n"
-	"github.com/hyperledger/firefly/internal/coremsgs"
-	"github.com/hyperledger/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/firefly-common/pkg/i18n"
+	"github.com/hyperledger-firefly/firefly/internal/coremsgs"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
 )
 
 func (nm *networkMap) RegisterIdentity(ctx context.Context, dto *core.IdentityCreateDTO, waitConfirm bool) (identity *core.Identity, err error) {

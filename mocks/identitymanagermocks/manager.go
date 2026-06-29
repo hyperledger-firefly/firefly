@@ -5,11 +5,11 @@ package identitymanagermocks
 import (
 	context "context"
 
-	blockchain "github.com/hyperledger/firefly/pkg/blockchain"
+	blockchain "github.com/hyperledger-firefly/firefly/pkg/blockchain"
 
-	core "github.com/hyperledger/firefly/pkg/core"
+	core "github.com/hyperledger-firefly/firefly/pkg/core"
 
-	fftypes "github.com/hyperledger/firefly-common/pkg/fftypes"
+	fftypes "github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
 
 	mock "github.com/stretchr/testify/mock"
 )

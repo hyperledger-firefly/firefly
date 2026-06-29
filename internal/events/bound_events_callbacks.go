@@ -17,8 +17,8 @@
 package events
 
 import (
-	"github.com/hyperledger/firefly/pkg/core"
-	"github.com/hyperledger/firefly/pkg/events"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
+	"github.com/hyperledger-firefly/firefly/pkg/events"
 )
 
 type boundCallbacks struct {

@@ -19,7 +19,7 @@ package core
 import (
 	"crypto/sha256"
 
-	"github.com/hyperledger/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
 )
 
 // VerifierType is the type of an identity verifier. Where possible we use established DID verifier type strings

@@ -5,12 +5,12 @@ package datamocks
 import (
 	context "context"
 
-	data "github.com/hyperledger/firefly/internal/data"
-	core "github.com/hyperledger/firefly/pkg/core"
+	data "github.com/hyperledger-firefly/firefly/internal/data"
+	core "github.com/hyperledger-firefly/firefly/pkg/core"
 
-	ffapi "github.com/hyperledger/firefly-common/pkg/ffapi"
+	ffapi "github.com/hyperledger-firefly/firefly-common/pkg/ffapi"
 
-	fftypes "github.com/hyperledger/firefly-common/pkg/fftypes"
+	fftypes "github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
 
 	io "io"
 
