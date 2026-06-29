@@ -22,8 +22,8 @@ import (
 	"encoding/json"
 	"net/url"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
-	"github.com/hyperledger-firefly/firefly-common/pkg/i18n"
+	"github.com/hyperledger-firefly/common/pkg/fftypes"
+	"github.com/hyperledger-firefly/common/pkg/i18n"
 )
 
 // SubscriptionFilter contains regular expressions to match against events. All must match for an event to be dispatched to a subscription

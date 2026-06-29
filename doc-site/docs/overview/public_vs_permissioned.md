@@ -63,7 +63,7 @@ is also a factor in the behavior of the transaction submission and event streami
 One of the fastest evolving aspects of the Hyperledger FireFly ecosystem, is how it facilitates
 enterprises to participate in these.
 
-[![FireFly Public Transaction Architecture](../images/firefly_transaction_manager.jpg)](https://github.com/hyperledger-firefly/firefly-transaction-manager)
+[![FireFly Public Transaction Architecture](../images/firefly_transaction_manager.jpg)](https://github.com/hyperledger-firefly/transaction-manager)
 
 The architecture is summarized as follows:
 
@@ -97,7 +97,7 @@ The architecture is summarized as follows:
   - WebSockets interface upstream to FireFly Core
 
 This evolution involves a significant refactoring of components used for production solutions in the FireFly Ethconnect
-microservice since mid 2018. This was summarized in [firefly-ethconnect#149](https://github.com/hyperledger-firefly/firefly-ethconnect/issues/149),
+microservice since mid 2018. This was summarized in [firefly-ethconnect#149](https://github.com/hyperledger-firefly/ethconnect/issues/149),
 and cumulated in the creation of a new repository in 2022.
 
-You can follow the progress and contribute in this repo: https://github.com/hyperledger-firefly/firefly-transaction-manager
+You can follow the progress and contribute in this repo: https://github.com/hyperledger-firefly/transaction-manager

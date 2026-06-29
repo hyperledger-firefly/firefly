@@ -16,7 +16,7 @@ The FireFly CLI can be used to create local FireFly stacks for offline developme
 
 The FireFly Sandbox sits logically outside the Supernode, and it acts like an "end-user" application written to use FireFly's API. In your setup, you have one Sandbox per member, each talking to their own FireFly API. The purpose of the Sandbox is to provide a quick and easy way to try out all of the fundamental building blocks that FireFly provides. It also shows developers, through example code snippets, how they would implement the same functionality in their own app's backend.
 
-> 🗒 Technical details: The FireFly Sandbox is an example "full-stack" web app. It has a backend written in TypeScript / Node.js, and a frontend in TypeScript / React. When you click a button in your browser, the frontend makes a request to the backend, which then uses the [FireFly Node.js SDK](https://www.npmjs.com/package/@hyperledger-firefly/firefly-sdk) to make requests to FireFly's API.
+> 🗒 Technical details: The FireFly Sandbox is an example "full-stack" web app. It has a backend written in TypeScript / Node.js, and a frontend in TypeScript / React. When you click a button in your browser, the frontend makes a request to the backend, which then uses the [FireFly Node.js SDK](https://www.npmjs.com/package/@hyperledger-firefly/sdk) to make requests to FireFly's API.
 
 ## FireFly Explorer
 

@@ -23,9 +23,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
-	"github.com/hyperledger-firefly/firefly-common/pkg/i18n"
-	"github.com/hyperledger-firefly/firefly-common/pkg/log"
+	"github.com/hyperledger-firefly/common/pkg/fftypes"
+	"github.com/hyperledger-firefly/common/pkg/i18n"
+	"github.com/hyperledger-firefly/common/pkg/log"
 	"github.com/hyperledger-firefly/firefly/internal/coremsgs"
 	"github.com/hyperledger-firefly/firefly/internal/data"
 	"github.com/hyperledger-firefly/firefly/internal/events/system"

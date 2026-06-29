@@ -26,10 +26,10 @@ import (
 	"sync"
 
 	"github.com/go-resty/resty/v2"
-	"github.com/hyperledger-firefly/firefly-common/pkg/ffresty"
-	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
-	"github.com/hyperledger-firefly/firefly-common/pkg/i18n"
-	"github.com/hyperledger-firefly/firefly-common/pkg/log"
+	"github.com/hyperledger-firefly/common/pkg/ffresty"
+	"github.com/hyperledger-firefly/common/pkg/fftypes"
+	"github.com/hyperledger-firefly/common/pkg/i18n"
+	"github.com/hyperledger-firefly/common/pkg/log"
 	"github.com/hyperledger-firefly/firefly/internal/coremsgs"
 	"github.com/hyperledger-firefly/firefly/pkg/blockchain"
 	"github.com/hyperledger-firefly/firefly/pkg/core"
@@ -124,7 +124,7 @@ const (
 
 type BlockchainRESTError struct {
 	Error string `json:"error,omitempty"`
-	// See https://github.com/hyperledger-firefly/firefly-transaction-manager/blob/main/pkg/ffcapi/submission_error.go
+	// See https://github.com/hyperledger-firefly/transaction-manager/blob/main/pkg/ffcapi/submission_error.go
 	SubmissionRejected bool `json:"submissionRejected,omitempty"`
 }
 

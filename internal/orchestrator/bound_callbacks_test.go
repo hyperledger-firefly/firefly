@@ -23,7 +23,7 @@ import (
 
 	"github.com/hyperledger-firefly/firefly/mocks/networkmapmocks"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/common/pkg/fftypes"
 	"github.com/hyperledger-firefly/firefly/mocks/dataexchangemocks"
 	"github.com/hyperledger-firefly/firefly/mocks/eventmocks"
 	"github.com/hyperledger-firefly/firefly/mocks/operationmocks"

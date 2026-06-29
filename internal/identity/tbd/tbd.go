@@ -19,7 +19,7 @@ package tbd
 import (
 	"context"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/config"
+	"github.com/hyperledger-firefly/common/pkg/config"
 	"github.com/hyperledger-firefly/firefly/pkg/identity"
 )
 

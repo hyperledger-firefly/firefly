@@ -22,7 +22,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/config"
+	"github.com/hyperledger-firefly/common/pkg/config"
 	"github.com/hyperledger-firefly/firefly/internal/coreconfig"
 	"github.com/hyperledger-firefly/firefly/mocks/eventsmocks"
 	"github.com/hyperledger-firefly/firefly/pkg/core"

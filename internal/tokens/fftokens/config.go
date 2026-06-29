@@ -19,8 +19,8 @@ package fftokens
 import (
 	"time"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/config"
-	"github.com/hyperledger-firefly/firefly-common/pkg/wsclient"
+	"github.com/hyperledger-firefly/common/pkg/config"
+	"github.com/hyperledger-firefly/common/pkg/wsclient"
 )
 
 const (

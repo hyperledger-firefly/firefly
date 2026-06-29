@@ -16,7 +16,7 @@
 
 package core
 
-import "github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+import "github.com/hyperledger-firefly/common/pkg/fftypes"
 
 // Pin represents a ledger-pinning event that has been
 // detected from the blockchain, in the sequence that it was detected.

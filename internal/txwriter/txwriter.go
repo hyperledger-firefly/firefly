@@ -21,9 +21,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/config"
-	"github.com/hyperledger-firefly/firefly-common/pkg/i18n"
-	"github.com/hyperledger-firefly/firefly-common/pkg/log"
+	"github.com/hyperledger-firefly/common/pkg/config"
+	"github.com/hyperledger-firefly/common/pkg/i18n"
+	"github.com/hyperledger-firefly/common/pkg/log"
 	"github.com/hyperledger-firefly/firefly/internal/coreconfig"
 	"github.com/hyperledger-firefly/firefly/internal/coremsgs"
 	"github.com/hyperledger-firefly/firefly/internal/operations"

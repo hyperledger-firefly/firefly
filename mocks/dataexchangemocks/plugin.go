@@ -5,13 +5,13 @@ package dataexchangemocks
 import (
 	context "context"
 
-	config "github.com/hyperledger-firefly/firefly-common/pkg/config"
+	config "github.com/hyperledger-firefly/common/pkg/config"
 
 	core "github.com/hyperledger-firefly/firefly/pkg/core"
 
 	dataexchange "github.com/hyperledger-firefly/firefly/pkg/dataexchange"
 
-	fftypes "github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	fftypes "github.com/hyperledger-firefly/common/pkg/fftypes"
 
 	io "io"
 

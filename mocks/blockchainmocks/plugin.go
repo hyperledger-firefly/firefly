@@ -6,13 +6,13 @@ import (
 	cache "github.com/hyperledger-firefly/firefly/internal/cache"
 	blockchain "github.com/hyperledger-firefly/firefly/pkg/blockchain"
 
-	config "github.com/hyperledger-firefly/firefly-common/pkg/config"
+	config "github.com/hyperledger-firefly/common/pkg/config"
 
 	context "context"
 
 	core "github.com/hyperledger-firefly/firefly/pkg/core"
 
-	fftypes "github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	fftypes "github.com/hyperledger-firefly/common/pkg/fftypes"
 
 	metrics "github.com/hyperledger-firefly/firefly/internal/metrics"
 

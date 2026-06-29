@@ -20,8 +20,8 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
-	"github.com/hyperledger-firefly/firefly-common/pkg/i18n"
+	"github.com/hyperledger-firefly/common/pkg/fftypes"
+	"github.com/hyperledger-firefly/common/pkg/i18n"
 	"github.com/hyperledger-firefly/firefly/internal/assets"
 	"github.com/hyperledger-firefly/firefly/internal/broadcast"
 	"github.com/hyperledger-firefly/firefly/internal/contracts"

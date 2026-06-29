@@ -22,7 +22,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/log"
+	"github.com/hyperledger-firefly/common/pkg/log"
 )
 
 // DBSafeUTF8StringFromPtr returns a DB-safe UTF-8 string from a pointer.

@@ -21,7 +21,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/common/pkg/fftypes"
 	"github.com/hyperledger-firefly/firefly/mocks/assetmocks"
 	"github.com/hyperledger-firefly/firefly/mocks/blockchainmocks"
 	"github.com/hyperledger-firefly/firefly/mocks/contractmocks"

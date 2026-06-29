@@ -16,7 +16,7 @@
 
 package core
 
-import "github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+import "github.com/hyperledger-firefly/common/pkg/fftypes"
 
 // WSClientPayloadType actions go from client->server
 type WSClientPayloadType = fftypes.FFEnum

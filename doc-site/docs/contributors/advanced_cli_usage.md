@@ -15,22 +15,22 @@ Here is an example of what the `manifest.json` looks like:
 ```json
 {
   "ethconnect": {
-    "image": "ghcr.io/hyperledger-firefly/firefly-ethconnect",
+    "image": "ghcr.io/hyperledger-firefly/ethconnect",
     "tag": "v3.0.4",
     "sha": "0b7ce0fb175b5910f401ff576ced809fe6f0b83894277c1cc86a73a2d61c6f41"
   },
   "fabconnect": {
-    "image": "ghcr.io/hyperledger-firefly/firefly-fabconnect",
+    "image": "ghcr.io/hyperledger-firefly/fabconnect",
     "tag": "v0.9.0",
     "sha": "a79a4c66b0a2551d5122d019c15c6426e8cdadd6566ce3cbcb36e008fb7861ca"
   },
   "dataexchange-https": {
-    "image": "ghcr.io/hyperledger-firefly/firefly-dataexchange-https",
+    "image": "ghcr.io/hyperledger-firefly/dataexchange-https",
     "tag": "v0.9.0",
     "sha": "0de5b1db891a02871505ba5e0507821416d9fa93c96ccb4b1ba2fac45eb37214"
   },
   "tokens-erc1155": {
-    "image": "ghcr.io/hyperledger-firefly/firefly-tokens-erc1155",
+    "image": "ghcr.io/hyperledger-firefly/tokens-erc1155",
     "tag": "v0.9.0-20211019-01",
     "sha": "aabc6c483db408896838329dab5f4b9e3c16d1e9fa9fffdb7e1ff05b7b2bbdd4"
   }
@@ -64,7 +64,7 @@ If you need to test a locally built docker image of a specific service, you'll w
 From the fabconnect project directory, build and tag a new Docker image:
 
 ```
-docker build -t ghcr.io/hyperledger-firefly/firefly-fabconnect .
+docker build -t ghcr.io/hyperledger-firefly/fabconnect .
 ```
 
 ### Edit your `manifest.json` file
@@ -74,7 +74,7 @@ Next, edit the `fabconnect` section of the `manifest.json` file. You'll want to 
 ```json
 ...
   "fabconnect": {
-    "image": "ghcr.io/hyperledger-firefly/firefly-fabconnect",
+    "image": "ghcr.io/hyperledger-firefly/fabconnect",
     "local": true
   },
 ...

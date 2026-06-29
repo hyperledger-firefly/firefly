@@ -3,7 +3,7 @@
 package metricsmocks
 
 import (
-	fftypes "github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	fftypes "github.com/hyperledger-firefly/common/pkg/fftypes"
 	core "github.com/hyperledger-firefly/firefly/pkg/core"
 
 	metrics "github.com/hyperledger-firefly/firefly/internal/metrics"

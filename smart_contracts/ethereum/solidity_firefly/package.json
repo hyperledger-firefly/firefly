@@ -1,5 +1,5 @@
 {
-  "name": "@hyperledger-firefly/firefly-contracts",
+  "name": "@hyperledger-firefly/contracts",
   "version": "0.0.1",
   "scripts": {
     "test": "hardhat test --network hardhat"

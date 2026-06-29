@@ -20,8 +20,8 @@ import (
 	"context"
 	"database/sql/driver"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
-	"github.com/hyperledger-firefly/firefly-common/pkg/log"
+	"github.com/hyperledger-firefly/common/pkg/fftypes"
+	"github.com/hyperledger-firefly/common/pkg/log"
 	"github.com/hyperledger-firefly/firefly/internal/data"
 	"github.com/hyperledger-firefly/firefly/internal/privatemessaging"
 	"github.com/hyperledger-firefly/firefly/pkg/core"

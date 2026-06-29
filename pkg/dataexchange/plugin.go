@@ -22,8 +22,8 @@ import (
 
 	"github.com/hyperledger-firefly/firefly/internal/metrics"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/config"
-	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/common/pkg/config"
+	"github.com/hyperledger-firefly/common/pkg/fftypes"
 	"github.com/hyperledger-firefly/firefly/pkg/core"
 )
 

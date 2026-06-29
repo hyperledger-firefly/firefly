@@ -14,7 +14,7 @@ Note that this is an _internal_ protocol in the FireFly ecosystem - application 
 interact with a token connector runtime. The audience for this document is only developers interested in creating new token connectors (or editing/forking
 existing ones).
 
-Two implementations of this specification have been created to date (both based on common Ethereum token standards) - [firefly-tokens-erc1155](https://github.com/hyperledger-firefly/firefly-tokens-erc1155) and [firefly-tokens-erc20-erc721](https://github.com/hyperledger-firefly/firefly-tokens-erc20-erc721).
+Two implementations of this specification have been created to date (both based on common Ethereum token standards) - [firefly-tokens-erc1155](https://github.com/hyperledger-firefly/tokens-erc1155) and [firefly-tokens-erc20-erc721](https://github.com/hyperledger-firefly/tokens-erc20-erc721).
 
 ## HTTP APIs
 

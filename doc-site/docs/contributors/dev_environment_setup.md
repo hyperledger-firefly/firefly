@@ -58,7 +58,7 @@ go install
 ## Install the CLI
 
 Please check the CLI Installation instructions for the best way to install the CLI on your machine:
-https://github.com/hyperledger-firefly/firefly-cli#install-the-cli
+https://github.com/hyperledger-firefly/cli#install-the-cli
 
 ## Set up a development stack
 

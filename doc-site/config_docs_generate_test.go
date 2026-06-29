@@ -25,7 +25,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/config"
+	"github.com/hyperledger-firefly/common/pkg/config"
 	"github.com/hyperledger-firefly/firefly/internal/apiserver"
 	"github.com/hyperledger-firefly/firefly/internal/coreconfig"
 	"github.com/hyperledger-firefly/firefly/internal/namespace"

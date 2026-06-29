@@ -28,7 +28,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/i18n"
+	"github.com/hyperledger-firefly/common/pkg/i18n"
 	"github.com/stretchr/testify/assert"
 	"golang.org/x/text/language"
 )

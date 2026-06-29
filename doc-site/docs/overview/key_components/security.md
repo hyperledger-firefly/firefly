@@ -17,7 +17,7 @@ verification of passwords with a `bcrypt` encoding.
 
 [See this config section for details](../../reference/config.md#pluginsauth), and the
 reference implementation
-[in Github](https://github.com/hyperledger-firefly/firefly-common/blob/main/pkg/auth/basic/basic_auth.go)
+[in Github](https://github.com/hyperledger-firefly/common/blob/main/pkg/auth/basic/basic_auth.go)
 
 > Pre-packaged vendor extensions to Hyperledger FireFly are known to be available, addressing more
 > comprehensive role-based access control (RBAC) and JWT/OAuth based security models.
@@ -44,7 +44,7 @@ A reference microservice implementation is provided for HTTPS point-to-point con
 mutual TLS encryption.
 
 See the reference implementation
-[in Github](https://github.com/hyperledger-firefly/firefly-dataexchange-https)
+[in Github](https://github.com/hyperledger-firefly/dataexchange-https)
 
 > Pre-packaged vendor extensions to Hyperledger FireFly are known to be available, addressing
 > message queue based reliable delivery of messages, hub-and-spoke connectivity models, chunking

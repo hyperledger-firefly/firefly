@@ -25,7 +25,7 @@ ${MOCKERY}:
 ${LINT}:
 		$(VGO) install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.64.8
 ffcommon:
-		$(eval WSCLIENT_PATH := $(shell $(VGO) list -f '{{.Dir}}' github.com/hyperledger-firefly/firefly-common/pkg/wsclient))
+		$(eval WSCLIENT_PATH := $(shell $(VGO) list -f '{{.Dir}}' github.com/hyperledger-firefly/common/pkg/wsclient))
 
 
 define makemock

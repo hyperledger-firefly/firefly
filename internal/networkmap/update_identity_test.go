@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/common/pkg/fftypes"
 	"github.com/hyperledger-firefly/firefly/mocks/definitionsmocks"
 	"github.com/hyperledger-firefly/firefly/mocks/identitymanagermocks"
 	"github.com/hyperledger-firefly/firefly/pkg/core"

@@ -20,8 +20,8 @@ import (
 	"context"
 	"sync"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/i18n"
-	"github.com/hyperledger-firefly/firefly-common/pkg/log"
+	"github.com/hyperledger-firefly/common/pkg/i18n"
+	"github.com/hyperledger-firefly/common/pkg/log"
 	"github.com/hyperledger-firefly/firefly/internal/coremsgs"
 )
 

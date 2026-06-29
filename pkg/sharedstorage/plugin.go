@@ -20,7 +20,7 @@ import (
 	"context"
 	"io"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/config"
+	"github.com/hyperledger-firefly/common/pkg/config"
 	"github.com/hyperledger-firefly/firefly/pkg/core"
 )
 

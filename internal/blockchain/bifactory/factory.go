@@ -19,8 +19,8 @@ package bifactory
 import (
 	"context"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/config"
-	"github.com/hyperledger-firefly/firefly-common/pkg/i18n"
+	"github.com/hyperledger-firefly/common/pkg/config"
+	"github.com/hyperledger-firefly/common/pkg/i18n"
 	"github.com/hyperledger-firefly/firefly/internal/blockchain/cardano"
 	"github.com/hyperledger-firefly/firefly/internal/blockchain/ethereum"
 	"github.com/hyperledger-firefly/firefly/internal/blockchain/fabric"

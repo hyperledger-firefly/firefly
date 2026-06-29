@@ -16,7 +16,7 @@
 
 package ethereum
 
-import "github.com/hyperledger-firefly/firefly-signer/pkg/abi"
+import "github.com/hyperledger-firefly/signer/pkg/abi"
 
 var batchPinMethodABIV1 = &abi.Entry{
 	Name: "pinBatch",

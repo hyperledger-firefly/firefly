@@ -7,7 +7,7 @@ import (
 
 	batch "github.com/hyperledger-firefly/firefly/internal/batch"
 
-	fftypes "github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	fftypes "github.com/hyperledger-firefly/common/pkg/fftypes"
 
 	mock "github.com/stretchr/testify/mock"
 )

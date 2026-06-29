@@ -17,9 +17,9 @@
 package namespace
 
 import (
-	"github.com/hyperledger-firefly/firefly-common/pkg/auth/authfactory"
-	"github.com/hyperledger-firefly/firefly-common/pkg/config"
-	"github.com/hyperledger-firefly/firefly-common/pkg/fftls"
+	"github.com/hyperledger-firefly/common/pkg/auth/authfactory"
+	"github.com/hyperledger-firefly/common/pkg/config"
+	"github.com/hyperledger-firefly/common/pkg/fftls"
 	"github.com/hyperledger-firefly/firefly/internal/blockchain/bifactory"
 	"github.com/hyperledger-firefly/firefly/internal/coreconfig"
 	"github.com/hyperledger-firefly/firefly/internal/database/difactory"

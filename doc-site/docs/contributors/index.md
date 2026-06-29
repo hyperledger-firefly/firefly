@@ -45,19 +45,19 @@ Here are some detailed instructions on [Setting up a FireFly Core Development En
 
 ### Little or no Go experience, but want to learn
 
-If you don't have a lot of experience with Go, but are interested in learning, the [FireFly CLI](https://github.com/hyperledger-firefly/firefly-cli/issues) might be a good place to start. The FireFly CLI is a tool to set up local instances of FireFly for building apps that use FireFly, and for doing development on FireFly itself.
+If you don't have a lot of experience with Go, but are interested in learning, the [FireFly CLI](https://github.com/hyperledger-firefly/cli/issues) might be a good place to start. The FireFly CLI is a tool to set up local instances of FireFly for building apps that use FireFly, and for doing development on FireFly itself.
 
 ### TypeScript experience
 
-If you have some experience in TypeScript, there are several FireFly microservices that are written in TypeScript. The [Data Exchange](https://github.com/hyperledger-firefly/firefly-dataexchange-https/issues) is used for private messaging between FireFly nodes. The [ERC-20/ERC-271 Tokens Connector](https://github.com/hyperledger-firefly/firefly-tokens-erc20-erc721/issues) and [ERC-1155 Tokens Connector](https://github.com/hyperledger-firefly/firefly-tokens-erc1155/issues) are used to abstract token contract specifics from the FireFly Core.
+If you have some experience in TypeScript, there are several FireFly microservices that are written in TypeScript. The [Data Exchange](https://github.com/hyperledger-firefly/dataexchange-https/issues) is used for private messaging between FireFly nodes. The [ERC-20/ERC-271 Tokens Connector](https://github.com/hyperledger-firefly/tokens-erc20-erc721/issues) and [ERC-1155 Tokens Connector](https://github.com/hyperledger-firefly/tokens-erc1155/issues) are used to abstract token contract specifics from the FireFly Core.
 
 ### React/TypeScript experience
 
-If you want to do some frontend development, the [FireFly UI](https://github.com/hyperledger-firefly/firefly-ui/issues) is written in TypeScript and React.
+If you want to do some frontend development, the [FireFly UI](https://github.com/hyperledger-firefly/ui/issues) is written in TypeScript and React.
 
 ### Go and blockchain experience
 
-If you already have some experience with blockchain and want to work on some backend components, the blockchain connectors, [firefly-ethconnect](https://github.com/hyperledger-firefly/firefly-ethconnect/issues) (for Ethereum) and [firefly-fabconnect](https://github.com/hyperledger-firefly/firefly-fabconnect/issues) (for Fabric) are great places to get involved.
+If you already have some experience with blockchain and want to work on some backend components, the blockchain connectors, [firefly-ethconnect](https://github.com/hyperledger-firefly/ethconnect/issues) (for Ethereum) and [firefly-fabconnect](https://github.com/hyperledger-firefly/fabconnect/issues) (for Fabric) are great places to get involved.
 
 ## 📝 Make changes
 

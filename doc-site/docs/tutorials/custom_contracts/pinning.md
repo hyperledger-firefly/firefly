@@ -28,7 +28,7 @@ the data is unpacked and used to emit this event will differ for each blockchain
 ### Ethereum
 
 ```solidity
-import "@hyperledger-firefly/firefly-contracts/contracts/IBatchPin.sol";
+import "@hyperledger-firefly/contracts/contracts/IBatchPin.sol";
 
 contract CustomPin {
     IBatchPin firefly;

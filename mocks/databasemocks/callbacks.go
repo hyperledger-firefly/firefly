@@ -6,7 +6,7 @@ import (
 	core "github.com/hyperledger-firefly/firefly/pkg/core"
 	database "github.com/hyperledger-firefly/firefly/pkg/database"
 
-	fftypes "github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	fftypes "github.com/hyperledger-firefly/common/pkg/fftypes"
 
 	mock "github.com/stretchr/testify/mock"
 )

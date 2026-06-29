@@ -19,7 +19,7 @@ package multiparty
 import (
 	"fmt"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/common/pkg/fftypes"
 	"github.com/hyperledger-firefly/firefly/pkg/core"
 	"github.com/hyperledger-firefly/firefly/test/e2e"
 	"github.com/hyperledger-firefly/firefly/test/e2e/client"

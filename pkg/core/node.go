@@ -19,7 +19,7 @@ package core
 import (
 	"context"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/common/pkg/fftypes"
 )
 
 // DeprecatedNode is the data structure we used to use prior to FIR-9.

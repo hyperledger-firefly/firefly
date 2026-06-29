@@ -10,7 +10,7 @@ title: Release Notes
 
 What's New:
 
-- New Cardano connector https://github.com/hyperledger-firefly/firefly-cardano
+- New Cardano connector https://github.com/hyperledger-firefly/cardano
     - Powers a reliable event-stream-based API for applications to react to custom Cardano events
     - Own signer module for managing keys 
     - Incorporates it's own Balius wrapper framework for smart contracts

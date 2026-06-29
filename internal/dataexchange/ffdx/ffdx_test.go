@@ -33,12 +33,12 @@ import (
 
 	"github.com/hyperledger-firefly/firefly/mocks/metricsmocks"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/config"
-	"github.com/hyperledger-firefly/firefly-common/pkg/ffresty"
-	"github.com/hyperledger-firefly/firefly-common/pkg/fftls"
-	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
-	"github.com/hyperledger-firefly/firefly-common/pkg/retry"
-	"github.com/hyperledger-firefly/firefly-common/pkg/wsclient"
+	"github.com/hyperledger-firefly/common/pkg/config"
+	"github.com/hyperledger-firefly/common/pkg/ffresty"
+	"github.com/hyperledger-firefly/common/pkg/fftls"
+	"github.com/hyperledger-firefly/common/pkg/fftypes"
+	"github.com/hyperledger-firefly/common/pkg/retry"
+	"github.com/hyperledger-firefly/common/pkg/wsclient"
 	"github.com/hyperledger-firefly/firefly/internal/coreconfig"
 	"github.com/hyperledger-firefly/firefly/mocks/coremocks"
 	"github.com/hyperledger-firefly/firefly/mocks/dataexchangemocks"

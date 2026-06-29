@@ -26,7 +26,7 @@ There are several ways to install the FireFly CLI. The easiest way to get up and
 
 ### Install via Binary Package Download
 
-Download the package for your OS by navigating to the [latest release page](https://github.com/hyperledger-firefly/firefly-cli/releases/latest) and downloading the appropriate package for your OS and architecture.
+Download the package for your OS by navigating to the [latest release page](https://github.com/hyperledger-firefly/cli/releases/latest) and downloading the appropriate package for your OS and architecture.
 
 #### Unpack and Install the Binary
 
@@ -42,7 +42,7 @@ If you downloaded the package into a different directory, adjust the command to 
 
 #### macOSUsers
 
-> **NOTE**: On recent versions of macOS, default security settings will prevent the FireFly CLI binary from running, because it was downloaded from the internet. You will need to [allow the FireFly CLI in System Preferences](https://github.com/hyperledger-firefly/firefly-cli/blob/main/docs/mac_help.md), before it will run.
+> **NOTE**: On recent versions of macOS, default security settings will prevent the FireFly CLI binary from running, because it was downloaded from the internet. You will need to [allow the FireFly CLI in System Preferences](https://github.com/hyperledger-firefly/cli/blob/main/docs/mac_help.md), before it will run.
 
 ### Install via Homebrew (macOS)
 
@@ -57,7 +57,7 @@ brew install firefly
 If you have a local Go development environment, and you have included `${GOPATH}/bin` in your path, you could also use Go to install the FireFly CLI by running:
 
 ```sh
-go install github.com/hyperledger-firefly/firefly-cli/ff@latest
+go install github.com/hyperledger-firefly/cli/ff@latest
 ```
 
 ## Verify the installation

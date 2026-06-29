@@ -17,7 +17,7 @@
 package apiserver
 
 import (
-	"github.com/hyperledger-firefly/firefly-common/pkg/ffapi"
+	"github.com/hyperledger-firefly/common/pkg/ffapi"
 	"github.com/hyperledger-firefly/firefly/internal/coreconfig"
 	"github.com/hyperledger-firefly/firefly/internal/coremsgs"
 )

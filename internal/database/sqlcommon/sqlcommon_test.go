@@ -23,7 +23,7 @@ import (
 
 	sq "github.com/Masterminds/squirrel"
 	"github.com/golang-migrate/migrate/v4"
-	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/common/pkg/fftypes"
 	"github.com/hyperledger-firefly/firefly/mocks/databasemocks"
 	"github.com/hyperledger-firefly/firefly/pkg/core"
 	"github.com/hyperledger-firefly/firefly/pkg/database"

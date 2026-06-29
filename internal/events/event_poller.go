@@ -22,9 +22,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/ffapi"
-	"github.com/hyperledger-firefly/firefly-common/pkg/log"
-	"github.com/hyperledger-firefly/firefly-common/pkg/retry"
+	"github.com/hyperledger-firefly/common/pkg/ffapi"
+	"github.com/hyperledger-firefly/common/pkg/log"
+	"github.com/hyperledger-firefly/common/pkg/retry"
 	"github.com/hyperledger-firefly/firefly/pkg/core"
 	"github.com/hyperledger-firefly/firefly/pkg/database"
 )

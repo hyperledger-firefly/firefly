@@ -21,7 +21,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/common/pkg/fftypes"
 	"github.com/hyperledger-firefly/firefly/internal/batch"
 	"github.com/hyperledger-firefly/firefly/internal/data"
 	"github.com/hyperledger-firefly/firefly/internal/syncasync"

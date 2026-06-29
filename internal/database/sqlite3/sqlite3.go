@@ -27,8 +27,8 @@ import (
 	sq "github.com/Masterminds/squirrel"
 	migratedb "github.com/golang-migrate/migrate/v4/database"
 	migratesqlite3 "github.com/golang-migrate/migrate/v4/database/sqlite3"
-	"github.com/hyperledger-firefly/firefly-common/pkg/config"
-	"github.com/hyperledger-firefly/firefly-common/pkg/dbsql"
+	"github.com/hyperledger-firefly/common/pkg/config"
+	"github.com/hyperledger-firefly/common/pkg/dbsql"
 	"github.com/hyperledger-firefly/firefly/internal/database/sqlcommon"
 	"github.com/hyperledger-firefly/firefly/pkg/database"
 

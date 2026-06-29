@@ -22,7 +22,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/common/pkg/fftypes"
 	"github.com/hyperledger-firefly/firefly/mocks/datamocks"
 	"github.com/hyperledger-firefly/firefly/mocks/multipartymocks"
 	"github.com/hyperledger-firefly/firefly/pkg/core"

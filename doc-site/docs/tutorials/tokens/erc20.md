@@ -14,7 +14,7 @@ If you haven't started a FireFly stack already, please go to the Getting Started
 
 If you are using the default ERC-20 / ERC-721 token connector, when the FireFly CLI set up your FireFly stack, it also deployed a token factory contract. When you create a token pool through FireFly's token APIs, the token factory contract will automatically deploy an ERC-20 or ERC-721 contract, based on the pool `type` in the API request.
 
-<div style="color: #ffffff; background: #ff7700; padding: 1em; border-radius: 5px;">⚠️ <span style="font-weight: bold;">WARNING</span>: The default token contract that was deployed by the FireFly CLI is only provided for the purpose of learning about FireFly. It is <span style="font-weight: bold;">not</span> a production grade contract. If you intend to deploy a production application using tokens on FireFly, you should research token contract best practices. For details, <a style="color: #ffffff;" href="https://github.com/hyperledger-firefly/firefly-tokens-erc20-erc721/blob/main/samples/solidity/contracts/TokenFactory.sol">please see the source code</a> for the contract that was deployed.</div>
+<div style="color: #ffffff; background: #ff7700; padding: 1em; border-radius: 5px;">⚠️ <span style="font-weight: bold;">WARNING</span>: The default token contract that was deployed by the FireFly CLI is only provided for the purpose of learning about FireFly. It is <span style="font-weight: bold;">not</span> a production grade contract. If you intend to deploy a production application using tokens on FireFly, you should research token contract best practices. For details, <a style="color: #ffffff;" href="https://github.com/hyperledger-firefly/tokens-erc20-erc721/blob/main/samples/solidity/contracts/TokenFactory.sol">please see the source code</a> for the contract that was deployed.</div>
 
 ## Use the Sandbox (optional)
 
@@ -103,7 +103,7 @@ To lookup the address of the new contract, you can lookup the token pool by its 
 
 If you wish to index and use a contract that is already on the chain, it is recommended that you first upload the ABI for your specific contract by [creating a FireFly contract interface](../custom_contracts/ethereum.md). This step is optional if you're certain that your ERC-20 ABI conforms to the default expectations of the token connector, but is generally recommended.
 
-See the [README](https://github.com/hyperledger-firefly/firefly-tokens-erc20-erc721/blob/main/README.md) of the token connector for details on what contract variants can currently be understood.
+See the [README](https://github.com/hyperledger-firefly/tokens-erc20-erc721/blob/main/README.md) of the token connector for details on what contract variants can currently be understood.
 
 You can pass a `config` object with an `address` and `blockNumber` when you make the request to create the token pool, and if you created a contract interface, you can include the `interface` ID as well.
 

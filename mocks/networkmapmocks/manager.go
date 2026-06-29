@@ -5,7 +5,7 @@ package networkmapmocks
 import (
 	context "context"
 
-	ffapi "github.com/hyperledger-firefly/firefly-common/pkg/ffapi"
+	ffapi "github.com/hyperledger-firefly/common/pkg/ffapi"
 	core "github.com/hyperledger-firefly/firefly/pkg/core"
 
 	mock "github.com/stretchr/testify/mock"

@@ -22,8 +22,8 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
-	"github.com/hyperledger-firefly/firefly-common/pkg/i18n"
+	"github.com/hyperledger-firefly/common/pkg/fftypes"
+	"github.com/hyperledger-firefly/common/pkg/i18n"
 )
 
 // Namespace is an isolated set of named resources, to allow multiple applications to co-exist in the same network, with the same named objects.

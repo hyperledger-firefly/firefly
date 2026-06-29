@@ -5,7 +5,7 @@ package wsmocks
 import (
 	context "context"
 
-	wsclient "github.com/hyperledger-firefly/firefly-common/pkg/wsclient"
+	wsclient "github.com/hyperledger-firefly/common/pkg/wsclient"
 	mock "github.com/stretchr/testify/mock"
 )
 

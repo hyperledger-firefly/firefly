@@ -20,7 +20,7 @@ A Cardano stack can be run in two different ways; using a local Cardano node, or
 
 Start a local Cardano node. The fastest way to do this is to [use mithril](https://mithril.network/doc/manual/getting-started/bootstrap-cardano-node/) to bootstrap the node.
 
-For an example of how to bootstrap and run the Cardano node in Docker, see [the firefly-cardano repo](https://github.com/hyperledger-firefly/firefly-cardano/blob/1be3b08d301d6d6eeb5b79e40cf3dbf66181c3de/infra/docker-compose.node.yaml#L4).
+For an example of how to bootstrap and run the Cardano node in Docker, see [the firefly-cardano repo](https://github.com/hyperledger-firefly/cardano/blob/1be3b08d301d6d6eeb5b79e40cf3dbf66181c3de/infra/docker-compose.node.yaml#L4).
 
 The cardano-node exposes a Unix socket named `node.socket`. Pass that to firefly-cli. The example below uses `firefly-cli` to
  - Create a new Cardano-based stack named `dev`.

@@ -25,7 +25,7 @@ import (
 	"testing"
 	"testing/iotest"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/common/pkg/fftypes"
 	"github.com/hyperledger-firefly/firefly/mocks/dataexchangemocks"
 	"github.com/hyperledger-firefly/firefly/mocks/shareddownloadmocks"
 	"github.com/hyperledger-firefly/firefly/mocks/sharedstoragemocks"

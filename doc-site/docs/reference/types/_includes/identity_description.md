@@ -1,7 +1,7 @@
 FireFly contains an address book of identities, which is managed in a decentralized
 way across a multi-party system through `claim` and `verification` system.
 
-> See [FIR-12](https://github.com/hyperledger-firefly/firefly-fir/pull/12) for evolution
+> See [FIR-12](https://github.com/hyperledger-firefly/fir/pull/12) for evolution
 > that is happening to Hyperledger FireFly to allow:
 >
 > - Private address books that are not shared with other participants

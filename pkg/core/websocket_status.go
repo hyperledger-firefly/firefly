@@ -16,7 +16,7 @@
 
 package core
 
-import "github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+import "github.com/hyperledger-firefly/common/pkg/fftypes"
 
 type WSSubscriptionStatus struct {
 	StartTime *fftypes.FFTime    `ffstruct:"WSSubscriptionStatus" json:"startTime"`

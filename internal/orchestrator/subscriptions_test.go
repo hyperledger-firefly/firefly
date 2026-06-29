@@ -22,7 +22,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/hyperledger-firefly/firefly-common/pkg/fftypes"
+	"github.com/hyperledger-firefly/common/pkg/fftypes"
 	"github.com/hyperledger-firefly/firefly/internal/events/system"
 	"github.com/hyperledger-firefly/firefly/internal/events/webhooks"
 	"github.com/hyperledger-firefly/firefly/mocks/eventmocks"
