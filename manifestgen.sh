@@ -91,7 +91,7 @@ do
 
     # If the tag / build number wasn't set in the label, use whatever docker tag we fetched
     # This is done for backwards compatability, because not all images have labels yet
-    if [ -z "$TAG_LABEL" ]; then
+    if [ -z "$TAG_LABEL" ] || [ "$TAG_LABEL" == "null" ]; then
         TAG_LABEL=$TAG
     fi
 

@@ -68,7 +68,7 @@ func (s *streamManager) getEventStreams(ctx context.Context) (streams []*eventSt
 	res, err := s.client.R().
 		SetContext(ctx).
 		SetResult(&streams).
-		Get("/eventstreams")
+		Get("/api/v1/eventstreams")
 	if err != nil || !res.IsSuccess() {
 		return nil, ffresty.WrapRestErr(ctx, res, err, coremsgs.MsgCardanoconnectRESTErr)
 	}
@@ -92,7 +92,7 @@ func (s *streamManager) createEventStream(ctx context.Context, topic string) (*e
 		SetContext(ctx).
 		SetBody(stream).
 		SetResult(stream).
-		Post("/eventstreams")
+		Post("/api/v1/eventstreams")
 	if err != nil || !res.IsSuccess() {
 		return nil, ffresty.WrapRestErr(ctx, res, err, coremsgs.MsgCardanoconnectRESTErr)
 	}
@@ -105,7 +105,7 @@ func (s *streamManager) updateEventStream(ctx context.Context, topic string, bat
 		SetContext(ctx).
 		SetBody(stream).
 		SetResult(stream).
-		Patch("/eventstreams/" + eventStreamID)
+		Patch("/api/v1/eventstreams/" + eventStreamID)
 	if err != nil || !res.IsSuccess() {
 		return nil, ffresty.WrapRestErr(ctx, res, err, coremsgs.MsgCardanoconnectRESTErr)
 	}
@@ -133,7 +133,7 @@ func (s *streamManager) getListener(ctx context.Context, streamID string, listen
 	res, err := s.client.R().
 		SetContext(ctx).
 		SetResult(&listener).
-		Get(fmt.Sprintf("/eventstreams/%s/listeners/%s", streamID, listenerID))
+		Get(fmt.Sprintf("/api/v1/eventstreams/%s/listeners/%s", streamID, listenerID))
 	if err != nil || !res.IsSuccess() {
 		if okNotFound && res.StatusCode() == 404 {
 			return nil, nil
@@ -147,7 +147,7 @@ func (s *streamManager) getListeners(ctx context.Context, streamID string) (list
 	res, err := s.client.R().
 		SetContext(ctx).
 		SetResult(&listeners).
-		Get(fmt.Sprintf("/eventstreams/%s/listeners", streamID))
+		Get(fmt.Sprintf("/api/v1/eventstreams/%s/listeners", streamID))
 	if err != nil || !res.IsSuccess() {
 		return nil, ffresty.WrapRestErr(ctx, res, err, coremsgs.MsgCardanoconnectRESTErr)
 	}
@@ -166,7 +166,7 @@ func (s *streamManager) createListener(ctx context.Context, streamID, name, last
 		SetContext(ctx).
 		SetBody(body).
 		SetResult(&listener).
-		Post(fmt.Sprintf("/eventstreams/%s/listeners", streamID))
+		Post(fmt.Sprintf("/api/v1/eventstreams/%s/listeners", streamID))
 
 	if err != nil || !res.IsSuccess() {
 		return nil, ffresty.WrapRestErr(ctx, res, err, coremsgs.MsgCardanoconnectRESTErr)
@@ -178,7 +178,7 @@ func (s *streamManager) createListener(ctx context.Context, streamID, name, last
 func (s *streamManager) deleteListener(ctx context.Context, streamID, listenerID string) error {
 	res, err := s.client.R().
 		SetContext(ctx).
-		Delete(fmt.Sprintf("/eventstreams/%s/listeners/%s", streamID, listenerID))
+		Delete(fmt.Sprintf("/api/v1/eventstreams/%s/listeners/%s", streamID, listenerID))
 
 	if err != nil || !res.IsSuccess() {
 		return ffresty.WrapRestErr(ctx, res, err, coremsgs.MsgCardanoconnectRESTErr)

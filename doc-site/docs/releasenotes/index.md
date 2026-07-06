@@ -6,6 +6,22 @@ title: Release Notes
 
 [Full release notes](https://github.com/hyperledger/firefly/releases)
 
+## [v1.4.0 - Jul 17, 2025](https://github.com/hyperledger/firefly/releases/tag/v1.4.0)
+
+What's New:
+
+- New Cardano connector https://github.com/hyperledger/firefly-cardano
+    - Powers a reliable event-stream-based API for applications to react to custom Cardano events
+    - Own signer module for managing keys 
+    - Incorporates it's own Balius wrapper framework for smart contracts
+    - Includes in depth documentation section on developing Cardano smart contracts and listening to events
+    - Support in FireFly CLI to create a Cardano stack and connect to a remote provider
+    - Rust based framework for building FireFly Connectors
+- Enhancements to the connector framework to expose internal event listeners to consume directly instead of using external listeners
+- Miscellaneous bug fixes and minor improvements 
+- Documentation updates, new Cardano section in the tutorials
+- CVE fixes across the board
+
 ## [v1.3.3 - Mar 25, 2025](https://github.com/hyperledger/firefly/releases/tag/v1.3.3)
 
 What's New:

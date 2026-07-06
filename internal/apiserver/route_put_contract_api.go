@@ -32,7 +32,7 @@ var putContractAPI = &ffapi.Route{
 	Path:   "apis/{id}",
 	Method: http.MethodPut,
 	PathParams: []*ffapi.PathParam{
-		{Name: "id", Example: "id", Description: coremsgs.APIParamsContractAPIName},
+		{Name: "id", Example: "id", Description: coremsgs.APIParamsContractAPIID},
 	},
 	QueryParams: []*ffapi.QueryParam{
 		{Name: "confirm", Description: coremsgs.APIConfirmMsgQueryParam, IsBool: true, Example: "true"},

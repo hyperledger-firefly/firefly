@@ -111,7 +111,7 @@ func (c *Cardano) Init(ctx context.Context, cancelCtx context.CancelFunc, conf c
 	}
 
 	if c.wsConfig.WSKeyPath == "" {
-		c.wsConfig.WSKeyPath = "/ws"
+		c.wsConfig.WSKeyPath = "/api/v1/ws"
 	}
 
 	c.streamIDs = make(map[string]string)
@@ -243,7 +243,7 @@ func (c *Cardano) DeployContract(ctx context.Context, nsOpID, signingKey string,
 		SetContext(ctx).
 		SetBody(body).
 		SetError(&resErr).
-		Post("/contracts/deploy")
+		Post("/api/v1/contracts/deploy")
 	if err != nil || !res.IsSuccess() {
 		return resErr.SubmissionRejected, common.WrapRESTError(ctx, &resErr, res, err, coremsgs.MsgCardanoconnectRESTErr)
 	}
@@ -287,7 +287,7 @@ func (c *Cardano) InvokeContract(ctx context.Context, nsOpID string, signingKey 
 		SetContext(ctx).
 		SetBody(body).
 		SetError(&resErr).
-		Post("/contracts/invoke")
+		Post("/api/v1/contracts/invoke")
 	if err != nil || !res.IsSuccess() {
 		return resErr.SubmissionRejected, common.WrapRESTError(ctx, &resErr, res, err, coremsgs.MsgCardanoconnectRESTErr)
 	}
@@ -324,7 +324,7 @@ func (c *Cardano) QueryContract(ctx context.Context, signingKey string, location
 		SetContext(ctx).
 		SetBody(body).
 		SetError(&resErr).
-		Post("/contracts/query")
+		Post("/api/v1/contracts/query")
 	if err != nil || !res.IsSuccess() {
 		return nil, common.WrapRESTError(ctx, &resErr, res, err, coremsgs.MsgCardanoconnectRESTErr)
 	}
@@ -488,7 +488,7 @@ func (c *Cardano) GetAndConvertDeprecatedContractConfig(ctx context.Context) (lo
 func (c *Cardano) GetTransactionStatus(ctx context.Context, operation *core.Operation) (interface{}, error) {
 	txnID := (&core.PreparedOperation{ID: operation.ID, Namespace: operation.Namespace}).NamespacedIDString()
 
-	transactionRequestPath := fmt.Sprintf("/transactions/%s", txnID)
+	transactionRequestPath := fmt.Sprintf("/api/v1/transactions/%s", txnID)
 	client := c.client
 	var resErr common.BlockchainRESTError
 	var statusResponse fftypes.JSONObject

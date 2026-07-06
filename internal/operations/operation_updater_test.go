@@ -541,6 +541,119 @@ func TestDoUpdateVerifyBatchManifestFail(t *testing.T) {
 	mdi.AssertExpectations(t)
 }
 
+func TestResolveOperationValidUTF8ErrorPassesThrough(t *testing.T) {
+	ou := newTestOperationUpdaterNoConcurrency(t)
+	defer ou.close()
+
+	opID1 := fftypes.NewUUID()
+	mdi := ou.database.(*databasemocks.Plugin)
+	mdi.On("GetOperations", mock.Anything, mock.Anything, mock.Anything).Return([]*core.Operation{
+		{ID: opID1, Namespace: "ns1", Type: core.OpTypeBlockchainInvoke},
+	}, nil, nil)
+	mdi.On("UpdateOperation", mock.Anything, "ns1", opID1, mock.Anything, mock.MatchedBy(updateMatcher([][]string{
+		{"status", "Failed"},
+		{"error", "FF23021: EVM reverted: some normal error message"},
+	}))).Return(true, nil)
+
+	ou.initQueues()
+
+	err := ou.doBatchUpdate(ou.ctx, []*core.OperationUpdate{
+		{NamespacedOpID: "ns1:" + opID1.String(), Status: core.OpStatusFailed, ErrorMessage: "FF23021: EVM reverted: some normal error message"},
+	})
+	assert.NoError(t, err)
+
+	mdi.AssertExpectations(t)
+}
+
+func TestResolveOperationInvalidUTF8ErrorHexEncoded(t *testing.T) {
+	ou := newTestOperationUpdaterNoConcurrency(t)
+	defer ou.close()
+
+	opID1 := fftypes.NewUUID()
+
+	// Simulate the actual revert scenario: readable text with embedded ABI-encoded Error(string)
+	// selector bytes (0x08, 0xc3, 0x79, 0xa0) and null byte padding, which is invalid UTF-8
+	invalidMsg := "[OCPE]404/98 - \x08\xc3\x79\xa0\x00\x00\x00[TMM]404/16e"
+	expectedHex := "5b4f4350455d3430342f3938202d2008c379a00000005b544d4d5d3430342f313665"
+
+	mdi := ou.database.(*databasemocks.Plugin)
+	mdi.On("GetOperations", mock.Anything, mock.Anything, mock.Anything).Return([]*core.Operation{
+		{ID: opID1, Namespace: "ns1", Type: core.OpTypeBlockchainInvoke},
+	}, nil, nil)
+	mdi.On("UpdateOperation", mock.Anything, "ns1", opID1, mock.Anything, mock.MatchedBy(updateMatcher([][]string{
+		{"status", "Failed"},
+		{"error", expectedHex},
+	}))).Return(true, nil)
+
+	ou.initQueues()
+
+	err := ou.doBatchUpdate(ou.ctx, []*core.OperationUpdate{
+		{NamespacedOpID: "ns1:" + opID1.String(), Status: core.OpStatusFailed, ErrorMessage: invalidMsg},
+	})
+	assert.NoError(t, err)
+
+	mdi.AssertExpectations(t)
+}
+
+func TestResolveOperationNullBytesOnlyInvalidUTF8(t *testing.T) {
+	ou := newTestOperationUpdaterNoConcurrency(t)
+	defer ou.close()
+
+	opID1 := fftypes.NewUUID()
+
+	// Null bytes mixed with non-continuation bytes that break UTF-8 validity
+	invalidMsg := "error\x00with\x80null"
+	expectedHex := "6572726f720077697468806e756c6c"
+
+	mdi := ou.database.(*databasemocks.Plugin)
+	mdi.On("GetOperations", mock.Anything, mock.Anything, mock.Anything).Return([]*core.Operation{
+		{ID: opID1, Namespace: "ns1", Type: core.OpTypeBlockchainInvoke},
+	}, nil, nil)
+	mdi.On("UpdateOperation", mock.Anything, "ns1", opID1, mock.Anything, mock.MatchedBy(updateMatcher([][]string{
+		{"status", "Failed"},
+		{"error", expectedHex},
+	}))).Return(true, nil)
+
+	ou.initQueues()
+
+	err := ou.doBatchUpdate(ou.ctx, []*core.OperationUpdate{
+		{NamespacedOpID: "ns1:" + opID1.String(), Status: core.OpStatusFailed, ErrorMessage: invalidMsg},
+	})
+	assert.NoError(t, err)
+
+	mdi.AssertExpectations(t)
+}
+
+func TestResolveOperationNullBytesInValidUTF8HexEncoded(t *testing.T) {
+	ou := newTestOperationUpdaterNoConcurrency(t)
+	defer ou.close()
+
+	opID1 := fftypes.NewUUID()
+
+	// Pure null bytes embedded in otherwise valid UTF-8 text.
+	// utf8.ValidString returns true for this, but PostgreSQL rejects 0x00 in text columns.
+	invalidMsg := "hello\x00world"
+	expectedHex := "68656c6c6f00776f726c64"
+
+	mdi := ou.database.(*databasemocks.Plugin)
+	mdi.On("GetOperations", mock.Anything, mock.Anything, mock.Anything).Return([]*core.Operation{
+		{ID: opID1, Namespace: "ns1", Type: core.OpTypeBlockchainInvoke},
+	}, nil, nil)
+	mdi.On("UpdateOperation", mock.Anything, "ns1", opID1, mock.Anything, mock.MatchedBy(updateMatcher([][]string{
+		{"status", "Failed"},
+		{"error", expectedHex},
+	}))).Return(true, nil)
+
+	ou.initQueues()
+
+	err := ou.doBatchUpdate(ou.ctx, []*core.OperationUpdate{
+		{NamespacedOpID: "ns1:" + opID1.String(), Status: core.OpStatusFailed, ErrorMessage: invalidMsg},
+	})
+	assert.NoError(t, err)
+
+	mdi.AssertExpectations(t)
+}
+
 func TestDoUpdateVerifyBlobManifestFail(t *testing.T) {
 	ou := newTestOperationUpdaterNoConcurrency(t)
 	defer ou.close()

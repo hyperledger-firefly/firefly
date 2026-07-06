@@ -46,6 +46,20 @@ ff init cardano dev \
     --blockfrost-key previewXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
+### Option 3: Use Blockfrost RYO
+
+You can run a Blockfrost API provider for free on your own infrastructure. This is called Blockfrost Run-Your-Own or Blockfrost RYO. See [the service's GitHub page](https://github.com/blockfrost/blockfrost-backend-ryo) for more information on this.
+
+The example below uses firefly-cli to
+ - Create a new Cardano-based stack named `dev`
+ - Connect to a Blockfrost RYO instance running at http://localhost:3000
+
+```sh
+ff init cardano dev \
+    --network preview \
+    --blockfrost-base-url http://localhost:3000
+```
+
 ## Start the stack
 
 Now you should be able to start your stack by running:
@@ -84,3 +98,7 @@ The response will look like
 ```
 
 If you're developing against a testnet such as preview, you can receive funds from the [testnet faucet](https://docs.cardano.org/cardano-testnets/tools/faucet). Pass the `address` from that response to the faucet.
+
+## Next steps: Develop a contract
+
+Now that you have a stack running, you're ready to start developing contracts for it. See the [Cardano custom contract guide](../custom_contracts/cardano.md) for more information.

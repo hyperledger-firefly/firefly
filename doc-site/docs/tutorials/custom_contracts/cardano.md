@@ -101,6 +101,7 @@ First, decide on the contract which your dApp will satisfy. FireFly uses [FireFl
 This is describing a contract with a single method, named `send_ada`. This method takes three parameters: a `fromAddress`, a `toAddress`, and an `amount`.
 
 It also emits three events: 
+
  - `TransactionAccepted(string)` is emitted when the transaction is included in a block.
  - `TransactionRolledBack(string)` is emitted if the transaction was included in a block, and that block got rolled back. This happens maybe once or twice a day on the Cardano network, which is more likely than some other chains, so your code must be able to gracefully handle rollbacks.
  - `TransactionFinalized(string)` is emitted when the transaction has been on the chain for "long enough" that it is effectively immutable. It is up to your tolerance risk.
@@ -121,7 +122,7 @@ edition = "2021"
 
 [dependencies]
 # The version of firefly-balius should match the version of firefly-cardano which you are using.
-firefly-balius = { git = "https://github.com/hyperledger/firefly-cardano", rev = "0.4.2" }
+firefly-balius = { git = "https://github.com/hyperledger/firefly-cardano", rev = "<firefly cardano version>" }
 pallas-addresses = "0.32"
 serde = { version = "1", features = ["derive"] }
 
@@ -236,6 +237,7 @@ fn main() -> Worker {
 
 You can use the `firefly-cardano-deploy` tool to deploy this dApp to your running FireFly instance.
 This tool will
+
  - Compile your dApp to WebAssembly
  - Deploy that WebAssembly to a running FireFly node 
  - Deploy your interface to that FireFly node
@@ -243,7 +245,7 @@ This tool will
 
 ```sh
 # The version here should match the version of firefly-cardano which you are using.
-cargo install --git https://github.com/hyperledger/firefly-cardano --version 0.3.1 firefly-cardano-deploy
+cargo install --git https://github.com/hyperledger/firefly-cardano --version <firefly cardano version> firefly-cardano-deploy
 
 CONTRACT_PATH="/path/to/your/dapp"
 FIREFLY_URL="http://localhost:5000"
@@ -272,7 +274,8 @@ Now that we've set everything up, let's prove it works by sending 1 ADA back to 
     "fromAddress": "<wallet address you set up before>",
     "toAddress": "addr_test1vqeux7xwusdju9dvsj8h7mca9aup2k439kfmwy773xxc2hcu7zy99",
     "amount": 1000000
-  }
+  },
+  "key": "<wallet address you set up before>"
 }
 ```
 

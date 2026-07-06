@@ -311,8 +311,6 @@ func (em *eventManager) QueueBatchRewind(batchID *fftypes.UUID) {
 }
 
 func (em *eventManager) FilterHistoricalEventsOnSubscription(ctx context.Context, events []*core.EnrichedEvent, sub *core.Subscription) ([]*core.EnrichedEvent, error) {
-	// Transport must be provided for validation, but we're not using it for event delivery so fake the transport
-	sub.Transport = "websockets"
 	subscriptionDef, err := em.subManager.parseSubscriptionDef(ctx, sub)
 	if err != nil {
 		return nil, err

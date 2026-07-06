@@ -664,6 +664,7 @@ func TestEventFilterOnSubscriptionMatchesEventType(t *testing.T) {
 	}
 
 	subscription := &core.Subscription{
+		Transport: "websockets",
 		Filter: core.SubscriptionFilter{
 			Events: core.EventTypeIdentityConfirmed.String(),
 		},

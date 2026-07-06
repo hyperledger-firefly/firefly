@@ -142,9 +142,9 @@ func TestInitAndStartWithCardanoConnect(t *testing.T) {
 	u.Scheme = "http"
 	httpURL := u.String()
 
-	httpmock.RegisterResponder("GET", fmt.Sprintf("%s/eventstreams", httpURL),
+	httpmock.RegisterResponder("GET", fmt.Sprintf("%s/api/v1/eventstreams", httpURL),
 		httpmock.NewJsonResponderOrPanic(200, []eventStream{}))
-	httpmock.RegisterResponder("POST", fmt.Sprintf("%s/eventstreams", httpURL),
+	httpmock.RegisterResponder("POST", fmt.Sprintf("%s/api/v1/eventstreams", httpURL),
 		httpmock.NewJsonResponderOrPanic(200, eventStream{ID: "es12345"}))
 
 	resetConf(c)
@@ -209,7 +209,7 @@ func TestStartNamespaceStreamQueryError(t *testing.T) {
 	httpmock.ActivateNonDefault(mockedClient)
 	defer httpmock.DeactivateAndReset()
 
-	httpmock.RegisterResponder("GET", "http://localhost:12345/eventstreams",
+	httpmock.RegisterResponder("GET", "http://localhost:12345/api/v1/eventstreams",
 		httpmock.NewStringResponder(500, `pop`))
 
 	resetConf(c)
@@ -233,9 +233,9 @@ func TestStartNamespaceStreamCreateError(t *testing.T) {
 	httpmock.ActivateNonDefault(mockedClient)
 	defer httpmock.DeactivateAndReset()
 
-	httpmock.RegisterResponder("GET", "http://localhost:12345/eventstreams",
+	httpmock.RegisterResponder("GET", "http://localhost:12345/api/v1/eventstreams",
 		httpmock.NewJsonResponderOrPanic(200, []eventStream{}))
-	httpmock.RegisterResponder("POST", "http://localhost:12345/eventstreams",
+	httpmock.RegisterResponder("POST", "http://localhost:12345/api/v1/eventstreams",
 		httpmock.NewStringResponder(500, "pop"))
 
 	resetConf(c)
@@ -259,9 +259,9 @@ func TestStartNamespaceStreamUpdateError(t *testing.T) {
 	httpmock.ActivateNonDefault(mockedClient)
 	defer httpmock.DeactivateAndReset()
 
-	httpmock.RegisterResponder("GET", "http://localhost:12345/eventstreams",
+	httpmock.RegisterResponder("GET", "http://localhost:12345/api/v1/eventstreams",
 		httpmock.NewJsonResponderOrPanic(200, []eventStream{{ID: "es12345", Name: "topic1/ns1"}}))
-	httpmock.RegisterResponder("PATCH", "http://localhost:12345/eventstreams/es12345",
+	httpmock.RegisterResponder("PATCH", "http://localhost:12345/api/v1/eventstreams/es12345",
 		httpmock.NewStringResponder(500, "pop"))
 
 	resetConf(c)
@@ -287,11 +287,11 @@ func TestStartNamespaceWSConnectFail(t *testing.T) {
 
 	httpURL := "http://localhost:12345"
 
-	httpmock.RegisterResponder("GET", fmt.Sprintf("%s/eventstreams", httpURL),
+	httpmock.RegisterResponder("GET", fmt.Sprintf("%s/api/v1/eventstreams", httpURL),
 		httpmock.NewJsonResponderOrPanic(200, []eventStream{}))
-	httpmock.RegisterResponder("POST", fmt.Sprintf("%s/eventstreams", httpURL),
+	httpmock.RegisterResponder("POST", fmt.Sprintf("%s/api/v1/eventstreams", httpURL),
 		httpmock.NewJsonResponderOrPanic(200, eventStream{ID: "es12345"}))
-	httpmock.RegisterResponder("GET", fmt.Sprintf("%s/ws", httpURL),
+	httpmock.RegisterResponder("GET", fmt.Sprintf("%s/api/v1/ws", httpURL),
 		httpmock.NewJsonResponderOrPanic(500, "{}"))
 
 	resetConf(c)
@@ -322,9 +322,9 @@ func TestStartStopNamespace(t *testing.T) {
 	u.Scheme = "http"
 	httpURL := u.String()
 
-	httpmock.RegisterResponder("GET", fmt.Sprintf("%s/eventstreams", httpURL),
+	httpmock.RegisterResponder("GET", fmt.Sprintf("%s/api/v1/eventstreams", httpURL),
 		httpmock.NewJsonResponderOrPanic(200, []eventStream{}))
-	httpmock.RegisterResponder("POST", fmt.Sprintf("%s/eventstreams", httpURL),
+	httpmock.RegisterResponder("POST", fmt.Sprintf("%s/api/v1/eventstreams", httpURL),
 		httpmock.NewJsonResponderOrPanic(200, eventStream{ID: "es12345"}))
 
 	resetConf(c)
@@ -439,7 +439,7 @@ func TestEventLoopReceiveBatch(t *testing.T) {
 	httpmock.ActivateNonDefault(mockedClient)
 	defer httpmock.DeactivateAndReset()
 
-	httpmock.RegisterResponder("GET", "http://localhost:12345/eventstreams/es12345/listeners/lst12345",
+	httpmock.RegisterResponder("GET", "http://localhost:12345/api/v1/eventstreams/es12345/listeners/lst12345",
 		httpmock.NewJsonResponderOrPanic(200, listener{ID: "lst12345", Name: "ff-sub-default-12345"}))
 
 	r := make(chan []byte)
@@ -511,7 +511,7 @@ func TestEventLoopReceiveBadBatch(t *testing.T) {
 	httpmock.ActivateNonDefault(mockedClient)
 	defer httpmock.DeactivateAndReset()
 
-	httpmock.RegisterResponder("GET", "http://localhost:12345/eventstreams/es12345/listeners/lst12345",
+	httpmock.RegisterResponder("GET", "http://localhost:12345/api/v1/eventstreams/es12345/listeners/lst12345",
 		httpmock.NewJsonResponderOrPanic(200, listener{ID: "lst12345", Name: "ff-sub-default-12345"}))
 	client := resty.NewWithClient(mockedClient)
 	client.SetBaseURL("http://localhost:12345")
@@ -771,7 +771,7 @@ func TestAddContractListener(t *testing.T) {
 		},
 	}
 
-	httpmock.RegisterResponder("POST", "http://localhost:12345/eventstreams/es-1/listeners",
+	httpmock.RegisterResponder("POST", "http://localhost:12345/api/v1/eventstreams/es-1/listeners",
 		httpmock.NewJsonResponderOrPanic(200, &listener{ID: "new-id"}))
 
 	err := c.AddContractListener(context.Background(), sub, "")
@@ -824,7 +824,7 @@ func TestAddContractListenerBadLocation(t *testing.T) {
 		},
 	}
 
-	httpmock.RegisterResponder("POST", "http://localhost:12345/eventstreams/es-1/listeners",
+	httpmock.RegisterResponder("POST", "http://localhost:12345/api/v1/eventstreams/es-1/listeners",
 		httpmock.NewJsonResponderOrPanic(200, &listener{ID: "new-id"}))
 
 	err := c.AddContractListener(context.Background(), sub, "")
@@ -844,7 +844,7 @@ func TestDeleteContractListener(t *testing.T) {
 		BackendID: "sb-1",
 	}
 
-	httpmock.RegisterResponder("DELETE", `http://localhost:12345/eventstreams/es-1/listeners/sb-1`,
+	httpmock.RegisterResponder("DELETE", `http://localhost:12345/api/v1/eventstreams/es-1/listeners/sb-1`,
 		httpmock.NewStringResponder(204, ""))
 
 	err := c.DeleteContractListener(context.Background(), sub, true)
@@ -864,7 +864,7 @@ func TestDeleteContractListenerFail(t *testing.T) {
 		BackendID: "sb-1",
 	}
 
-	httpmock.RegisterResponder("DELETE", `http://localhost:12345/eventstreams/es-1/listeners/sb-1`,
+	httpmock.RegisterResponder("DELETE", `http://localhost:12345/api/v1/eventstreams/es-1/listeners/sb-1`,
 		httpmock.NewStringResponder(500, "oops"))
 
 	err := c.DeleteContractListener(context.Background(), sub, true)
@@ -879,7 +879,7 @@ func TestGetContractListenerStatus(t *testing.T) {
 
 	c.streamIDs["ns1"] = "es-1"
 
-	httpmock.RegisterResponder("GET", `http://localhost:12345/eventstreams/es-1/listeners/sb-1`,
+	httpmock.RegisterResponder("GET", `http://localhost:12345/api/v1/eventstreams/es-1/listeners/sb-1`,
 		httpmock.NewJsonResponderOrPanic(200, &listener{ID: "sb-1", Name: "something"}))
 
 	found, _, status, err := c.GetContractListenerStatus(context.Background(), "ns1", "sb-1", true)
@@ -896,7 +896,7 @@ func TestGetContractListenerStatusNotFound(t *testing.T) {
 
 	c.streamIDs["ns1"] = "es-1"
 
-	httpmock.RegisterResponder("GET", `http://localhost:12345/eventstreams/es-1/listeners/sb-1`,
+	httpmock.RegisterResponder("GET", `http://localhost:12345/api/v1/eventstreams/es-1/listeners/sb-1`,
 		httpmock.NewStringResponder(404, "no"))
 
 	found, _, status, err := c.GetContractListenerStatus(context.Background(), "ns1", "sb-1", true)
@@ -913,7 +913,7 @@ func TestGetContractListenerErrorNotFound(t *testing.T) {
 
 	c.streamIDs["ns1"] = "es-1"
 
-	httpmock.RegisterResponder("GET", `http://localhost:12345/eventstreams/es-1/listeners/sb-1`,
+	httpmock.RegisterResponder("GET", `http://localhost:12345/api/v1/eventstreams/es-1/listeners/sb-1`,
 		httpmock.NewStringResponder(404, "no"))
 
 	_, _, _, err := c.GetContractListenerStatus(context.Background(), "ns1", "sb-1", false)
@@ -933,7 +933,7 @@ func TestGetTransactionStatusSuccess(t *testing.T) {
 		Status:    "Pending",
 	}
 
-	httpmock.RegisterResponder("GET", "http://localhost:12345/transactions/ns1:9ffc50ff-6bfe-4502-adc7-93aea54cc059",
+	httpmock.RegisterResponder("GET", "http://localhost:12345/api/v1/transactions/ns1:9ffc50ff-6bfe-4502-adc7-93aea54cc059",
 		func(req *http.Request) (*http.Response, error) {
 			transactionStatus := make(map[string]interface{})
 			transactionStatus["id"] = "ns1:9ffc50ff-6bfe-4502-adc7-93aea54cc059"
@@ -960,7 +960,7 @@ func TestGetTransactionStatusFailure(t *testing.T) {
 		Status:    "Pending",
 	}
 
-	httpmock.RegisterResponder("GET", "http://localhost:12345/transactions/ns1:9ffc50ff-6bfe-4502-adc7-93aea54cc059",
+	httpmock.RegisterResponder("GET", "http://localhost:12345/api/v1/transactions/ns1:9ffc50ff-6bfe-4502-adc7-93aea54cc059",
 		func(req *http.Request) (*http.Response, error) {
 			transactionStatus := make(map[string]interface{})
 			transactionStatus["id"] = "ns1:9ffc50ff-6bfe-4502-adc7-93aea54cc059"
@@ -987,7 +987,7 @@ func TestGetTransactionStatusEmptyObject(t *testing.T) {
 		Status:    "Pending",
 	}
 
-	httpmock.RegisterResponder("GET", "http://localhost:12345/transactions/ns1:9ffc50ff-6bfe-4502-adc7-93aea54cc059",
+	httpmock.RegisterResponder("GET", "http://localhost:12345/api/v1/transactions/ns1:9ffc50ff-6bfe-4502-adc7-93aea54cc059",
 		func(req *http.Request) (*http.Response, error) {
 			transactionStatus := make(map[string]interface{})
 			return httpmock.NewJsonResponderOrPanic(200, transactionStatus)(req)
@@ -1011,7 +1011,7 @@ func TestGetTransactionStatusInvalidTx(t *testing.T) {
 		Status:    "Pending",
 	}
 
-	httpmock.RegisterResponder("GET", "http://localhost:12345/transactions/:9ffc50ff-6bfe-4502-adc7-93aea54cc059",
+	httpmock.RegisterResponder("GET", "http://localhost:12345/api/v1/transactions/:9ffc50ff-6bfe-4502-adc7-93aea54cc059",
 		func(req *http.Request) (*http.Response, error) {
 			transactionStatus := make(map[string]interface{})
 			transactionStatus["status"] = "Failed"
@@ -1037,7 +1037,7 @@ func TestGetTransactionStatusNotFound(t *testing.T) {
 		Status:    "Pending",
 	}
 
-	httpmock.RegisterResponder("GET", "http://localhost:12345/transactions/ns1:9ffc50ff-6bfe-4502-adc7-93aea54cc059",
+	httpmock.RegisterResponder("GET", "http://localhost:12345/api/v1/transactions/ns1:9ffc50ff-6bfe-4502-adc7-93aea54cc059",
 		httpmock.NewStringResponder(404, "nah"))
 
 	status, err := c.GetTransactionStatus(context.Background(), op)
@@ -1058,7 +1058,7 @@ func TestGetTransactionStatusError(t *testing.T) {
 		Status:    "Pending",
 	}
 
-	httpmock.RegisterResponder("GET", "http://localhost:12345/transactions/ns1:9ffc50ff-6bfe-4502-adc7-93aea54cc059",
+	httpmock.RegisterResponder("GET", "http://localhost:12345/api/v1/transactions/ns1:9ffc50ff-6bfe-4502-adc7-93aea54cc059",
 		httpmock.NewStringResponder(500, "uh oh"))
 
 	_, err := c.GetTransactionStatus(context.Background(), op)
@@ -1078,7 +1078,7 @@ func TestGetTransactionStatusHandleReceipt(t *testing.T) {
 		Status:    "Pending",
 	}
 
-	httpmock.RegisterResponder("GET", "http://localhost:12345/transactions/ns1:9ffc50ff-6bfe-4502-adc7-93aea54cc059",
+	httpmock.RegisterResponder("GET", "http://localhost:12345/api/v1/transactions/ns1:9ffc50ff-6bfe-4502-adc7-93aea54cc059",
 		func(req *http.Request) (*http.Response, error) {
 			transactionStatus := make(map[string]interface{})
 			transactionStatus["status"] = "Succeeded"
@@ -1106,7 +1106,7 @@ func TestAddFireflySubscriptionBadLocation(t *testing.T) {
 	httpmock.ActivateNonDefault(mockedClient)
 	defer httpmock.DeactivateAndReset()
 
-	httpmock.RegisterResponder("GET", "http://localhost:12345/eventstreams/es12345/listeners",
+	httpmock.RegisterResponder("GET", "http://localhost:12345/api/v1/eventstreams/es12345/listeners",
 		httpmock.NewJsonResponderOrPanic(200, &[]listener{}))
 	client := resty.NewWithClient(mockedClient)
 	client.SetBaseURL("http://localhost:12345")
@@ -1140,13 +1140,13 @@ func TestAddAndRemoveFireflySubscription(t *testing.T) {
 	u.Scheme = "http"
 	httpURL := u.String()
 
-	httpmock.RegisterResponder("GET", fmt.Sprintf("%s/eventstreams", httpURL),
+	httpmock.RegisterResponder("GET", fmt.Sprintf("%s/api/v1/eventstreams", httpURL),
 		httpmock.NewJsonResponderOrPanic(200, []eventStream{{ID: "es12345", Name: "topic1/ns1"}}))
-	httpmock.RegisterResponder("PATCH", fmt.Sprintf("%s/eventstreams/es12345", httpURL),
+	httpmock.RegisterResponder("PATCH", fmt.Sprintf("%s/api/v1/eventstreams/es12345", httpURL),
 		httpmock.NewJsonResponderOrPanic(200, eventStream{ID: "es12345", Name: "topic1/ns1"}))
-	httpmock.RegisterResponder("GET", fmt.Sprintf("%s/eventstreams/es12345/listeners", httpURL),
+	httpmock.RegisterResponder("GET", fmt.Sprintf("%s/api/v1/eventstreams/es12345/listeners", httpURL),
 		httpmock.NewJsonResponderOrPanic(200, []listener{}))
-	httpmock.RegisterResponder("POST", fmt.Sprintf("%s/eventstreams/es12345/listeners", httpURL),
+	httpmock.RegisterResponder("POST", fmt.Sprintf("%s/api/v1/eventstreams/es12345/listeners", httpURL),
 		httpmock.NewJsonResponderOrPanic(200, listener{ID: "lst12345", Name: "ns1_2_BatchPin"}))
 
 	resetConf(c)
@@ -1195,11 +1195,11 @@ func TestAddFireflySubscriptionListError(t *testing.T) {
 	u.Scheme = "http"
 	httpURL := u.String()
 
-	httpmock.RegisterResponder("GET", fmt.Sprintf("%s/eventstreams", httpURL),
+	httpmock.RegisterResponder("GET", fmt.Sprintf("%s/api/v1/eventstreams", httpURL),
 		httpmock.NewJsonResponderOrPanic(200, []eventStream{{ID: "es12345", Name: "topic1/ns1"}}))
-	httpmock.RegisterResponder("PATCH", fmt.Sprintf("%s/eventstreams/es12345", httpURL),
+	httpmock.RegisterResponder("PATCH", fmt.Sprintf("%s/api/v1/eventstreams/es12345", httpURL),
 		httpmock.NewJsonResponderOrPanic(200, eventStream{ID: "es12345", Name: "topic1/ns1"}))
-	httpmock.RegisterResponder("GET", fmt.Sprintf("%s/eventstreams/es12345/listeners", httpURL),
+	httpmock.RegisterResponder("GET", fmt.Sprintf("%s/api/v1/eventstreams/es12345/listeners", httpURL),
 		httpmock.NewStringResponder(500, "whoopsies"))
 
 	resetConf(c)
@@ -1244,11 +1244,11 @@ func TestAddFireflySubscriptionAlreadyExists(t *testing.T) {
 	u.Scheme = "http"
 	httpURL := u.String()
 
-	httpmock.RegisterResponder("GET", fmt.Sprintf("%s/eventstreams", httpURL),
+	httpmock.RegisterResponder("GET", fmt.Sprintf("%s/api/v1/eventstreams", httpURL),
 		httpmock.NewJsonResponderOrPanic(200, []eventStream{{ID: "es12345", Name: "topic1/ns1"}}))
-	httpmock.RegisterResponder("PATCH", fmt.Sprintf("%s/eventstreams/es12345", httpURL),
+	httpmock.RegisterResponder("PATCH", fmt.Sprintf("%s/api/v1/eventstreams/es12345", httpURL),
 		httpmock.NewJsonResponderOrPanic(200, eventStream{ID: "es12345", Name: "topic1/ns1"}))
-	httpmock.RegisterResponder("GET", fmt.Sprintf("%s/eventstreams/es12345/listeners", httpURL),
+	httpmock.RegisterResponder("GET", fmt.Sprintf("%s/api/v1/eventstreams/es12345/listeners", httpURL),
 		httpmock.NewJsonResponderOrPanic(200, []listener{{ID: "lst12345", Name: "ns1_2_BatchPin"}}))
 
 	resetConf(c)
@@ -1293,13 +1293,13 @@ func TestAddFireflySubscriptionCreateError(t *testing.T) {
 	u.Scheme = "http"
 	httpURL := u.String()
 
-	httpmock.RegisterResponder("GET", fmt.Sprintf("%s/eventstreams", httpURL),
+	httpmock.RegisterResponder("GET", fmt.Sprintf("%s/api/v1/eventstreams", httpURL),
 		httpmock.NewJsonResponderOrPanic(200, []eventStream{{ID: "es12345", Name: "topic1/ns1"}}))
-	httpmock.RegisterResponder("PATCH", fmt.Sprintf("%s/eventstreams/es12345", httpURL),
+	httpmock.RegisterResponder("PATCH", fmt.Sprintf("%s/api/v1/eventstreams/es12345", httpURL),
 		httpmock.NewJsonResponderOrPanic(200, eventStream{ID: "es12345", Name: "topic1/ns1"}))
-	httpmock.RegisterResponder("GET", fmt.Sprintf("%s/eventstreams/es12345/listeners", httpURL),
+	httpmock.RegisterResponder("GET", fmt.Sprintf("%s/api/v1/eventstreams/es12345/listeners", httpURL),
 		httpmock.NewJsonResponderOrPanic(200, []listener{}))
-	httpmock.RegisterResponder("POST", fmt.Sprintf("%s/eventstreams/es12345/listeners", httpURL),
+	httpmock.RegisterResponder("POST", fmt.Sprintf("%s/api/v1/eventstreams/es12345/listeners", httpURL),
 		httpmock.NewStringResponder(500, "whoopsies"))
 
 	resetConf(c)
@@ -1348,7 +1348,7 @@ func TestInvokeContractOK(t *testing.T) {
 	locationBytes, err := json.Marshal(location)
 	assert.NoError(t, err)
 
-	httpmock.RegisterResponder("POST", "http://localhost:12345/contracts/invoke", func(req *http.Request) (*http.Response, error) {
+	httpmock.RegisterResponder("POST", "http://localhost:12345/api/v1/contracts/invoke", func(req *http.Request) (*http.Response, error) {
 		var body map[string]interface{}
 		json.NewDecoder(req.Body).Decode(&body)
 		params := body["params"].([]interface{})
@@ -1436,7 +1436,7 @@ func TestInvokeContractConnectorError(t *testing.T) {
 	locationBytes, err := json.Marshal(location)
 	assert.NoError(t, err)
 
-	httpmock.RegisterResponder("POST", "http://localhost:12345/contracts/invoke", func(req *http.Request) (*http.Response, error) {
+	httpmock.RegisterResponder("POST", "http://localhost:12345/api/v1/contracts/invoke", func(req *http.Request) (*http.Response, error) {
 		var body map[string]interface{}
 		json.NewDecoder(req.Body).Decode(&body)
 		params := body["params"].([]interface{})
@@ -1478,7 +1478,7 @@ func TestQueryContractOK(t *testing.T) {
 	locationBytes, err := json.Marshal(location)
 	assert.NoError(t, err)
 
-	httpmock.RegisterResponder("POST", "http://localhost:12345/contracts/query", func(req *http.Request) (*http.Response, error) {
+	httpmock.RegisterResponder("POST", "http://localhost:12345/api/v1/contracts/query", func(req *http.Request) (*http.Response, error) {
 		var body map[string]interface{}
 		json.NewDecoder(req.Body).Decode(&body)
 		params := body["params"].([]interface{})
@@ -1569,7 +1569,7 @@ func TestQueryContractConnectorError(t *testing.T) {
 	locationBytes, err := json.Marshal(location)
 	assert.NoError(t, err)
 
-	httpmock.RegisterResponder("POST", "http://localhost:12345/contracts/invoke", func(req *http.Request) (*http.Response, error) {
+	httpmock.RegisterResponder("POST", "http://localhost:12345/api/v1/contracts/invoke", func(req *http.Request) (*http.Response, error) {
 		var body map[string]interface{}
 		json.NewDecoder(req.Body).Decode(&body)
 		params := body["params"].([]interface{})
@@ -1609,7 +1609,7 @@ func TestQueryContractInvalidJson(t *testing.T) {
 	locationBytes, err := json.Marshal(location)
 	assert.NoError(t, err)
 
-	httpmock.RegisterResponder("POST", "http://localhost:12345/contracts/query", httpmock.NewStringResponder(200, "\"whoops forgot a quote"))
+	httpmock.RegisterResponder("POST", "http://localhost:12345/api/v1/contracts/query", httpmock.NewStringResponder(200, "\"whoops forgot a quote"))
 
 	parsedMethod, err := c.ParseInterface(context.Background(), method, nil)
 	assert.NoError(t, err)
@@ -1628,7 +1628,7 @@ func TestDeployContractOK(t *testing.T) {
 	definition := fftypes.JSONAnyPtr("{}")
 	contract := fftypes.JSONAnyPtr("\"cafed00d\"")
 
-	httpmock.RegisterResponder("POST", "http://localhost:12345/contracts/deploy",
+	httpmock.RegisterResponder("POST", "http://localhost:12345/api/v1/contracts/deploy",
 		httpmock.NewStringResponder(202, ""))
 
 	_, err := c.DeployContract(context.Background(), nsOpId, signingKey, definition, contract, nil, nil)
@@ -1645,7 +1645,7 @@ func TestDeployContractConnectorError(t *testing.T) {
 	definition := fftypes.JSONAnyPtr("{}")
 	contract := fftypes.JSONAnyPtr("\"cafed00d\"")
 
-	httpmock.RegisterResponder("POST", "http://localhost:12345/contracts/deploy",
+	httpmock.RegisterResponder("POST", "http://localhost:12345/api/v1/contracts/deploy",
 		httpmock.NewJsonResponderOrPanic(500, &common.BlockchainRESTError{
 			Error:              "oh no",
 			SubmissionRejected: true,

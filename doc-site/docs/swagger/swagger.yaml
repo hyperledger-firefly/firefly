@@ -488,218 +488,6 @@ paths:
           description: ""
       tags:
       - Default Namespace
-    put:
-      description: The ID of the contract API
-      operationId: putContractAPI
-      parameters:
-      - description: The name of the contract API
-        in: path
-        name: id
-        required: true
-        schema:
-          example: id
-          type: string
-      - description: When true the HTTP request blocks until the message is confirmed
-        in: query
-        name: confirm
-        schema:
-          example: "true"
-          type: string
-      - description: Server-side request timeout (milliseconds, or set a custom suffix
-          like 10s)
-        in: header
-        name: Request-Timeout
-        schema:
-          default: 2m0s
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              properties:
-                interface:
-                  description: Reference to the FireFly Interface definition associated
-                    with the contract API
-                  nullable: true
-                  properties:
-                    id:
-                      description: The UUID of the FireFly interface
-                      format: uuid
-                      nullable: true
-                      type: string
-                    name:
-                      description: The name of the FireFly interface
-                      type: string
-                    version:
-                      description: The version of the FireFly interface
-                      type: string
-                  type: object
-                location:
-                  additionalProperties: true
-                  description: If this API is tied to an individual instance of a
-                    smart contract, this field can include a blockchain specific contract
-                    identifier. For example an Ethereum contract address, or a Fabric
-                    chaincode name and channel
-                  nullable: true
-                  type: object
-                name:
-                  description: The name that is used in the URL to access the API
-                  type: string
-                networkName:
-                  description: The published name of the API within the multiparty
-                    network
-                  type: string
-              type: object
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                properties:
-                  id:
-                    description: The UUID of the contract API
-                    format: uuid
-                    nullable: true
-                    type: string
-                  interface:
-                    description: Reference to the FireFly Interface definition associated
-                      with the contract API
-                    nullable: true
-                    properties:
-                      id:
-                        description: The UUID of the FireFly interface
-                        format: uuid
-                        nullable: true
-                        type: string
-                      name:
-                        description: The name of the FireFly interface
-                        type: string
-                      version:
-                        description: The version of the FireFly interface
-                        type: string
-                    type: object
-                  location:
-                    additionalProperties: true
-                    description: If this API is tied to an individual instance of
-                      a smart contract, this field can include a blockchain specific
-                      contract identifier. For example an Ethereum contract address,
-                      or a Fabric chaincode name and channel
-                    nullable: true
-                    type: object
-                  message:
-                    description: The UUID of the broadcast message that was used to
-                      publish this API to the network
-                    format: uuid
-                    nullable: true
-                    type: string
-                  name:
-                    description: The name that is used in the URL to access the API
-                    type: string
-                  namespace:
-                    description: The namespace of the contract API
-                    type: string
-                  networkName:
-                    description: The published name of the API within the multiparty
-                      network
-                    type: string
-                  published:
-                    description: Indicates if the API is published to other members
-                      of the multiparty network
-                    type: boolean
-                  urls:
-                    description: The URLs to use to access the API
-                    properties:
-                      api:
-                        description: The URL to use to invoke the API
-                        type: string
-                      openapi:
-                        description: The URL to download the OpenAPI v3 (Swagger)
-                          description for the API generated in JSON or YAML format
-                        type: string
-                      ui:
-                        description: The URL to use in a web browser to access the
-                          SwaggerUI explorer/exerciser for the API
-                        type: string
-                    type: object
-                type: object
-          description: Success
-        "202":
-          content:
-            application/json:
-              schema:
-                properties:
-                  id:
-                    description: The UUID of the contract API
-                    format: uuid
-                    nullable: true
-                    type: string
-                  interface:
-                    description: Reference to the FireFly Interface definition associated
-                      with the contract API
-                    nullable: true
-                    properties:
-                      id:
-                        description: The UUID of the FireFly interface
-                        format: uuid
-                        nullable: true
-                        type: string
-                      name:
-                        description: The name of the FireFly interface
-                        type: string
-                      version:
-                        description: The version of the FireFly interface
-                        type: string
-                    type: object
-                  location:
-                    additionalProperties: true
-                    description: If this API is tied to an individual instance of
-                      a smart contract, this field can include a blockchain specific
-                      contract identifier. For example an Ethereum contract address,
-                      or a Fabric chaincode name and channel
-                    nullable: true
-                    type: object
-                  message:
-                    description: The UUID of the broadcast message that was used to
-                      publish this API to the network
-                    format: uuid
-                    nullable: true
-                    type: string
-                  name:
-                    description: The name that is used in the URL to access the API
-                    type: string
-                  namespace:
-                    description: The namespace of the contract API
-                    type: string
-                  networkName:
-                    description: The published name of the API within the multiparty
-                      network
-                    type: string
-                  published:
-                    description: Indicates if the API is published to other members
-                      of the multiparty network
-                    type: boolean
-                  urls:
-                    description: The URLs to use to access the API
-                    properties:
-                      api:
-                        description: The URL to use to invoke the API
-                        type: string
-                      openapi:
-                        description: The URL to download the OpenAPI v3 (Swagger)
-                          description for the API generated in JSON or YAML format
-                        type: string
-                      ui:
-                        description: The URL to use in a web browser to access the
-                          SwaggerUI explorer/exerciser for the API
-                        type: string
-                    type: object
-                type: object
-          description: Success
-        default:
-          description: ""
-      tags:
-      - Default Namespace
   /apis/{apiName}/interface:
     get:
       description: Gets a contract interface for a contract API
@@ -2599,6 +2387,219 @@ paths:
             application/json:
               schema:
                 additionalProperties: {}
+                type: object
+          description: Success
+        default:
+          description: ""
+      tags:
+      - Default Namespace
+  /apis/{id}:
+    put:
+      description: The ID of the contract API
+      operationId: putContractAPI
+      parameters:
+      - description: The ID of the contract API
+        in: path
+        name: id
+        required: true
+        schema:
+          example: id
+          type: string
+      - description: When true the HTTP request blocks until the message is confirmed
+        in: query
+        name: confirm
+        schema:
+          example: "true"
+          type: string
+      - description: Server-side request timeout (milliseconds, or set a custom suffix
+          like 10s)
+        in: header
+        name: Request-Timeout
+        schema:
+          default: 2m0s
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                interface:
+                  description: Reference to the FireFly Interface definition associated
+                    with the contract API
+                  nullable: true
+                  properties:
+                    id:
+                      description: The UUID of the FireFly interface
+                      format: uuid
+                      nullable: true
+                      type: string
+                    name:
+                      description: The name of the FireFly interface
+                      type: string
+                    version:
+                      description: The version of the FireFly interface
+                      type: string
+                  type: object
+                location:
+                  additionalProperties: true
+                  description: If this API is tied to an individual instance of a
+                    smart contract, this field can include a blockchain specific contract
+                    identifier. For example an Ethereum contract address, or a Fabric
+                    chaincode name and channel
+                  nullable: true
+                  type: object
+                name:
+                  description: The name that is used in the URL to access the API
+                  type: string
+                networkName:
+                  description: The published name of the API within the multiparty
+                    network
+                  type: string
+              type: object
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    description: The UUID of the contract API
+                    format: uuid
+                    nullable: true
+                    type: string
+                  interface:
+                    description: Reference to the FireFly Interface definition associated
+                      with the contract API
+                    nullable: true
+                    properties:
+                      id:
+                        description: The UUID of the FireFly interface
+                        format: uuid
+                        nullable: true
+                        type: string
+                      name:
+                        description: The name of the FireFly interface
+                        type: string
+                      version:
+                        description: The version of the FireFly interface
+                        type: string
+                    type: object
+                  location:
+                    additionalProperties: true
+                    description: If this API is tied to an individual instance of
+                      a smart contract, this field can include a blockchain specific
+                      contract identifier. For example an Ethereum contract address,
+                      or a Fabric chaincode name and channel
+                    nullable: true
+                    type: object
+                  message:
+                    description: The UUID of the broadcast message that was used to
+                      publish this API to the network
+                    format: uuid
+                    nullable: true
+                    type: string
+                  name:
+                    description: The name that is used in the URL to access the API
+                    type: string
+                  namespace:
+                    description: The namespace of the contract API
+                    type: string
+                  networkName:
+                    description: The published name of the API within the multiparty
+                      network
+                    type: string
+                  published:
+                    description: Indicates if the API is published to other members
+                      of the multiparty network
+                    type: boolean
+                  urls:
+                    description: The URLs to use to access the API
+                    properties:
+                      api:
+                        description: The URL to use to invoke the API
+                        type: string
+                      openapi:
+                        description: The URL to download the OpenAPI v3 (Swagger)
+                          description for the API generated in JSON or YAML format
+                        type: string
+                      ui:
+                        description: The URL to use in a web browser to access the
+                          SwaggerUI explorer/exerciser for the API
+                        type: string
+                    type: object
+                type: object
+          description: Success
+        "202":
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    description: The UUID of the contract API
+                    format: uuid
+                    nullable: true
+                    type: string
+                  interface:
+                    description: Reference to the FireFly Interface definition associated
+                      with the contract API
+                    nullable: true
+                    properties:
+                      id:
+                        description: The UUID of the FireFly interface
+                        format: uuid
+                        nullable: true
+                        type: string
+                      name:
+                        description: The name of the FireFly interface
+                        type: string
+                      version:
+                        description: The version of the FireFly interface
+                        type: string
+                    type: object
+                  location:
+                    additionalProperties: true
+                    description: If this API is tied to an individual instance of
+                      a smart contract, this field can include a blockchain specific
+                      contract identifier. For example an Ethereum contract address,
+                      or a Fabric chaincode name and channel
+                    nullable: true
+                    type: object
+                  message:
+                    description: The UUID of the broadcast message that was used to
+                      publish this API to the network
+                    format: uuid
+                    nullable: true
+                    type: string
+                  name:
+                    description: The name that is used in the URL to access the API
+                    type: string
+                  namespace:
+                    description: The namespace of the contract API
+                    type: string
+                  networkName:
+                    description: The published name of the API within the multiparty
+                      network
+                    type: string
+                  published:
+                    description: Indicates if the API is published to other members
+                      of the multiparty network
+                    type: boolean
+                  urls:
+                    description: The URLs to use to access the API
+                    properties:
+                      api:
+                        description: The URL to use to invoke the API
+                        type: string
+                      openapi:
+                        description: The URL to download the OpenAPI v3 (Swagger)
+                          description for the API generated in JSON or YAML format
+                        type: string
+                      ui:
+                        description: The URL to use in a web browser to access the
+                          SwaggerUI explorer/exerciser for the API
+                        type: string
+                    type: object
                 type: object
           description: Success
         default:
@@ -10317,6 +10318,140 @@ paths:
       - Default Namespace
   /identities/{did}:
     get:
+      description: Gets an identity by its DID
+      operationId: getIdentityByDID
+      parameters:
+      - description: The identity DID
+        in: path
+        name: did
+        required: true
+        schema:
+          type: string
+      - description: When set, the API will return the verifier for this identity
+        in: query
+        name: fetchverifiers
+        schema:
+          example: "true"
+          type: string
+      - description: Server-side request timeout (milliseconds, or set a custom suffix
+          like 10s)
+        in: header
+        name: Request-Timeout
+        schema:
+          default: 2m0s
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                properties:
+                  created:
+                    description: The creation time of the identity
+                    format: date-time
+                    nullable: true
+                    type: string
+                  description:
+                    description: A description of the identity. Part of the updatable
+                      profile information of an identity
+                    type: string
+                  did:
+                    description: The DID of the identity. Unique across namespaces
+                      within a FireFly network
+                    type: string
+                  id:
+                    description: The UUID of the identity
+                    format: uuid
+                    nullable: true
+                    type: string
+                  messages:
+                    description: References to the broadcast messages that established
+                      this identity and proved ownership of the associated verifiers
+                      (keys)
+                    properties:
+                      claim:
+                        description: The UUID of claim message
+                        format: uuid
+                        nullable: true
+                        type: string
+                      update:
+                        description: The UUID of the most recently applied update
+                          message. Unset if no updates have been confirmed
+                        format: uuid
+                        nullable: true
+                        type: string
+                      verification:
+                        description: The UUID of claim message. Unset for root organization
+                          identities
+                        format: uuid
+                        nullable: true
+                        type: string
+                    type: object
+                  name:
+                    description: The name of the identity. The name must be unique
+                      within the type and namespace
+                    type: string
+                  namespace:
+                    description: The namespace of the identity. Organization and node
+                      identities are always defined in the ff_system namespace
+                    type: string
+                  parent:
+                    description: The UUID of the parent identity. Unset for root organization
+                      identities
+                    format: uuid
+                    nullable: true
+                    type: string
+                  profile:
+                    additionalProperties:
+                      description: A set of metadata for the identity. Part of the
+                        updatable profile information of an identity
+                    description: A set of metadata for the identity. Part of the updatable
+                      profile information of an identity
+                    type: object
+                  type:
+                    description: The type of the identity
+                    enum:
+                    - org
+                    - node
+                    - custom
+                    type: string
+                  updated:
+                    description: The last update time of the identity profile
+                    format: date-time
+                    nullable: true
+                    type: string
+                  verifiers:
+                    description: The verifiers, such as blockchain signing keys, that
+                      have been bound to this identity and can be used to prove data
+                      orignates from that identity
+                    items:
+                      description: The verifiers, such as blockchain signing keys,
+                        that have been bound to this identity and can be used to prove
+                        data orignates from that identity
+                      properties:
+                        type:
+                          description: The type of the verifier
+                          enum:
+                          - cardano_address
+                          - ethereum_address
+                          - tezos_address
+                          - fabric_msp_id
+                          - dx_peer_id
+                          type: string
+                        value:
+                          description: The verifier string, such as an Ethereum address,
+                            or Fabric MSP identifier
+                          type: string
+                      type: object
+                    type: array
+                type: object
+          description: Success
+        default:
+          description: ""
+      tags:
+      - Default Namespace
+  /identities/{iid}:
+    get:
       description: Gets an identity by its ID
       operationId: getIdentityByID
       parameters:
@@ -13917,225 +14052,6 @@ paths:
           description: ""
       tags:
       - Non-Default Namespace
-    put:
-      description: The ID of the contract API
-      operationId: putContractAPINamespace
-      parameters:
-      - description: The name of the contract API
-        in: path
-        name: id
-        required: true
-        schema:
-          example: id
-          type: string
-      - description: The namespace which scopes this request
-        in: path
-        name: ns
-        required: true
-        schema:
-          example: default
-          type: string
-      - description: When true the HTTP request blocks until the message is confirmed
-        in: query
-        name: confirm
-        schema:
-          example: "true"
-          type: string
-      - description: Server-side request timeout (milliseconds, or set a custom suffix
-          like 10s)
-        in: header
-        name: Request-Timeout
-        schema:
-          default: 2m0s
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              properties:
-                interface:
-                  description: Reference to the FireFly Interface definition associated
-                    with the contract API
-                  nullable: true
-                  properties:
-                    id:
-                      description: The UUID of the FireFly interface
-                      format: uuid
-                      nullable: true
-                      type: string
-                    name:
-                      description: The name of the FireFly interface
-                      type: string
-                    version:
-                      description: The version of the FireFly interface
-                      type: string
-                  type: object
-                location:
-                  additionalProperties: true
-                  description: If this API is tied to an individual instance of a
-                    smart contract, this field can include a blockchain specific contract
-                    identifier. For example an Ethereum contract address, or a Fabric
-                    chaincode name and channel
-                  nullable: true
-                  type: object
-                name:
-                  description: The name that is used in the URL to access the API
-                  type: string
-                networkName:
-                  description: The published name of the API within the multiparty
-                    network
-                  type: string
-              type: object
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                properties:
-                  id:
-                    description: The UUID of the contract API
-                    format: uuid
-                    nullable: true
-                    type: string
-                  interface:
-                    description: Reference to the FireFly Interface definition associated
-                      with the contract API
-                    nullable: true
-                    properties:
-                      id:
-                        description: The UUID of the FireFly interface
-                        format: uuid
-                        nullable: true
-                        type: string
-                      name:
-                        description: The name of the FireFly interface
-                        type: string
-                      version:
-                        description: The version of the FireFly interface
-                        type: string
-                    type: object
-                  location:
-                    additionalProperties: true
-                    description: If this API is tied to an individual instance of
-                      a smart contract, this field can include a blockchain specific
-                      contract identifier. For example an Ethereum contract address,
-                      or a Fabric chaincode name and channel
-                    nullable: true
-                    type: object
-                  message:
-                    description: The UUID of the broadcast message that was used to
-                      publish this API to the network
-                    format: uuid
-                    nullable: true
-                    type: string
-                  name:
-                    description: The name that is used in the URL to access the API
-                    type: string
-                  namespace:
-                    description: The namespace of the contract API
-                    type: string
-                  networkName:
-                    description: The published name of the API within the multiparty
-                      network
-                    type: string
-                  published:
-                    description: Indicates if the API is published to other members
-                      of the multiparty network
-                    type: boolean
-                  urls:
-                    description: The URLs to use to access the API
-                    properties:
-                      api:
-                        description: The URL to use to invoke the API
-                        type: string
-                      openapi:
-                        description: The URL to download the OpenAPI v3 (Swagger)
-                          description for the API generated in JSON or YAML format
-                        type: string
-                      ui:
-                        description: The URL to use in a web browser to access the
-                          SwaggerUI explorer/exerciser for the API
-                        type: string
-                    type: object
-                type: object
-          description: Success
-        "202":
-          content:
-            application/json:
-              schema:
-                properties:
-                  id:
-                    description: The UUID of the contract API
-                    format: uuid
-                    nullable: true
-                    type: string
-                  interface:
-                    description: Reference to the FireFly Interface definition associated
-                      with the contract API
-                    nullable: true
-                    properties:
-                      id:
-                        description: The UUID of the FireFly interface
-                        format: uuid
-                        nullable: true
-                        type: string
-                      name:
-                        description: The name of the FireFly interface
-                        type: string
-                      version:
-                        description: The version of the FireFly interface
-                        type: string
-                    type: object
-                  location:
-                    additionalProperties: true
-                    description: If this API is tied to an individual instance of
-                      a smart contract, this field can include a blockchain specific
-                      contract identifier. For example an Ethereum contract address,
-                      or a Fabric chaincode name and channel
-                    nullable: true
-                    type: object
-                  message:
-                    description: The UUID of the broadcast message that was used to
-                      publish this API to the network
-                    format: uuid
-                    nullable: true
-                    type: string
-                  name:
-                    description: The name that is used in the URL to access the API
-                    type: string
-                  namespace:
-                    description: The namespace of the contract API
-                    type: string
-                  networkName:
-                    description: The published name of the API within the multiparty
-                      network
-                    type: string
-                  published:
-                    description: Indicates if the API is published to other members
-                      of the multiparty network
-                    type: boolean
-                  urls:
-                    description: The URLs to use to access the API
-                    properties:
-                      api:
-                        description: The URL to use to invoke the API
-                        type: string
-                      openapi:
-                        description: The URL to download the OpenAPI v3 (Swagger)
-                          description for the API generated in JSON or YAML format
-                        type: string
-                      ui:
-                        description: The URL to use in a web browser to access the
-                          SwaggerUI explorer/exerciser for the API
-                        type: string
-                    type: object
-                type: object
-          description: Success
-        default:
-          description: ""
-      tags:
-      - Non-Default Namespace
   /namespaces/{ns}/apis/{apiName}/interface:
     get:
       description: Gets a contract interface for a contract API
@@ -16554,6 +16470,226 @@ paths:
             application/json:
               schema:
                 additionalProperties: {}
+                type: object
+          description: Success
+        default:
+          description: ""
+      tags:
+      - Non-Default Namespace
+  /namespaces/{ns}/apis/{id}:
+    put:
+      description: The ID of the contract API
+      operationId: putContractAPINamespace
+      parameters:
+      - description: The ID of the contract API
+        in: path
+        name: id
+        required: true
+        schema:
+          example: id
+          type: string
+      - description: The namespace which scopes this request
+        in: path
+        name: ns
+        required: true
+        schema:
+          example: default
+          type: string
+      - description: When true the HTTP request blocks until the message is confirmed
+        in: query
+        name: confirm
+        schema:
+          example: "true"
+          type: string
+      - description: Server-side request timeout (milliseconds, or set a custom suffix
+          like 10s)
+        in: header
+        name: Request-Timeout
+        schema:
+          default: 2m0s
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                interface:
+                  description: Reference to the FireFly Interface definition associated
+                    with the contract API
+                  nullable: true
+                  properties:
+                    id:
+                      description: The UUID of the FireFly interface
+                      format: uuid
+                      nullable: true
+                      type: string
+                    name:
+                      description: The name of the FireFly interface
+                      type: string
+                    version:
+                      description: The version of the FireFly interface
+                      type: string
+                  type: object
+                location:
+                  additionalProperties: true
+                  description: If this API is tied to an individual instance of a
+                    smart contract, this field can include a blockchain specific contract
+                    identifier. For example an Ethereum contract address, or a Fabric
+                    chaincode name and channel
+                  nullable: true
+                  type: object
+                name:
+                  description: The name that is used in the URL to access the API
+                  type: string
+                networkName:
+                  description: The published name of the API within the multiparty
+                    network
+                  type: string
+              type: object
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    description: The UUID of the contract API
+                    format: uuid
+                    nullable: true
+                    type: string
+                  interface:
+                    description: Reference to the FireFly Interface definition associated
+                      with the contract API
+                    nullable: true
+                    properties:
+                      id:
+                        description: The UUID of the FireFly interface
+                        format: uuid
+                        nullable: true
+                        type: string
+                      name:
+                        description: The name of the FireFly interface
+                        type: string
+                      version:
+                        description: The version of the FireFly interface
+                        type: string
+                    type: object
+                  location:
+                    additionalProperties: true
+                    description: If this API is tied to an individual instance of
+                      a smart contract, this field can include a blockchain specific
+                      contract identifier. For example an Ethereum contract address,
+                      or a Fabric chaincode name and channel
+                    nullable: true
+                    type: object
+                  message:
+                    description: The UUID of the broadcast message that was used to
+                      publish this API to the network
+                    format: uuid
+                    nullable: true
+                    type: string
+                  name:
+                    description: The name that is used in the URL to access the API
+                    type: string
+                  namespace:
+                    description: The namespace of the contract API
+                    type: string
+                  networkName:
+                    description: The published name of the API within the multiparty
+                      network
+                    type: string
+                  published:
+                    description: Indicates if the API is published to other members
+                      of the multiparty network
+                    type: boolean
+                  urls:
+                    description: The URLs to use to access the API
+                    properties:
+                      api:
+                        description: The URL to use to invoke the API
+                        type: string
+                      openapi:
+                        description: The URL to download the OpenAPI v3 (Swagger)
+                          description for the API generated in JSON or YAML format
+                        type: string
+                      ui:
+                        description: The URL to use in a web browser to access the
+                          SwaggerUI explorer/exerciser for the API
+                        type: string
+                    type: object
+                type: object
+          description: Success
+        "202":
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    description: The UUID of the contract API
+                    format: uuid
+                    nullable: true
+                    type: string
+                  interface:
+                    description: Reference to the FireFly Interface definition associated
+                      with the contract API
+                    nullable: true
+                    properties:
+                      id:
+                        description: The UUID of the FireFly interface
+                        format: uuid
+                        nullable: true
+                        type: string
+                      name:
+                        description: The name of the FireFly interface
+                        type: string
+                      version:
+                        description: The version of the FireFly interface
+                        type: string
+                    type: object
+                  location:
+                    additionalProperties: true
+                    description: If this API is tied to an individual instance of
+                      a smart contract, this field can include a blockchain specific
+                      contract identifier. For example an Ethereum contract address,
+                      or a Fabric chaincode name and channel
+                    nullable: true
+                    type: object
+                  message:
+                    description: The UUID of the broadcast message that was used to
+                      publish this API to the network
+                    format: uuid
+                    nullable: true
+                    type: string
+                  name:
+                    description: The name that is used in the URL to access the API
+                    type: string
+                  namespace:
+                    description: The namespace of the contract API
+                    type: string
+                  networkName:
+                    description: The published name of the API within the multiparty
+                      network
+                    type: string
+                  published:
+                    description: Indicates if the API is published to other members
+                      of the multiparty network
+                    type: boolean
+                  urls:
+                    description: The URLs to use to access the API
+                    properties:
+                      api:
+                        description: The URL to use to invoke the API
+                        type: string
+                      openapi:
+                        description: The URL to download the OpenAPI v3 (Swagger)
+                          description for the API generated in JSON or YAML format
+                        type: string
+                      ui:
+                        description: The URL to use in a web browser to access the
+                          SwaggerUI explorer/exerciser for the API
+                        type: string
+                    type: object
                 type: object
           description: Success
         default:
@@ -24706,6 +24842,147 @@ paths:
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/identities/{did}:
+    get:
+      description: Gets an identity by its DID
+      operationId: getIdentityByDIDNamespace
+      parameters:
+      - description: The identity DID
+        in: path
+        name: did
+        required: true
+        schema:
+          type: string
+      - description: The namespace which scopes this request
+        in: path
+        name: ns
+        required: true
+        schema:
+          example: default
+          type: string
+      - description: When set, the API will return the verifier for this identity
+        in: query
+        name: fetchverifiers
+        schema:
+          example: "true"
+          type: string
+      - description: Server-side request timeout (milliseconds, or set a custom suffix
+          like 10s)
+        in: header
+        name: Request-Timeout
+        schema:
+          default: 2m0s
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                properties:
+                  created:
+                    description: The creation time of the identity
+                    format: date-time
+                    nullable: true
+                    type: string
+                  description:
+                    description: A description of the identity. Part of the updatable
+                      profile information of an identity
+                    type: string
+                  did:
+                    description: The DID of the identity. Unique across namespaces
+                      within a FireFly network
+                    type: string
+                  id:
+                    description: The UUID of the identity
+                    format: uuid
+                    nullable: true
+                    type: string
+                  messages:
+                    description: References to the broadcast messages that established
+                      this identity and proved ownership of the associated verifiers
+                      (keys)
+                    properties:
+                      claim:
+                        description: The UUID of claim message
+                        format: uuid
+                        nullable: true
+                        type: string
+                      update:
+                        description: The UUID of the most recently applied update
+                          message. Unset if no updates have been confirmed
+                        format: uuid
+                        nullable: true
+                        type: string
+                      verification:
+                        description: The UUID of claim message. Unset for root organization
+                          identities
+                        format: uuid
+                        nullable: true
+                        type: string
+                    type: object
+                  name:
+                    description: The name of the identity. The name must be unique
+                      within the type and namespace
+                    type: string
+                  namespace:
+                    description: The namespace of the identity. Organization and node
+                      identities are always defined in the ff_system namespace
+                    type: string
+                  parent:
+                    description: The UUID of the parent identity. Unset for root organization
+                      identities
+                    format: uuid
+                    nullable: true
+                    type: string
+                  profile:
+                    additionalProperties:
+                      description: A set of metadata for the identity. Part of the
+                        updatable profile information of an identity
+                    description: A set of metadata for the identity. Part of the updatable
+                      profile information of an identity
+                    type: object
+                  type:
+                    description: The type of the identity
+                    enum:
+                    - org
+                    - node
+                    - custom
+                    type: string
+                  updated:
+                    description: The last update time of the identity profile
+                    format: date-time
+                    nullable: true
+                    type: string
+                  verifiers:
+                    description: The verifiers, such as blockchain signing keys, that
+                      have been bound to this identity and can be used to prove data
+                      orignates from that identity
+                    items:
+                      description: The verifiers, such as blockchain signing keys,
+                        that have been bound to this identity and can be used to prove
+                        data orignates from that identity
+                      properties:
+                        type:
+                          description: The type of the verifier
+                          enum:
+                          - cardano_address
+                          - ethereum_address
+                          - tezos_address
+                          - fabric_msp_id
+                          - dx_peer_id
+                          type: string
+                        value:
+                          description: The verifier string, such as an Ethereum address,
+                            or Fabric MSP identifier
+                          type: string
+                      type: object
+                    type: array
+                type: object
+          description: Success
+        default:
+          description: ""
+      tags:
+      - Non-Default Namespace
+  /namespaces/{ns}/identities/{iid}:
     get:
       description: Gets an identity by its ID
       operationId: getIdentityByIDNamespace

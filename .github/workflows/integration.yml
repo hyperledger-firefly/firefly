@@ -50,14 +50,14 @@ jobs:
             blockchain-node: besu
       fail-fast: false
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: 1.23
+          go-version: 1.26
 
       - name: Update manifest to latest commit for every service
         run: ./manifestgen.sh head
@@ -87,14 +87,14 @@ jobs:
   migration-test:
     runs-on: firefly-ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: 1.23
+          go-version: 1.26
 
       - name: Update manifest to latest commit for every service
         run: ./manifestgen.sh head

@@ -212,6 +212,14 @@ func (tw *txWriter) processBatch(ctx context.Context, batch *txWriterBatch) erro
 			for _, op := range req.operations {
 				op.Transaction = txn.ID
 				operations = append(operations, op)
+
+				// This is a key log line, where we can provide all pieces of correlation data a user needs:
+				// - The type of the operation
+				// - The plugin/connector
+				// - The idempotencyKey
+				// - The FF Transaction ID
+				// - The Operation ID
+				log.L(ctx).Infof("FF_NEW_TRANSACTION_OPERATION: namespace=%s plugin=%s type=%s operationId=%s transactionId=%s idempotencyKey='%s'", op.Namespace, op.Plugin, op.Type, op.ID, txn.ID, txn.IdempotencyKey)
 			}
 		}
 	}

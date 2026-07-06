@@ -44,6 +44,10 @@ echo UI_RELEASE=$UI_RELEASE
 echo BUILD_VERSION=$BUILD_VERSION
 echo GIT_REF=$GIT_REF
 
+# Remove existing firefly builder if it exists
+docker buildx rm firefly --keep-state 2>/dev/null || true
+
+# Create new firefly builder
 docker buildx create --name firefly --use
 docker buildx build \
     -t hyperledger/firefly \
