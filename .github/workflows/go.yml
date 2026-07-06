@@ -34,7 +34,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: 1.23
+          go-version: 1.26
 
       - name: Build and Test
         run: make
@@ -54,7 +54,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: 1.23
+          go-version: 1.26
 
       - name: Build Docker image
         run: make docker
@@ -146,7 +146,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: 1.23
+          go-version: 1.26
 
       - name: Download Docker image
         uses: actions/download-artifact@v4
@@ -155,6 +155,15 @@ jobs:
 
       - name: Load Docker image
         run: docker load --input firefly.tar.gz
+
+      # Pre-pull fabric-ccenv so the Fabric peer's chaincode build finds it. Required on
+      # GitHub Actions with Docker 29: the peer invokes the host Docker build API to build
+      # chaincode (FROM hyperledger/fabric-ccenv:2.5); with Docker 29/containerd image store
+      # the base image is not always pulled automatically, causing "No such image" (see
+      # GitHub runner Docker 29 upgrade and moby/moby#51779 re multi-arch/image identity).
+      - name: Pull Fabric chaincode build image
+        if: matrix.stack-type == 'fabric'
+        run: docker pull hyperledger/fabric-ccenv:2.5
 
       - name: Run E2E tests
         env:

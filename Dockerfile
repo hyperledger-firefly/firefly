@@ -15,11 +15,11 @@ FROM $FIREFLY_BUILDER_TAG AS firefly-builder
 ARG BUILD_VERSION
 ARG GIT_REF
 RUN apk add --no-cache \
-  make=4.4.1-r2 \
-  gcc=14.2.0-r4 \
-  build-base=0.5-r3 \
-  curl=8.14.1-r2 \
-  git=2.47.3-r0
+  make>=4.4.1-r2 \
+  gcc>=14.2.0-r4 \
+  build-base>=0.5-r3 \
+  curl>=8.14.1-r2 \
+  git>=2.47.3-r0
 WORKDIR /firefly
 RUN chgrp -R 0 /firefly \
   && chmod -R g+rwX /firefly \
@@ -66,7 +66,7 @@ FROM alpine:3.21 AS sbom
 WORKDIR /
 ADD . /SBOM
 RUN apk add --no-cache curl
-RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v0.68.1
+RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v0.69.3
 RUN trivy fs --format spdx-json --output /sbom.spdx.json /SBOM
 RUN trivy sbom /sbom.spdx.json --severity UNKNOWN,HIGH,CRITICAL --db-repository public.ecr.aws/aquasecurity/trivy-db --exit-code 1
 
@@ -75,10 +75,10 @@ FROM $BASE_TAG
 ARG UI_TAG
 ARG UI_RELEASE
 RUN apk add --update --no-cache \
-  sqlite=3.48.0-r4 \
-  postgresql16-client=16.11-r0 \
-  curl=8.14.1-r2 \
-  jq=1.7.1-r0
+  sqlite>=3.48.0-r4 \
+  postgresql16-client>=16.13 \
+  curl>=8.14.1-r2 \
+  jq>=1.7.1-r0
 WORKDIR /firefly
 RUN chgrp -R 0 /firefly \
   && chmod -R g+rwX /firefly \

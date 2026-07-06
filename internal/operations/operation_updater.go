@@ -32,6 +32,7 @@ import (
 	"github.com/hyperledger/firefly/internal/txcommon"
 	"github.com/hyperledger/firefly/pkg/core"
 	"github.com/hyperledger/firefly/pkg/database"
+	"github.com/hyperledger/firefly/pkg/utils"
 )
 
 type operationUpdaterBatch struct {
@@ -422,7 +423,7 @@ func (ou *operationUpdater) resolveOperation(ctx context.Context, ns string, id 
 		update = update.Set("status", status)
 	}
 	if errorMsg != nil {
-		update = update.Set("error", *errorMsg)
+		update = update.Set("error", utils.DBSafeUTF8StringFromPtr(ctx, errorMsg))
 	}
 	if output != nil {
 		update = update.Set("output", output)

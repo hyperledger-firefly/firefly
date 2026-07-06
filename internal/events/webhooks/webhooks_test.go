@@ -28,6 +28,7 @@ import (
 	"fmt"
 	"log"
 	"math/big"
+	"strings"
 	"net"
 	"net/http"
 	"net/http/httptest"
@@ -40,10 +41,12 @@ import (
 	"github.com/hyperledger/firefly-common/pkg/ffresty"
 	"github.com/hyperledger/firefly-common/pkg/fftls"
 	"github.com/hyperledger/firefly-common/pkg/fftypes"
+	fflog "github.com/hyperledger/firefly-common/pkg/log"
 	"github.com/hyperledger/firefly/internal/coreconfig"
 	"github.com/hyperledger/firefly/mocks/eventsmocks"
 	"github.com/hyperledger/firefly/pkg/core"
 	"github.com/hyperledger/firefly/pkg/events"
+	"github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
@@ -470,14 +473,10 @@ func TestRequestWithBodyReplyEndToEndWithTLS(t *testing.T) {
 
 	ctx, cancelCtx := context.WithCancel(context.Background())
 	go func() {
-		select {
-		case <-ctx.Done():
-			shutdownContext, cancel := context.WithTimeout(context.Background(), 2*time.Second)
-			defer cancel()
-			if err := server.Shutdown(shutdownContext); err != nil {
-				return
-			}
-		}
+		<-ctx.Done()
+		shutdownContext, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+		defer cancel()
+		_ = server.Shutdown(shutdownContext)
 	}()
 
 	server.Handler = r
@@ -1489,4 +1488,118 @@ func TestRequestWithBodyReplyEndToEndWithBatch(t *testing.T) {
 
 func TestFirstDataNeverNil(t *testing.T) {
 	assert.NotNil(t, (&whPayload{}).firstData())
+}
+
+func TestBreqCorrelatorSharedBetweenRequestAndResponseLogs(t *testing.T) {
+	wh, cancel := newTestWebHooks(t)
+	defer cancel()
+
+	logger := logrus.StandardLogger()
+	origHooks := logger.Hooks
+	hook := &testHook{}
+	logger.AddHook(hook)
+	logrus.SetLevel(logrus.DebugLevel)
+	defer logger.ReplaceHooks(origHooks)
+
+	r := mux.NewRouter()
+	r.HandleFunc("/ping", func(res http.ResponseWriter, req *http.Request) {
+		res.WriteHeader(200)
+		_, _ = res.Write([]byte(`ok`))
+	}).Methods(http.MethodPost)
+	server := httptest.NewServer(r)
+	defer server.Close()
+
+	subID := fftypes.NewUUID()
+	sub := &core.Subscription{
+		SubscriptionRef: core.SubscriptionRef{ID: subID, Namespace: "ns1"},
+	}
+	sub.Options.TransportOptions()["url"] = fmt.Sprintf("http://%s/ping", server.Listener.Addr())
+	event := &core.EventDelivery{
+		EnrichedEvent: core.EnrichedEvent{Event: core.Event{ID: fftypes.NewUUID()}},
+		Subscription:  core.SubscriptionRef{ID: subID},
+	}
+
+	mcb := wh.callbacks.handlers["ns1"].(*eventsmocks.Callbacks)
+	mcb.On("DeliveryResponse", mock.Anything, mock.MatchedBy(func(resp *core.EventDeliveryResponse) bool {
+		return !resp.Rejected
+	})).Return(nil)
+
+	err := wh.DeliveryRequest(wh.ctx, mock.Anything, sub, event, nil)
+	assert.NoError(t, err)
+
+	var reqBreq, respBreq interface{}
+	for _, e := range hook.entries {
+		if strings.HasPrefix(e.Message, "==> POST") {
+			reqBreq = e.Data["breq"]
+		}
+		if strings.HasPrefix(e.Message, "Webhook<-") {
+			respBreq = e.Data["breq"]
+		}
+	}
+
+	assert.NotNil(t, reqBreq, "outbound request log should carry a breq field")
+	assert.NotNil(t, respBreq, "response log should carry a breq field")
+	assert.Equal(t, reqBreq, respBreq, "request and response logs must share the same breq correlator")
+
+	mcb.AssertExpectations(t)
+}
+
+type testHook struct{ entries []*logrus.Entry }
+
+func (h *testHook) Levels() []logrus.Level { return logrus.AllLevels }
+func (h *testHook) Fire(e *logrus.Entry) error {
+	h.entries = append(h.entries, e)
+	return nil
+}
+
+func TestLoggingContextPreserved(t *testing.T) {
+	wh, cancel := newTestWebHooks(t)
+	defer cancel()
+
+	logger := logrus.StandardLogger()
+	origHooks := logger.Hooks
+	hook := &testHook{}
+	logger.AddHook(hook)
+	logrus.SetLevel(logrus.DebugLevel)
+	defer logger.ReplaceHooks(origHooks)
+
+	r := mux.NewRouter()
+	r.HandleFunc("/ping", func(res http.ResponseWriter, req *http.Request) {
+		res.WriteHeader(200)
+		_, _ = res.Write([]byte(`ok`))
+	}).Methods(http.MethodPost)
+	server := httptest.NewServer(r)
+	defer server.Close()
+
+	subID := fftypes.NewUUID()
+	sub := &core.Subscription{
+		SubscriptionRef: core.SubscriptionRef{ID: subID, Namespace: "ns1"},
+	}
+	to := sub.Options.TransportOptions()
+	to["url"] = fmt.Sprintf("http://%s/ping", server.Listener.Addr())
+	event := &core.EventDelivery{
+		EnrichedEvent: core.EnrichedEvent{Event: core.Event{ID: fftypes.NewUUID()}},
+		Subscription:  core.SubscriptionRef{ID: subID},
+	}
+
+	parentCtx := fflog.WithLogField(context.Background(), "httpReq", "req-123")
+
+	mcb := wh.callbacks.handlers["ns1"].(*eventsmocks.Callbacks)
+	mcb.On("DeliveryResponse", mock.Anything, mock.MatchedBy(func(resp *core.EventDeliveryResponse) bool {
+		return !resp.Rejected
+	})).Return(nil)
+
+	err := wh.DeliveryRequest(parentCtx, mock.Anything, sub, event, nil)
+	assert.NoError(t, err)
+
+	found := false
+	for _, e := range hook.entries {
+		if e.Data["httpReq"] == "req-123" && e.Data["webhook"] != nil && e.Data["sub"] == subID.String() {
+			found = true
+			break
+		}
+	}
+	assert.True(t, found, "expected log entry with preserved httpReq, webhook, and sub fields")
+
+	mcb.AssertExpectations(t)
 }
