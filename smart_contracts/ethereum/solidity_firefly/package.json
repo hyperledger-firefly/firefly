@@ -5,7 +5,7 @@
     "test": "hardhat test --network hardhat"
   },
   "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^7.0.0",
-    "typescript": "^7.0.2"
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "typescript": "^5.4.2"
   }
 }
