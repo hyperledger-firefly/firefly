@@ -27,19 +27,19 @@ jobs:
       TEST_ARGS: -v
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7.0.0
         with:
           fetch-depth: 0
 
       - name: Set up Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v6
         with:
           go-version: 1.26
 
       - name: Build and Test
         run: make
 
-      - uses: codecov/codecov-action@v4
+      - uses: codecov/codecov-action@v7
         with:
           codecov_yml_path: ./codecov.yml
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -47,12 +47,12 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7.0.0
         with:
           fetch-depth: 0
 
       - name: Set up Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v6
         with:
           go-version: 1.26
 
@@ -63,7 +63,7 @@ jobs:
         run: docker save --output firefly.tar.gz hyperledger-firefly/firefly
 
       - name: Upload Docker image
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: firefly-docker
           path: firefly.tar.gz
@@ -139,17 +139,17 @@ jobs:
             multiparty-enabled: false
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7.0.0
         with:
           fetch-depth: 0
 
       - name: Set up Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v6
         with:
           go-version: 1.26
 
       - name: Download Docker image
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: firefly-docker
 
@@ -177,7 +177,7 @@ jobs:
         run: ./test/e2e/run.sh
 
       - name: Archive container logs
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: container-logs-${{ matrix.test-suite }}-${{ matrix.blockchain-provider }}-${{ matrix.blockchain-connector }}-${{ matrix.database-type }}-${{ matrix.token-provider }}
