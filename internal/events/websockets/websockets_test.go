@@ -102,8 +102,9 @@ func newTestWebsocketsCommon(t *testing.T, cbs *eventsmocks.Callbacks, authorize
 	assert.NoError(t, err)
 
 	return ws, wsc, func() {
+		// Do not call wsc.Close() after cancel: wsclient.New already closes the client
+		// from ctx.Done(), and a second Close() races and can panic (close of closed channel).
 		cancelCtx()
-		wsc.Close()
 		ws.WaitClosed()
 		svr.Close()
 	}
