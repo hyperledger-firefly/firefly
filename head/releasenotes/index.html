@@ -4292,6 +4292,34 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#v150-jul-22-2026" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v1.5.0 - Jul 22, 2026
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v1.5.0 - Jul 22, 2026">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#migration-consideration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migration consideration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#v140-jul-17-2025" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4315,7 +4343,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#migration-consideration" class="md-nav__link">
+  <a href="#migration-consideration_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Migration consideration
@@ -4543,6 +4571,34 @@
 
 <h1 id="release-notes">Release Notes<a class="headerlink" href="#release-notes" title="Permanent link">&para;</a></h1>
 <p><a href="https://github.com/hyperledger-firefly/firefly/releases">Full release notes</a></p>
+<h2 id="v150-jul-22-2026"><a href="https://github.com/hyperledger-firefly/firefly/releases/tag/v1.5.0">v1.5.0 - Jul 22, 2026</a><a class="headerlink" href="#v150-jul-22-2026" title="Permanent link">&para;</a></h2>
+<p>What's New:</p>
+<ul>
+<li>FireFly has moved to its own <code>hyperledger-firefly</code> GitHub organization<ul>
+<li>All repositories now live under <a href="https://github.com/hyperledger-firefly">https://github.com/hyperledger-firefly</a></li>
+<li>All container images are now published under <code>ghcr.io/hyperledger-firefly/*</code> (see migration consideration below)</li>
+</ul>
+</li>
+<li>All Go-based components upgraded to Go 1.26</li>
+<li>New transaction submission and management APIs in the FireFly Transaction Manager, the library to build new connectors, adopted in EVMConnect<ul>
+<li>New <code>POST /submit</code> API supporting batching of multiple transaction submissions into a single request</li>
+<li>New <code>PATCH /transactions/{transactionId}</code> API to update an in-flight transaction</li>
+<li>Transaction receipts are now returned as part of the confirmation response</li>
+</ul>
+</li>
+<li>New lightweight block-tracking mode in the connector framework — implemented in EVMConnect<ul>
+<li>Allows connectors to track block progression and confirmations without maintaining a full in-memory canonical chain, reducing resource usage</li>
+</ul>
+</li>
+<li>Improved error reporting for smart contract reverts, with decoding of nested error strings when a Solidity contract catches and rethrows an error</li>
+<li>Large number of improvements to the FireFly common libraries, used to bootstrap new plugins and features of FireFly</li>
+<li>Cardano connector maintenance updates, including security fixes and an increased request body limit for large transactions and contract deployments</li>
+<li>New networking metrics and IP/server configuration options in the common HTTP/TLS/DNS layers used across all FireFly runtimes</li>
+<li>Miscellaneous bug fixes and minor improvements across all components</li>
+<li>CVE fixes across the board</li>
+</ul>
+<h3 id="migration-consideration">Migration consideration<a class="headerlink" href="#migration-consideration" title="Permanent link">&para;</a></h3>
+<p>As part of the move to the <code>hyperledger-firefly</code> GitHub organization, container images should now be pulled from <code>ghcr.io/hyperledger-firefly/*</code> — images under the previous <code>ghcr.io/hyperledger/firefly-*</code> locations will not receive further updates. Projects that consume FireFly Go modules must also update their import paths from <code>github.com/hyperledger/firefly-*</code> to <code>github.com/hyperledger-firefly/*</code> when upgrading to the latest module versions.</p>
 <h2 id="v140-jul-17-2025"><a href="https://github.com/hyperledger-firefly/firefly/releases/tag/v1.4.0">v1.4.0 - Jul 17, 2025</a><a class="headerlink" href="#v140-jul-17-2025" title="Permanent link">&para;</a></h2>
 <p>What's New:</p>
 <ul>
@@ -4589,7 +4645,7 @@
 <li>Documentation updates, new troubleshooting section for multiparty messages</li>
 <li>CVE fixes and adoption of OpenSSF scorecard on key repositories</li>
 </ul>
-<h3 id="migration-consideration">Migration consideration<a class="headerlink" href="#migration-consideration" title="Permanent link">&para;</a></h3>
+<h3 id="migration-consideration_1">Migration consideration<a class="headerlink" href="#migration-consideration_1" title="Permanent link">&para;</a></h3>
 <p>As part of the changes to the metrics to add the new <code>namespace</code> label, we changed from using a Prometheus <code>Counter</code> to a <code>CounterVec</code>. As a result there is no default value of <code>0</code> on the counter, which means when users query for a specific metric such as <code>ff_message_rejected_total</code> it will not be available until the <code>CounterVec</code> associated with that metric is incremented. This has been determined to be an easy upgrade for SRE monitoring these metrics, hence inclusion in a patch release. </p>
 <h2 id="v132-oct-3-2024"><a href="https://github.com/hyperledger-firefly/firefly/releases/tag/v1.3.2">v1.3.2 - Oct 3, 2024</a><a class="headerlink" href="#v132-oct-3-2024" title="Permanent link">&para;</a></h2>
 <p>What's New:</p>
