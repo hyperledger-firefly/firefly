@@ -215,6 +215,18 @@ paths:
                   description: The published name of the API within the multiparty
                     network
                   type: string
+                topics:
+                  description: An optional list of custom topics to use for ordering
+                    of the definition broadcast message, instead of the default system
+                    topic. Each topic must be a non-empty string. Only used when the
+                    definition is published to the multiparty network
+                  items:
+                    description: An optional list of custom topics to use for ordering
+                      of the definition broadcast message, instead of the default
+                      system topic. Each topic must be a non-empty string. Only used
+                      when the definition is published to the multiparty network
+                    type: string
+                  type: array
               type: object
         required: true
       responses:
@@ -1816,6 +1828,18 @@ paths:
                   description: An optional name to be used for publishing this definition
                     to the multiparty network, which may differ from the local name
                   type: string
+                topics:
+                  description: An optional list of custom topics to use for ordering
+                    of the definition broadcast message, instead of the default system
+                    topic. Each topic must be a non-empty string. Only used when the
+                    definition is published to the multiparty network
+                  items:
+                    description: An optional list of custom topics to use for ordering
+                      of the definition broadcast message, instead of the default
+                      system topic. Each topic must be a non-empty string. Only used
+                      when the definition is published to the multiparty network
+                    type: string
+                  type: array
               type: object
         required: true
       responses:
@@ -2455,6 +2479,18 @@ paths:
                   description: The published name of the API within the multiparty
                     network
                   type: string
+                topics:
+                  description: An optional list of custom topics to use for ordering
+                    of the definition broadcast message, instead of the default system
+                    topic. Each topic must be a non-empty string. Only used when the
+                    definition is published to the multiparty network
+                  items:
+                    description: An optional list of custom topics to use for ordering
+                      of the definition broadcast message, instead of the default
+                      system topic. Each topic must be a non-empty string. Only used
+                      when the definition is published to the multiparty network
+                    type: string
+                  type: array
               type: object
         required: true
       responses:
@@ -3992,6 +4028,18 @@ paths:
                   description: The published name of the FFI within the multiparty
                     network
                   type: string
+                topics:
+                  description: An optional list of custom topics to use for ordering
+                    of the definition broadcast message, instead of the default system
+                    topic. Each topic must be a non-empty string. Only used when the
+                    definition is published to the multiparty network
+                  items:
+                    description: An optional list of custom topics to use for ordering
+                      of the definition broadcast message, instead of the default
+                      system topic. Each topic must be a non-empty string. Only used
+                      when the definition is published to the multiparty network
+                    type: string
+                  type: array
                 version:
                   description: A version for the FFI - use of semantic versioning
                     such as 'v1.0.1' is encouraged
@@ -4872,6 +4920,18 @@ paths:
                   description: An optional name to be used for publishing this definition
                     to the multiparty network, which may differ from the local name
                   type: string
+                topics:
+                  description: An optional list of custom topics to use for ordering
+                    of the definition broadcast message, instead of the default system
+                    topic. Each topic must be a non-empty string. Only used when the
+                    definition is published to the multiparty network
+                  items:
+                    description: An optional list of custom topics to use for ordering
+                      of the definition broadcast message, instead of the default
+                      system topic. Each topic must be a non-empty string. Only used
+                      when the definition is published to the multiparty network
+                    type: string
+                  type: array
               type: object
         required: true
       responses:
@@ -13765,6 +13825,18 @@ paths:
                   description: The published name of the API within the multiparty
                     network
                   type: string
+                topics:
+                  description: An optional list of custom topics to use for ordering
+                    of the definition broadcast message, instead of the default system
+                    topic. Each topic must be a non-empty string. Only used when the
+                    definition is published to the multiparty network
+                  items:
+                    description: An optional list of custom topics to use for ordering
+                      of the definition broadcast message, instead of the default
+                      system topic. Each topic must be a non-empty string. Only used
+                      when the definition is published to the multiparty network
+                    type: string
+                  type: array
               type: object
         required: true
       responses:
@@ -15626,6 +15698,18 @@ paths:
                   description: An optional name to be used for publishing this definition
                     to the multiparty network, which may differ from the local name
                   type: string
+                topics:
+                  description: An optional list of custom topics to use for ordering
+                    of the definition broadcast message, instead of the default system
+                    topic. Each topic must be a non-empty string. Only used when the
+                    definition is published to the multiparty network
+                  items:
+                    description: An optional list of custom topics to use for ordering
+                      of the definition broadcast message, instead of the default
+                      system topic. Each topic must be a non-empty string. Only used
+                      when the definition is published to the multiparty network
+                    type: string
+                  type: array
               type: object
         required: true
       responses:
@@ -16545,6 +16629,18 @@ paths:
                   description: The published name of the API within the multiparty
                     network
                   type: string
+                topics:
+                  description: An optional list of custom topics to use for ordering
+                    of the definition broadcast message, instead of the default system
+                    topic. Each topic must be a non-empty string. Only used when the
+                    definition is published to the multiparty network
+                  items:
+                    description: An optional list of custom topics to use for ordering
+                      of the definition broadcast message, instead of the default
+                      system topic. Each topic must be a non-empty string. Only used
+                      when the definition is published to the multiparty network
+                    type: string
+                  type: array
               type: object
         required: true
       responses:
@@ -18145,6 +18241,18 @@ paths:
                   description: The published name of the FFI within the multiparty
                     network
                   type: string
+                topics:
+                  description: An optional list of custom topics to use for ordering
+                    of the definition broadcast message, instead of the default system
+                    topic. Each topic must be a non-empty string. Only used when the
+                    definition is published to the multiparty network
+                  items:
+                    description: An optional list of custom topics to use for ordering
+                      of the definition broadcast message, instead of the default
+                      system topic. Each topic must be a non-empty string. Only used
+                      when the definition is published to the multiparty network
+                    type: string
+                  type: array
                 version:
                   description: A version for the FFI - use of semantic versioning
                     such as 'v1.0.1' is encouraged
@@ -19053,6 +19161,18 @@ paths:
                   description: An optional name to be used for publishing this definition
                     to the multiparty network, which may differ from the local name
                   type: string
+                topics:
+                  description: An optional list of custom topics to use for ordering
+                    of the definition broadcast message, instead of the default system
+                    topic. Each topic must be a non-empty string. Only used when the
+                    definition is published to the multiparty network
+                  items:
+                    description: An optional list of custom topics to use for ordering
+                      of the definition broadcast message, instead of the default
+                      system topic. Each topic must be a non-empty string. Only used
+                      when the definition is published to the multiparty network
+                    type: string
+                  type: array
               type: object
         required: true
       responses:
@@ -36012,6 +36132,18 @@ paths:
                   description: An optional name to be used for publishing this definition
                     to the multiparty network, which may differ from the local name
                   type: string
+                topics:
+                  description: An optional list of custom topics to use for ordering
+                    of the definition broadcast message, instead of the default system
+                    topic. Each topic must be a non-empty string. Only used when the
+                    definition is published to the multiparty network
+                  items:
+                    description: An optional list of custom topics to use for ordering
+                      of the definition broadcast message, instead of the default
+                      system topic. Each topic must be a non-empty string. Only used
+                      when the definition is published to the multiparty network
+                    type: string
+                  type: array
               type: object
         required: true
       responses:
@@ -45562,6 +45694,18 @@ paths:
                   description: An optional name to be used for publishing this definition
                     to the multiparty network, which may differ from the local name
                   type: string
+                topics:
+                  description: An optional list of custom topics to use for ordering
+                    of the definition broadcast message, instead of the default system
+                    topic. Each topic must be a non-empty string. Only used when the
+                    definition is published to the multiparty network
+                  items:
+                    description: An optional list of custom topics to use for ordering
+                      of the definition broadcast message, instead of the default
+                      system topic. Each topic must be a non-empty string. Only used
+                      when the definition is published to the multiparty network
+                    type: string
+                  type: array
               type: object
         required: true
       responses:
