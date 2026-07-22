@@ -739,4 +739,11 @@ var (
 
 	// DefinitionPublish field descriptions
 	DefinitionPublishNetworkName = ffm("DefinitionPublish.networkName", "An optional name to be used for publishing this definition to the multiparty network, which may differ from the local name")
+	DefinitionPublishTopics      = ffm("DefinitionPublish.topics", "An optional list of custom topics to use for ordering of the definition broadcast message, instead of the default system topic. Each topic must be a non-empty string. Only used when the definition is published to the multiparty network")
+
+	// ContractAPIInput field descriptions
+	ContractAPIInputTopics = ffm("ContractAPIInput.topics", "An optional list of custom topics to use for ordering of the definition broadcast message, instead of the default system topic. Each topic must be a non-empty string. Only used when the definition is published to the multiparty network")
+
+	// FFIInput field descriptions
+	FFIInputTopics = ffm("FFIInput.topics", "An optional list of custom topics to use for ordering of the definition broadcast message, instead of the default system topic. Each topic must be a non-empty string. Only used when the definition is published to the multiparty network")
 )

@@ -72,6 +72,16 @@ type ContractAPI struct {
 	Published   bool                  `ffstruct:"ContractAPI" json:"published" ffexcludeinput:"true"`
 }
 
+type ContractAPIInput struct {
+	ContractAPI
+	Topics fftypes.FFStringArray `ffstruct:"ContractAPIInput" json:"topics,omitempty" ffexcludeoutput:"true"`
+}
+
+type FFIInput struct {
+	fftypes.FFI
+	Topics fftypes.FFStringArray `ffstruct:"FFIInput" json:"topics,omitempty" ffexcludeoutput:"true"`
+}
+
 func (c *ContractAPI) Validate(ctx context.Context) (err error) {
 	if err = fftypes.ValidateFFNameField(ctx, c.Namespace, "namespace"); err != nil {
 		return err

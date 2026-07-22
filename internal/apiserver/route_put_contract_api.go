@@ -38,7 +38,7 @@ var putContractAPI = &ffapi.Route{
 		{Name: "confirm", Description: coremsgs.APIConfirmMsgQueryParam, IsBool: true, Example: "true"},
 	},
 	Description:     coremsgs.APIParamsContractAPIID,
-	JSONInputValue:  func() interface{} { return &core.ContractAPI{} },
+	JSONInputValue:  func() interface{} { return &core.ContractAPIInput{} },
 	JSONOutputValue: func() interface{} { return &core.ContractAPI{} },
 	JSONOutputCodes: []int{http.StatusOK, http.StatusAccepted},
 	Extensions: &coreExtensions{
@@ -48,10 +48,11 @@ var putContractAPI = &ffapi.Route{
 		CoreJSONHandler: func(r *ffapi.APIRequest, cr *coreRequest) (output interface{}, err error) {
 			waitConfirm := strings.EqualFold(r.QP["confirm"], "true")
 			r.SuccessStatus = syncRetcode(waitConfirm)
-			api := r.Input.(*core.ContractAPI)
+			input := r.Input.(*core.ContractAPIInput)
+			api := &input.ContractAPI
 			api.ID, err = fftypes.ParseUUID(cr.ctx, r.PP["id"])
 			if err == nil {
-				err = cr.or.DefinitionSender().DefineContractAPI(cr.ctx, cr.apiBaseURL, api, waitConfirm)
+				err = cr.or.DefinitionSender().DefineContractAPI(cr.ctx, cr.apiBaseURL, api, waitConfirm, input.Topics)
 			}
 			return api, err
 		},

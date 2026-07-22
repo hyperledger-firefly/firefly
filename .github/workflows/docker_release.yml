@@ -107,3 +107,14 @@ jobs:
             UI_RELEASE=${{ steps.manifest.outputs.UI_RELEASE }}
             BUILD_VERSION=${{ steps.build_tag_generator.outputs.RELEASE_TAG }}
             GIT_REF=${{ github.ref }}
+
+      - name: Upload manifest.json to GitHub Release
+        if: github.event_name == 'release'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./manifest.json
+          asset_name: manifest.json
+          asset_content_type: application/json

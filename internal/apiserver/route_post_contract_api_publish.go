@@ -45,7 +45,7 @@ var postContractAPIPublish = &ffapi.Route{
 			waitConfirm := strings.EqualFold(r.QP["confirm"], "true")
 			r.SuccessStatus = syncRetcode(waitConfirm)
 			input := r.Input.(*core.DefinitionPublish)
-			return cr.or.DefinitionSender().PublishContractAPI(cr.ctx, cr.apiBaseURL, r.PP["apiName"], input.NetworkName, waitConfirm)
+			return cr.or.DefinitionSender().PublishContractAPI(cr.ctx, cr.apiBaseURL, r.PP["apiName"], input.NetworkName, waitConfirm, input.Topics)
 		},
 	},
 }

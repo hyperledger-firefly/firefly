@@ -323,4 +323,5 @@ var (
 	MsgNodeMissingProfile                      = ffe("FF10482", "Node provided for check does not have a profile", 500)
 	MsgInvalidCardanoAddress                   = ffe("FF10483", "Supplied cardano address is invalid", 400)
 	MsgCardanoconnectRESTErr                   = ffe("FF10484", "Error from cardano connector: %s")
+	MsgEmptyCustomTopic                        = ffe("FF10485", "Custom topic at index %d is empty. Each custom topic for the definition broadcast message must be a non-empty string", 400)
 )

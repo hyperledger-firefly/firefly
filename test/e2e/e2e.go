@@ -234,6 +234,26 @@ func checkObject(t *testing.T, expected interface{}, actual interface{}) bool {
 	return match
 }
 
+func WaitForOperationSucceeded(t *testing.T, client *client.FireFlyClient, operationID *fftypes.UUID) *core.Operation {
+	tries := 600
+	delay := 100 * time.Millisecond
+
+	var op *core.Operation
+	for i := 0; i < tries; i++ {
+		t.Logf("Waiting for invoke operation to succeed: %s", operationID)
+		op = client.GetOperation(t, operationID.String())
+		if op.Status == core.OpStatusSucceeded {
+			t.Logf("Invoke operation succeeded: %s", operationID)
+			return op
+		}
+		require.NotEqualf(t, core.OpStatusFailed, op.Status, "operation '%s' (%s) failed: %s", op.ID, op.Type, op.Error)
+		time.Sleep(delay)
+		t.Logf("Retrying, invoke operation status: %s", op.Status)
+	}
+	require.Failf(t, "operation did not succeed", "operation '%s' (%s) still status=%s after %d tries", op.ID, op.Type, op.Status, tries)
+	return nil
+}
+
 func VerifyAllOperationsSucceeded(t *testing.T, clients []*client.FireFlyClient, startTime time.Time) {
 	tries := 30
 	delay := 2 * time.Second

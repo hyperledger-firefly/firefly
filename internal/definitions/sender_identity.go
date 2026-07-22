@@ -34,7 +34,7 @@ func (ds *definitionSender) ClaimIdentity(ctx context.Context, claim *core.Ident
 		}
 
 		claim.Identity.Namespace = ""
-		claimMsg, err := ds.getSenderResolved(ctx, claim, signingIdentity, core.SystemTagIdentityClaim).send(ctx, false)
+		claimMsg, err := ds.getSenderResolved(ctx, claim, signingIdentity, core.SystemTagIdentityClaim, nil).send(ctx, false)
 		if err != nil {
 			return err
 		}
@@ -48,7 +48,7 @@ func (ds *definitionSender) ClaimIdentity(ctx context.Context, claim *core.Ident
 					Hash: claimMsg.Hash,
 				},
 				Identity: claim.Identity.IdentityBase,
-			}, parentSigner, core.SystemTagIdentityVerification).send(ctx, false)
+			}, parentSigner, core.SystemTagIdentityVerification, nil).send(ctx, false)
 			if err != nil {
 				return err
 			}
@@ -66,7 +66,7 @@ func (ds *definitionSender) ClaimIdentity(ctx context.Context, claim *core.Ident
 
 func (ds *definitionSender) UpdateIdentity(ctx context.Context, identity *core.Identity, def *core.IdentityUpdate, signingIdentity *core.SignerRef, waitConfirm bool) error {
 	if ds.multiparty {
-		updateMsg, err := ds.getSender(ctx, def, signingIdentity, core.SystemTagIdentityUpdate).send(ctx, waitConfirm)
+		updateMsg, err := ds.getSender(ctx, def, signingIdentity, core.SystemTagIdentityUpdate, nil).send(ctx, waitConfirm)
 		identity.Messages.Update = updateMsg.Header.ID
 		return err
 	}

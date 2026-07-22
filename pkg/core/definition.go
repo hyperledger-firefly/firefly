@@ -27,5 +27,6 @@ type Definition interface {
 }
 
 type DefinitionPublish struct {
-	NetworkName string `ffstruct:"DefinitionPublish" json:"networkName,omitempty"`
+	NetworkName string                `ffstruct:"DefinitionPublish" json:"networkName,omitempty"`
+	Topics      fftypes.FFStringArray `ffstruct:"DefinitionPublish" json:"topics,omitempty"`
 }

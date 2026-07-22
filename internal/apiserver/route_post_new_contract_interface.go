@@ -24,6 +24,7 @@ import (
 	"github.com/hyperledger-firefly/common/pkg/fftypes"
 	"github.com/hyperledger-firefly/firefly/internal/coremsgs"
 	"github.com/hyperledger-firefly/firefly/internal/orchestrator"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
 )
 
 var postNewContractInterface = &ffapi.Route{
@@ -36,7 +37,7 @@ var postNewContractInterface = &ffapi.Route{
 		{Name: "publish", Description: coremsgs.APIPublishQueryParam, IsBool: true},
 	},
 	Description:     coremsgs.APIEndpointsPostNewContractInterface,
-	JSONInputValue:  func() interface{} { return &fftypes.FFI{} },
+	JSONInputValue:  func() interface{} { return &core.FFIInput{} },
 	JSONOutputValue: func() interface{} { return &fftypes.FFI{} },
 	JSONOutputCodes: []int{http.StatusOK},
 	Extensions: &coreExtensions{
@@ -46,9 +47,10 @@ var postNewContractInterface = &ffapi.Route{
 		CoreJSONHandler: func(r *ffapi.APIRequest, cr *coreRequest) (output interface{}, err error) {
 			waitConfirm := strings.EqualFold(r.QP["confirm"], "true")
 			r.SuccessStatus = syncRetcode(waitConfirm)
-			ffi := r.Input.(*fftypes.FFI)
+			input := r.Input.(*core.FFIInput)
+			ffi := &input.FFI
 			ffi.Published = strings.EqualFold(r.QP["publish"], "true")
-			err = cr.or.DefinitionSender().DefineFFI(cr.ctx, ffi, waitConfirm)
+			err = cr.or.DefinitionSender().DefineFFI(cr.ctx, ffi, waitConfirm, input.Topics)
 			return ffi, err
 		},
 	},

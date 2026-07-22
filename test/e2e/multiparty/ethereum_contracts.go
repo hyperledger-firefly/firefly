@@ -189,9 +189,9 @@ func (suite *EthereumContractTestSuite) TestDirectInvokeMethod() {
 		Location: fftypes.JSONAnyPtrBytes(locationBytes),
 		Method:   simpleStorageFFIGet(),
 	}
-	res, err = suite.testState.client1.QueryContractMethod(suite.T(), queryContractRequest)
+	queryRes, err := suite.testState.client1.QueryContractMethod(suite.T(), queryContractRequest)
 	assert.NoError(suite.T(), err)
-	resJSON, err := json.Marshal(res)
+	resJSON, err := json.Marshal(queryRes)
 	assert.NoError(suite.T(), err)
 	assert.Equal(suite.T(), `{"output":"2"}`, string(resJSON))
 	suite.testState.client1.DeleteContractListener(suite.T(), listener.ID)
@@ -231,6 +231,9 @@ func (suite *EthereumContractTestSuite) TestFFIInvokeMethod() {
 	assert.NoError(suite.T(), err)
 	assert.NotNil(suite.T(), res)
 
+	// Wait for the operation to succeed before idempotency check
+	e2e.WaitForOperationSucceeded(suite.T(), suite.testState.client1, res.ID)
+
 	// Idempotency check
 	_, err = suite.testState.client1.InvokeContractMethod(suite.T(), invokeContractRequest, 409)
 	assert.Regexp(suite.T(), "FF10431|FF10458" /* idempotency check could come from FF or blockchain connector, depending on the operation update that is async */, err)
@@ -253,9 +256,9 @@ func (suite *EthereumContractTestSuite) TestFFIInvokeMethod() {
 		Interface:  suite.interfaceID,
 		MethodPath: "get",
 	}
-	res, err = suite.testState.client1.QueryContractMethod(suite.T(), queryContractRequest)
+	queryRes, err := suite.testState.client1.QueryContractMethod(suite.T(), queryContractRequest)
 	assert.NoError(suite.T(), err)
-	resJSON, err := json.Marshal(res)
+	resJSON, err := json.Marshal(queryRes)
 	assert.NoError(suite.T(), err)
 	assert.Equal(suite.T(), `{"output":"42"}`, string(resJSON))
 	suite.testState.client1.DeleteContractListener(suite.T(), listener.ID)

@@ -149,7 +149,7 @@ func TestCreateDefinitionConfirm(t *testing.T) {
 	mms.On("SendAndWait", mock.Anything).Return(nil)
 
 	ds.multiparty = true
-	_, err := ds.getSenderDefault(ds.ctx, &core.Datatype{}, core.SystemTagDefineDatatype).send(ds.ctx, true)
+	_, err := ds.getSenderDefault(ds.ctx, &core.Datatype{}, core.SystemTagDefineDatatype, nil).send(ds.ctx, true)
 	assert.NoError(t, err)
 
 	mim.AssertExpectations(t)
@@ -176,7 +176,7 @@ func TestCreateDatatypeDefinitionAsNodeConfirm(t *testing.T) {
 
 	ds.multiparty = true
 
-	_, err := ds.getSenderDefault(ds.ctx, &core.Datatype{}, core.SystemTagDefineDatatype).send(ds.ctx, true)
+	_, err := ds.getSenderDefault(ds.ctx, &core.Datatype{}, core.SystemTagDefineDatatype, nil).send(ds.ctx, true)
 	assert.NoError(t, err)
 
 	mim.AssertExpectations(t)
@@ -195,6 +195,6 @@ func TestCreateDefinitionBadIdentity(t *testing.T) {
 	_, err := ds.getSender(ds.ctx, &core.Datatype{}, &core.SignerRef{
 		Author: "wrong",
 		Key:    "wrong",
-	}, core.SystemTagDefineDatatype).send(ds.ctx, false)
+	}, core.SystemTagDefineDatatype, nil).send(ds.ctx, false)
 	assert.Regexp(t, "pop", err)
 }

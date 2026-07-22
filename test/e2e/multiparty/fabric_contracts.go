@@ -158,10 +158,10 @@ func (suite *FabricContractTestSuite) TestE2EContractEvents() {
 		},
 	}
 
-	res, err = suite.testState.client1.QueryContractMethod(suite.testState.t, queryContractRequest)
+	queryRes, err := suite.testState.client1.QueryContractMethod(suite.testState.t, queryContractRequest)
 	suite.T().Log(res)
 	assert.NoError(suite.T(), err)
-	assert.Equal(suite.T(), assetName, res.(map[string]interface{})["name"])
+	assert.Equal(suite.T(), assetName, queryRes.(map[string]interface{})["name"])
 
 	suite.testState.client1.DeleteContractListener(suite.T(), subs[0].ID)
 	subs = suite.testState.client1.GetContractListeners(suite.T(), suite.testState.startTime)
