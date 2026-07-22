@@ -6,6 +6,31 @@ title: Release Notes
 
 [Full release notes](https://github.com/hyperledger-firefly/firefly/releases)
 
+## [v1.5.0 - Jul 22, 2026](https://github.com/hyperledger-firefly/firefly/releases/tag/v1.5.0)
+
+What's New:
+
+- FireFly has moved to its own `hyperledger-firefly` GitHub organization
+    - All repositories now live under https://github.com/hyperledger-firefly
+    - All container images are now published under `ghcr.io/hyperledger-firefly/*` (see migration consideration below)
+- All Go-based components upgraded to Go 1.26
+- New transaction submission and management APIs in the FireFly Transaction Manager, the library to build new connectors, adopted in EVMConnect
+    - New `POST /submit` API supporting batching of multiple transaction submissions into a single request
+    - New `PATCH /transactions/{transactionId}` API to update an in-flight transaction
+    - Transaction receipts are now returned as part of the confirmation response
+- New lightweight block-tracking mode in the connector framework — implemented in EVMConnect
+    - Allows connectors to track block progression and confirmations without maintaining a full in-memory canonical chain, reducing resource usage
+- Improved error reporting for smart contract reverts, with decoding of nested error strings when a Solidity contract catches and rethrows an error
+- Large number of improvements to the FireFly common libraries, used to bootstrap new plugins and features of FireFly
+- Cardano connector maintenance updates, including security fixes and an increased request body limit for large transactions and contract deployments
+- New networking metrics and IP/server configuration options in the common HTTP/TLS/DNS layers used across all FireFly runtimes
+- Miscellaneous bug fixes and minor improvements across all components
+- CVE fixes across the board
+
+### Migration consideration
+
+As part of the move to the `hyperledger-firefly` GitHub organization, container images should now be pulled from `ghcr.io/hyperledger-firefly/*` — images under the previous `ghcr.io/hyperledger/firefly-*` locations will not receive further updates. Projects that consume FireFly Go modules must also update their import paths from `github.com/hyperledger/firefly-*` to `github.com/hyperledger-firefly/*` when upgrading to the latest module versions.
+
 ## [v1.4.0 - Jul 17, 2025](https://github.com/hyperledger-firefly/firefly/releases/tag/v1.4.0)
 
 What's New:
