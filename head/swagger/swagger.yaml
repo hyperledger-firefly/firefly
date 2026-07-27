@@ -151,8 +151,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
     post:
@@ -374,8 +372,6 @@ paths:
                     type: object
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /apis/{apiName}:
@@ -401,8 +397,6 @@ paths:
           content:
             application/json: {}
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
     get:
@@ -496,8 +490,6 @@ paths:
                     type: object
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /apis/{apiName}/interface:
@@ -765,8 +757,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /apis/{apiName}/invoke/{methodPath}:
@@ -1155,8 +1145,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /apis/{apiName}/listeners/{eventPath}:
@@ -1482,8 +1470,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
     post:
@@ -1792,8 +1778,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /apis/{apiName}/publish:
@@ -2335,8 +2319,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /apis/{apiName}/query/{methodPath}:
@@ -2413,8 +2395,6 @@ paths:
                 additionalProperties: {}
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /apis/{id}:
@@ -2638,8 +2618,6 @@ paths:
                     type: object
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /batches:
@@ -2821,8 +2799,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /batches/{batchid}:
@@ -2914,8 +2890,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /batches/{batchid}/cancel:
@@ -2945,8 +2919,6 @@ paths:
           content:
             application/json: {}
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /blockchainevents:
@@ -3116,8 +3088,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /blockchainevents/{id}:
@@ -3212,8 +3182,6 @@ paths:
                     type: object
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /charts/histogram/{collection}:
@@ -3290,8 +3258,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /contracts/deploy:
@@ -3512,8 +3478,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /contracts/interfaces:
@@ -3844,8 +3808,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
     post:
@@ -4293,8 +4255,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /contracts/interfaces/{interfaceId}:
@@ -4320,8 +4280,6 @@ paths:
           content:
             application/json: {}
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
     get:
@@ -4595,8 +4553,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /contracts/interfaces/{name}/{version}:
@@ -4877,8 +4833,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /contracts/interfaces/{name}/{version}/publish:
@@ -5427,8 +5381,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /contracts/interfaces/generate:
@@ -5720,8 +5672,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /contracts/invoke:
@@ -6208,8 +6158,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /contracts/listeners:
@@ -6522,8 +6470,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
     post:
@@ -6928,8 +6874,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /contracts/listeners/{nameOrId}:
@@ -6955,8 +6899,6 @@ paths:
           content:
             application/json: {}
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
     get:
@@ -7188,8 +7130,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /contracts/listeners/signature:
@@ -7401,8 +7341,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /contracts/query:
@@ -7576,8 +7514,6 @@ paths:
                 additionalProperties: {}
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /data:
@@ -7777,8 +7713,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
     post:
@@ -7932,8 +7866,6 @@ paths:
                     type: object
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /data/{dataid}:
@@ -7959,8 +7891,6 @@ paths:
           content:
             application/json: {}
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
     get:
@@ -8064,8 +7994,6 @@ paths:
                     type: object
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /data/{dataid}/blob:
@@ -8238,8 +8166,6 @@ paths:
                 format: byte
                 type: string
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /data/{dataid}/blob/publish:
@@ -8356,8 +8282,6 @@ paths:
                     type: object
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /data/{dataid}/messages:
@@ -8702,8 +8626,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /data/{dataid}/value:
@@ -8877,8 +8799,6 @@ paths:
                 format: byte
                 type: string
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /data/{dataid}/value/publish:
@@ -8995,8 +8915,6 @@ paths:
                     type: object
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /datasubpaths/{parent}:
@@ -9027,8 +8945,6 @@ paths:
                   type: string
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /datatypes:
@@ -9166,8 +9082,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
     post:
@@ -9328,8 +9242,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /datatypes/{name}/{version}:
@@ -9413,8 +9325,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /events:
@@ -9606,8 +9516,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /events/{eid}:
@@ -9722,8 +9630,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /groups:
@@ -9852,8 +9758,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /groups/{hash}:
@@ -9927,8 +9831,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /identities:
@@ -10152,8 +10054,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
     post:
@@ -10372,8 +10272,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /identities/{did}:
@@ -10506,8 +10404,6 @@ paths:
                     type: array
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /identities/{iid}:
@@ -10617,8 +10513,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
     patch:
@@ -10824,8 +10718,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /identities/{iid}/did:
@@ -10901,8 +10793,6 @@ paths:
                     type: array
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /identities/{iid}/verifiers:
@@ -11027,8 +10917,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /messages:
@@ -11375,8 +11263,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /messages/{msgid}:
@@ -11674,8 +11560,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /messages/{msgid}/data:
@@ -11782,8 +11666,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /messages/{msgid}/events:
@@ -11967,8 +11849,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /messages/{msgid}/transaction:
@@ -12044,8 +11924,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /messages/broadcast:
@@ -12522,8 +12400,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /messages/private:
@@ -13054,8 +12930,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /messages/requestreply:
@@ -13495,8 +13369,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /namespaces:
@@ -13551,8 +13423,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Global
   /namespaces/{ns}:
@@ -13596,8 +13466,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Global
   /namespaces/{ns}/apis:
@@ -13754,8 +13622,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
     post:
@@ -13984,8 +13850,6 @@ paths:
                     type: object
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/apis/{apiName}:
@@ -14018,8 +13882,6 @@ paths:
           content:
             application/json: {}
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
     get:
@@ -14120,8 +13982,6 @@ paths:
                     type: object
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/apis/{apiName}/interface:
@@ -14396,8 +14256,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/apis/{apiName}/invoke/{methodPath}:
@@ -14904,8 +14762,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/apis/{apiName}/listeners/{eventPath}:
@@ -15238,8 +15094,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
     post:
@@ -15655,8 +15509,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/apis/{apiName}/publish:
@@ -16205,8 +16057,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/apis/{apiName}/query/{methodPath}:
@@ -16556,8 +16406,6 @@ paths:
                 additionalProperties: {}
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/apis/{id}:
@@ -16788,8 +16636,6 @@ paths:
                     type: object
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/batches:
@@ -16978,8 +16824,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/batches/{batchid}:
@@ -17078,8 +16922,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/batches/{batchid}/cancel:
@@ -17116,8 +16958,6 @@ paths:
           content:
             application/json: {}
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/blockchainevents:
@@ -17294,8 +17134,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/blockchainevents/{id}:
@@ -17397,8 +17235,6 @@ paths:
                     type: object
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/charts/histogram/{collection}:
@@ -17482,8 +17318,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/contracts/deploy:
@@ -17711,8 +17545,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/contracts/interfaces:
@@ -18050,8 +17882,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
     post:
@@ -18506,8 +18336,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/contracts/interfaces/{interfaceId}:
@@ -18540,8 +18368,6 @@ paths:
           content:
             application/json: {}
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
     get:
@@ -18822,8 +18648,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/contracts/interfaces/{name}/{version}:
@@ -19111,8 +18935,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/contracts/interfaces/{name}/{version}/publish:
@@ -19668,8 +19490,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/contracts/interfaces/generate:
@@ -19968,8 +19788,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/contracts/invoke:
@@ -20463,8 +20281,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/contracts/listeners:
@@ -20784,8 +20600,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
     post:
@@ -21197,8 +21011,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/contracts/listeners/{nameOrId}:
@@ -21231,8 +21043,6 @@ paths:
           content:
             application/json: {}
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
     get:
@@ -21471,8 +21281,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/contracts/listeners/signature:
@@ -21691,8 +21499,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/contracts/query:
@@ -22028,8 +21834,6 @@ paths:
                 additionalProperties: {}
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/data:
@@ -22236,8 +22040,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
     post:
@@ -22398,8 +22200,6 @@ paths:
                     type: object
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/data/{dataid}:
@@ -22432,8 +22232,6 @@ paths:
           content:
             application/json: {}
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
     get:
@@ -22544,8 +22342,6 @@ paths:
                     type: object
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/data/{dataid}/blob:
@@ -22725,8 +22521,6 @@ paths:
                 format: byte
                 type: string
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/data/{dataid}/blob/publish:
@@ -22850,8 +22644,6 @@ paths:
                     type: object
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/data/{dataid}/messages:
@@ -23203,8 +22995,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/data/{dataid}/value:
@@ -23385,8 +23175,6 @@ paths:
                 format: byte
                 type: string
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/data/{dataid}/value/publish:
@@ -23510,8 +23298,6 @@ paths:
                     type: object
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/datasubpaths/{parent}:
@@ -23549,8 +23335,6 @@ paths:
                   type: string
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/datatypes:
@@ -23695,8 +23479,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
     post:
@@ -23864,8 +23646,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/datatypes/{name}/{version}:
@@ -23956,8 +23736,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/events:
@@ -24156,8 +23934,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/events/{eid}:
@@ -24279,8 +24055,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/groups:
@@ -24416,8 +24190,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/groups/{hash}:
@@ -24498,8 +24270,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/identities:
@@ -24730,8 +24500,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
     post:
@@ -24957,8 +24725,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/identities/{did}:
@@ -25098,8 +24864,6 @@ paths:
                     type: array
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/identities/{iid}:
@@ -25216,8 +24980,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
     patch:
@@ -25430,8 +25192,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/identities/{iid}/did:
@@ -25514,8 +25274,6 @@ paths:
                     type: array
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/identities/{iid}/verifiers:
@@ -25647,8 +25405,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/messages:
@@ -26002,8 +25758,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/messages/{msgid}:
@@ -26308,8 +26062,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/messages/{msgid}/data:
@@ -26423,8 +26175,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/messages/{msgid}/events:
@@ -26615,8 +26365,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/messages/{msgid}/transaction:
@@ -26699,8 +26447,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/messages/broadcast:
@@ -27238,8 +26984,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/messages/private:
@@ -27777,8 +27521,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/messages/requestreply:
@@ -28225,8 +27967,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/network/action:
@@ -28273,8 +28013,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/network/diddocs/{did}:
@@ -28356,8 +28094,6 @@ paths:
                     type: array
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/network/identities:
@@ -28589,8 +28325,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/network/identities/{did}:
@@ -28731,8 +28465,6 @@ paths:
                     type: array
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/network/nodes:
@@ -28932,8 +28664,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/network/nodes/{nameOrId}:
@@ -29043,8 +28773,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/network/nodes/self:
@@ -29242,8 +28970,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/network/organizations:
@@ -29443,8 +29169,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
     post:
@@ -29671,8 +29395,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/network/organizations/{nameOrId}:
@@ -29782,8 +29504,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/network/organizations/self:
@@ -29981,8 +29701,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/nextpins:
@@ -30095,8 +29813,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/operations:
@@ -30289,8 +30005,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/operations/{opid}:
@@ -30408,8 +30122,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/operations/{opid}/retry:
@@ -30524,8 +30236,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/pins:
@@ -30680,8 +30390,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/pins/rewind:
@@ -30742,8 +30450,6 @@ paths:
                     type: integer
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/status:
@@ -31043,8 +30749,6 @@ paths:
                     type: object
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/status/batchmanager:
@@ -31149,8 +30853,6 @@ paths:
                     type: array
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/status/multiparty:
@@ -31302,8 +31004,6 @@ paths:
                     type: object
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/subscriptions:
@@ -31688,8 +31388,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
     post:
@@ -32259,8 +31957,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
     put:
@@ -32829,8 +32525,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/subscriptions/{subid}:
@@ -32863,8 +32557,6 @@ paths:
           content:
             application/json: {}
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
     get:
@@ -33185,8 +32877,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/subscriptions/{subid}/events:
@@ -33390,8 +33080,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/tokens/accounts:
@@ -33471,8 +33159,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/tokens/accounts/{key}/pools:
@@ -33561,8 +33247,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/tokens/approvals:
@@ -33797,8 +33481,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
     post:
@@ -34220,8 +33902,6 @@ paths:
                     type: object
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/tokens/balances:
@@ -34361,8 +34041,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/tokens/burn:
@@ -34801,8 +34479,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/tokens/connectors:
@@ -34838,8 +34514,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/tokens/mint:
@@ -35278,8 +34952,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/tokens/pools:
@@ -35549,8 +35221,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
     post:
@@ -35901,8 +35571,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/tokens/pools/{nameOrId}:
@@ -35935,8 +35603,6 @@ paths:
           content:
             application/json: {}
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
     get:
@@ -36089,8 +35755,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/tokens/pools/{nameOrId}/publish:
@@ -36397,8 +36061,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/tokens/transfers:
@@ -36650,8 +36312,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
     post:
@@ -37089,8 +36749,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/tokens/transfers/{transferId}:
@@ -37222,8 +36880,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/transactions:
@@ -37362,8 +37018,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/transactions/{txnid}:
@@ -37505,8 +37159,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/transactions/{txnid}/blockchainevents:
@@ -37610,8 +37262,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/transactions/{txnid}/operations:
@@ -37721,8 +37371,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/transactions/{txnid}/status:
@@ -37806,8 +37454,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/verifiers:
@@ -37932,8 +37578,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/verifiers/{hash}:
@@ -38004,8 +37648,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /namespaces/{ns}/verifiers/resolve:
@@ -38068,8 +37710,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Non-Default Namespace
   /network/action:
@@ -38109,8 +37749,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /network/diddocs/{did}:
@@ -38185,8 +37823,6 @@ paths:
                     type: array
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /network/identities:
@@ -38411,8 +38047,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /network/identities/{did}:
@@ -38546,8 +38180,6 @@ paths:
                     type: array
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /network/nodes:
@@ -38740,8 +38372,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /network/nodes/{nameOrId}:
@@ -38844,8 +38474,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /network/nodes/self:
@@ -39036,8 +38664,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /network/organizations:
@@ -39230,8 +38856,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
     post:
@@ -39451,8 +39075,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /network/organizations/{nameOrId}:
@@ -39555,8 +39177,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /network/organizations/self:
@@ -39747,8 +39367,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /nextpins:
@@ -39854,8 +39472,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /operations:
@@ -40041,8 +39657,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /operations/{opid}:
@@ -40153,8 +39767,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /operations/{opid}/retry:
@@ -40262,8 +39874,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /pins:
@@ -40411,8 +40021,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /pins/rewind:
@@ -40466,8 +40074,6 @@ paths:
                     type: integer
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /status:
@@ -40760,8 +40366,6 @@ paths:
                     type: object
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /status/batchmanager:
@@ -40859,8 +40463,6 @@ paths:
                     type: array
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /status/multiparty:
@@ -41005,8 +40607,6 @@ paths:
                     type: object
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /subscriptions:
@@ -41384,8 +40984,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
     post:
@@ -41948,8 +41546,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
     put:
@@ -42511,8 +42107,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /subscriptions/{subid}:
@@ -42538,8 +42132,6 @@ paths:
           content:
             application/json: {}
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
     get:
@@ -42853,8 +42445,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /subscriptions/{subid}/events:
@@ -43051,8 +42641,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /tokens/accounts:
@@ -43125,8 +42713,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /tokens/accounts/{key}/pools:
@@ -43208,8 +42794,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /tokens/approvals:
@@ -43437,8 +43021,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
     post:
@@ -43853,8 +43435,6 @@ paths:
                     type: object
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /tokens/balances:
@@ -43987,8 +43567,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /tokens/burn:
@@ -44416,8 +43994,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /tokens/connectors:
@@ -44446,8 +44022,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /tokens/mint:
@@ -44875,8 +44449,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /tokens/pools:
@@ -45139,8 +44711,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
     post:
@@ -45484,8 +45054,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /tokens/pools/{nameOrId}:
@@ -45511,8 +45079,6 @@ paths:
           content:
             application/json: {}
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
     get:
@@ -45658,8 +45224,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /tokens/pools/{nameOrId}/publish:
@@ -45959,8 +45523,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /tokens/transfers:
@@ -46205,8 +45767,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
     post:
@@ -46637,8 +46197,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /tokens/transfers/{transferId}:
@@ -46763,8 +46321,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /transactions:
@@ -46896,8 +46452,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /transactions/{txnid}:
@@ -47032,8 +46586,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /transactions/{txnid}/blockchainevents:
@@ -47130,8 +46682,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /transactions/{txnid}/operations:
@@ -47234,8 +46784,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /transactions/{txnid}/status:
@@ -47312,8 +46860,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /verifiers:
@@ -47431,8 +46977,6 @@ paths:
                   type: object
                 type: array
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /verifiers/{hash}:
@@ -47496,8 +47040,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /verifiers/resolve:
@@ -47553,8 +47095,6 @@ paths:
                     type: string
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Default Namespace
   /websockets:
@@ -47707,8 +47247,6 @@ paths:
                     type: boolean
                 type: object
           description: Success
-        default:
-          description: ""
       tags:
       - Global
 servers:
