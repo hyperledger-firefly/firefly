@@ -20,7 +20,6 @@
 package apiserver
 
 import (
-	"context"
 	"crypto/sha1"
 	"io/ioutil"
 	"net/http"
@@ -55,7 +54,7 @@ func TestDiffSwaggerYAML(t *testing.T) {
 	b, _ := ioutil.ReadAll(res.Body)
 	doc, err := openapi3.NewLoader().LoadFromData(b)
 	assert.NoError(t, err)
-	err = doc.Validate(context.Background())
+	err = validateOpenAPIDoc(doc)
 	assert.NoError(t, err)
 
 	actualSwaggerHash := sha1.New()

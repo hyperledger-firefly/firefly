@@ -20,7 +20,6 @@
 package apiserver
 
 import (
-	"context"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -54,7 +53,7 @@ func TestDownloadSwaggerYAML(t *testing.T) {
 	assert.Equal(t, 200, res.StatusCode, string(b))
 	doc, err := openapi3.NewLoader().LoadFromData(b)
 	assert.NoError(t, err)
-	err = doc.Validate(context.Background())
+	err = validateOpenAPIDoc(doc)
 	assert.NoError(t, err)
 	err = os.WriteFile(filepath.Join("..", "..", "doc-site", "docs", "swagger", "swagger.yaml"), b, 0644)
 	assert.NoError(t, err)
