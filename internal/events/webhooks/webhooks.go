@@ -557,7 +557,9 @@ func (wh *WebHooks) DeliveryRequest(ctx context.Context, connID string, sub *cor
 				Subscription: event.Subscription,
 			})
 		}
-		go wh.doDelivery(ctx, connID, reply, sub, []*core.CombinedEventDataDelivery{{Event: event, Data: data}}, true, false)
+		go func() {
+			_ = wh.doDelivery(ctx, connID, reply, sub, []*core.CombinedEventDataDelivery{{Event: event, Data: data}}, true, false)
+		}()
 		return nil
 	}
 
@@ -610,7 +612,7 @@ func (wh *WebHooks) BatchDeliveryRequest(ctx context.Context, connID string, sub
 				})
 			}
 		}
-		go wh.doDelivery(ctx, connID, reply, sub, events, true, true)
+		go func() { _ = wh.doDelivery(ctx, connID, reply, sub, events, true, true) }()
 		return nil
 	}
 
