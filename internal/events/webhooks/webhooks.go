@@ -437,7 +437,7 @@ func (wh *WebHooks) attemptRequest(ctx context.Context, sub *core.Subscription, 
 	return req, res, nil
 }
 
-func (wh *WebHooks) doDelivery(ctx context.Context, connID string, reply bool, sub *core.Subscription, events []*core.CombinedEventDataDelivery, fastAck, batched bool) {
+func (wh *WebHooks) doDelivery(ctx context.Context, connID string, reply bool, sub *core.Subscription, events []*core.CombinedEventDataDelivery, fastAck, batched bool) error {
 	req, res, gwErr := wh.attemptRequest(ctx, sub, events, batched)
 	if gwErr != nil {
 		// Generate a bad-gateway error response - we always want to send something back,
@@ -456,6 +456,31 @@ func (wh *WebHooks) doDelivery(ctx context.Context, connID string, reply bool, s
 	}
 	b, _ := json.Marshal(&res)
 	log.L(ctx).Tracef("Webhook response: %s", string(b))
+
+	// Capture the event sequence range (checkpoint offsets) so the delivery outcome logs below
+	// show exactly which offsets are advancing or being held. Events are dispatched in order.
+	var firstOffset, lastOffset int64
+	if len(events) > 0 {
+		firstOffset = events[0].Event.Sequence
+		lastOffset = events[len(events)-1].Event.Sequence
+	}
+
+	// A delivery is only considered successful on a 2xx response. Any non-2xx (including the
+	// 502 synthesised above for a network-level failure) must NOT advance the subscription
+	// checkpoint - we return an error so the event dispatcher holds the offset and redelivers.
+	// NOTE: this does not apply to reply mode, where the webhook response (whatever its status)
+	// is intentionally packaged back to the caller as a reply message.
+	if !reply && (res.Status < 200 || res.Status >= 300) {
+		if fastAck {
+			// In fastack mode the event(s) were already acknowledged before this call, so the
+			// checkpoint cannot be held. Surface it loudly rather than silently advancing.
+			log.L(ctx).Warnf("Webhook delivery returned status=%d for %d event(s) (offsets %d-%d), but fastack already acknowledged them - checkpoint advanced past a failed delivery", res.Status, len(events), firstOffset, lastOffset)
+			return nil
+		}
+		log.L(ctx).Infof("Webhook delivery returned status=%d - holding subscription checkpoint below offset %d and redelivering %d event(s) (offsets %d-%d)", res.Status, firstOffset, len(events), firstOffset, lastOffset)
+		return i18n.NewError(ctx, coremsgs.MsgWebhooksDeliveryFailedStatus, res.Status)
+	}
+	log.L(ctx).Infof("Webhook delivery successful (status=%d) for %d event(s) - advancing subscription checkpoint to offset %d", res.Status, len(events), lastOffset)
 
 	// For each event emit a response
 	for _, combinedEvent := range events {
@@ -500,6 +525,7 @@ func (wh *WebHooks) doDelivery(ctx context.Context, connID string, reply bool, s
 		}
 	}
 
+	return nil
 }
 
 func (wh *WebHooks) DeliveryRequest(ctx context.Context, connID string, sub *core.Subscription, event *core.EventDelivery, data core.DataArray) error {
@@ -537,9 +563,9 @@ func (wh *WebHooks) DeliveryRequest(ctx context.Context, connID string, sub *cor
 
 	// NOTE: We could check here for batching and accumulate but we can't return because this causes the offset to jump...
 
-	// TODO we don't look at the error here?
-	wh.doDelivery(ctx, connID, reply, sub, []*core.CombinedEventDataDelivery{{Event: event, Data: data}}, false, false)
-	return nil
+	// A non-nil error here causes the dispatcher to reject (nack) the event, holding the
+	// subscription checkpoint and redelivering, rather than advancing past a failed delivery.
+	return wh.doDelivery(ctx, connID, reply, sub, []*core.CombinedEventDataDelivery{{Event: event, Data: data}}, false, false)
 }
 
 func (wh *WebHooks) BatchDeliveryRequest(ctx context.Context, connID string, sub *core.Subscription, events []*core.CombinedEventDataDelivery) error {
@@ -588,8 +614,9 @@ func (wh *WebHooks) BatchDeliveryRequest(ctx context.Context, connID string, sub
 		return nil
 	}
 
-	wh.doDelivery(ctx, connID, reply, sub, events, false, true)
-	return nil
+	// A non-nil error here causes the dispatcher to reject (nack) the whole batch, holding the
+	// subscription checkpoint and redelivering, rather than advancing past a failed delivery.
+	return wh.doDelivery(ctx, connID, reply, sub, events, false, true)
 }
 
 func (wh *WebHooks) NamespaceRestarted(ns string, startTime time.Time) {

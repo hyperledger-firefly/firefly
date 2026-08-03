@@ -783,6 +783,64 @@ func TestRequestNoBodyNoReply(t *testing.T) {
 	mcb.AssertExpectations(t)
 }
 
+func TestDeliveryRequestNon2xxHoldsCheckpoint(t *testing.T) {
+	wh, cancel := newTestWebHooks(t)
+	defer cancel()
+
+	msgID := fftypes.NewUUID()
+
+	called := false
+	r := mux.NewRouter()
+	r.HandleFunc("/myapi", func(res http.ResponseWriter, req *http.Request) {
+		res.WriteHeader(500)
+		_, _ = res.Write([]byte(`{"error":"boom"}`))
+		called = true
+	}).Methods(http.MethodPost)
+	server := httptest.NewServer(r)
+	defer server.Close()
+
+	dataID := fftypes.NewUUID()
+	sub := &core.Subscription{
+		SubscriptionRef: core.SubscriptionRef{
+			Namespace: "ns1",
+		},
+	}
+	to := sub.Options.TransportOptions()
+	to["url"] = fmt.Sprintf("http://%s/myapi", server.Listener.Addr())
+	event := &core.EventDelivery{
+		EnrichedEvent: core.EnrichedEvent{
+			Event: core.Event{
+				ID:       fftypes.NewUUID(),
+				Sequence: 12345,
+			},
+			Message: &core.Message{
+				Header: core.MessageHeader{
+					ID:   msgID,
+					Type: core.MessageTypeBroadcast,
+				},
+			},
+		},
+		Subscription: core.SubscriptionRef{
+			ID:        sub.ID,
+			Namespace: "ns1",
+		},
+	}
+	data := &core.Data{
+		ID:    dataID,
+		Value: fftypes.JSONAnyPtr(`{"foo":"bar"}`),
+	}
+
+	mcb := wh.callbacks.handlers["ns1"].(*eventsmocks.Callbacks)
+
+	// A non-2xx delivery (non-reply) must NOT acknowledge - the checkpoint is held by returning
+	// an error, so the dispatcher rejects/redelivers rather than advancing past the failure.
+	err := wh.DeliveryRequest(wh.ctx, mock.Anything, sub, event, core.DataArray{data})
+	assert.Regexp(t, "FF10486", err)
+	assert.True(t, called)
+
+	mcb.AssertNotCalled(t, "DeliveryResponse", mock.Anything, mock.Anything)
+}
+
 func TestRequestReplyEmptyData(t *testing.T) {
 	wh, cancel := newTestWebHooks(t)
 	defer cancel()

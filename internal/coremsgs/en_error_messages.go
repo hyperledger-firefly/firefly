@@ -130,6 +130,7 @@ var (
 	MsgWebsocketsNoData                        = ffe("FF10244", "Websockets subscriptions do not support streaming the full data payload, just the references (withData must be false)", 400)
 	MsgWebhooksWithData                        = ffe("FF10245", "Webhook subscriptions require the full data payload (withData must be true)", 400)
 	MsgWebhooksReplyBadJSON                    = ffe("FF10257", "Failed to process reply from webhook as JSON")
+	MsgWebhooksDeliveryFailedStatus            = ffe("FF10486", "Webhook delivery was not successful (status=%d) - holding subscription checkpoint for redelivery", 502)
 	MsgRequestTimeout                          = ffe("FF10260", "The request with id '%s' timed out after %.2fms", 408)
 	MsgRequestReplyTagRequired                 = ffe("FF10261", "For request messages 'header.tag' must be set on the request message to route it to a suitable responder", 400)
 	MsgRequestCannotHaveCID                    = ffe("FF10262", "For request messages 'header.cid' must be unset", 400)
