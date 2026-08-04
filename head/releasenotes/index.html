@@ -4292,15 +4292,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#v150-jul-22-2026" class="md-nav__link">
+  <a href="#v150-aug-4-2026" class="md-nav__link">
     <span class="md-ellipsis">
       
-        v1.5.0 - Jul 22, 2026
+        v1.5.0 - Aug 4, 2026
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="v1.5.0 - Jul 22, 2026">
+    <nav class="md-nav" aria-label="v1.5.0 - Aug 4, 2026">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -4571,7 +4571,7 @@
 
 <h1 id="release-notes">Release Notes<a class="headerlink" href="#release-notes" title="Permanent link">&para;</a></h1>
 <p><a href="https://github.com/hyperledger-firefly/firefly/releases">Full release notes</a></p>
-<h2 id="v150-jul-22-2026"><a href="https://github.com/hyperledger-firefly/firefly/releases/tag/v1.5.0">v1.5.0 - Jul 22, 2026</a><a class="headerlink" href="#v150-jul-22-2026" title="Permanent link">&para;</a></h2>
+<h2 id="v150-aug-4-2026"><a href="https://github.com/hyperledger-firefly/firefly/releases/tag/v1.5.0">v1.5.0 - Aug 4, 2026</a><a class="headerlink" href="#v150-aug-4-2026" title="Permanent link">&para;</a></h2>
 <p>What's New:</p>
 <ul>
 <li>FireFly has moved to its own <code>hyperledger-firefly</code> GitHub organization<ul>
@@ -4594,6 +4594,7 @@
 <li>Large number of improvements to the FireFly common libraries, used to bootstrap new plugins and features of FireFly</li>
 <li>Cardano connector maintenance updates, including security fixes and an increased request body limit for large transactions and contract deployments</li>
 <li>New networking metrics and IP/server configuration options in the common HTTP/TLS/DNS layers used across all FireFly runtimes</li>
+<li>Updated the Kubo (IPFS) image used by CLI and Helm charts to v0.42.0. Due to an issue with the way networking works in Docker Desktop, which affects peer discovery, fixes were added to the CLI to manually register peers.</li>
 <li>Miscellaneous bug fixes and minor improvements across all components</li>
 <li>CVE fixes across the board</li>
 </ul>
