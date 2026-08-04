@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       packages: write
+      contents: write
     steps:
       - uses: actions/checkout@v7.0.0
         with:
@@ -63,22 +64,22 @@ jobs:
       - name: Set latest tag
         if: github.event.action == 'released' && github.ref_name == env.LATEST_TAG
         run: |
-          echo "DOCKER_TAGS=${{ env.DOCKER_TAGS }},ghcr.io/${{ github.repository }}:latest" >> $GITHUB_ENV
+          echo "DOCKER_TAGS=${DOCKER_TAGS:+$DOCKER_TAGS,}ghcr.io/${{ github.repository }}:latest" >> $GITHUB_ENV
 
       - name: Set alpha tag
         if: github.event.action == 'prereleased' && contains(github.ref, 'alpha')
         run: |
-          echo "DOCKER_TAGS=${{ env.DOCKER_TAGS }},ghcr.io/${{ github.repository }}:alpha" >> $GITHUB_ENV
+          echo "DOCKER_TAGS=${DOCKER_TAGS:+$DOCKER_TAGS,}ghcr.io/${{ github.repository }}:alpha" >> $GITHUB_ENV
 
       - name: Set beta tag
         if: github.event.action == 'prereleased' && contains(github.ref, 'beta')
         run: |
-          echo "DOCKER_TAGS=${{ env.DOCKER_TAGS }},ghcr.io/${{ github.repository }}:beta" >> $GITHUB_ENV
+          echo "DOCKER_TAGS=${DOCKER_TAGS:+$DOCKER_TAGS,}ghcr.io/${{ github.repository }}:beta" >> $GITHUB_ENV
 
       - name: Set rc tag
         if: github.event.action == 'prereleased' && contains(github.ref, 'rc')
         run: |
-          echo "DOCKER_TAGS=${{ env.DOCKER_TAGS }},ghcr.io/${{ github.repository }}:rc" >> $GITHUB_ENV
+          echo "DOCKER_TAGS=${DOCKER_TAGS:+$DOCKER_TAGS,}ghcr.io/${{ github.repository }}:rc" >> $GITHUB_ENV
 
       - name: Set build tag
         id: build_tag_generator
@@ -110,7 +111,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           platforms: linux/amd64
-          tags: ghcr.io/${{ github.repository }}:${{ steps.build_tag_generator.outputs.RELEASE_TAG }},ghcr.io/${{ github.repository }}:head,${{ env.DOCKER_TAGS }}
+          tags: ghcr.io/${{ github.repository }}:${{ steps.build_tag_generator.outputs.RELEASE_TAG }},ghcr.io/${{ github.repository }}:head${{ env.DOCKER_TAGS && format(',{0}', env.DOCKER_TAGS) || '' }}
           labels: |
             commit=${{ github.sha }}
             build_date=${{ steps.build_tag_generator.outputs.BUILD_DATE }}
@@ -130,11 +131,7 @@ jobs:
 
       - name: Upload manifest.json to GitHub Release
         if: github.event_name == 'release'
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v3
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./manifest.json
-          asset_name: manifest.json
-          asset_content_type: application/json
+          tag_name: ${{ github.event.release.tag_name }}
+          files: ./manifest.json
