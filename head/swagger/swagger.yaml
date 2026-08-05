@@ -31220,10 +31220,24 @@ paths:
                             to send events even when the batch hasn't filled.
                           nullable: true
                           type: string
+                        confirmationMode:
+                          description: 'Webhooks only: Determines whether a webhook
+                            delivery must be confirmed before the subscription checkpoint
+                            advances. Use fastack to acknowledge the event before
+                            the webhook is invoked, besteffort (the default) to hold
+                            the checkpoint while the invocation - including any configured
+                            client-side retries - completes, then acknowledge regardless
+                            of its outcome, or assured to acknowledge only on a 2xx
+                            response and otherwise hold the checkpoint and redeliver'
+                          enum:
+                          - fastack
+                          - besteffort
+                          - assured
+                          type: string
                         fastack:
-                          description: 'Webhooks only: When true the event will be
-                            acknowledged before the webhook is invoked, allowing parallel
-                            invocations'
+                          description: 'Webhooks only: Deprecated - please use a confirmationMode
+                            of fastack instead. When true the event will be acknowledged
+                            before the webhook is invoked, allowing parallel invocations'
                           type: boolean
                         firstEvent:
                           description: Whether your application would like to receive
@@ -31513,8 +31527,23 @@ paths:
                         to send events even when the batch hasn't filled.
                       nullable: true
                       type: string
+                    confirmationMode:
+                      description: 'Webhooks only: Determines whether a webhook delivery
+                        must be confirmed before the subscription checkpoint advances.
+                        Use fastack to acknowledge the event before the webhook is
+                        invoked, besteffort (the default) to hold the checkpoint while
+                        the invocation - including any configured client-side retries
+                        - completes, then acknowledge regardless of its outcome, or
+                        assured to acknowledge only on a 2xx response and otherwise
+                        hold the checkpoint and redeliver'
+                      enum:
+                      - fastack
+                      - besteffort
+                      - assured
+                      type: string
                     fastack:
-                      description: 'Webhooks only: When true the event will be acknowledged
+                      description: 'Webhooks only: Deprecated - please use a confirmationMode
+                        of fastack instead. When true the event will be acknowledged
                         before the webhook is invoked, allowing parallel invocations'
                       type: boolean
                     firstEvent:
@@ -31792,8 +31821,23 @@ paths:
                           to send events even when the batch hasn't filled.
                         nullable: true
                         type: string
+                      confirmationMode:
+                        description: 'Webhooks only: Determines whether a webhook
+                          delivery must be confirmed before the subscription checkpoint
+                          advances. Use fastack to acknowledge the event before the
+                          webhook is invoked, besteffort (the default) to hold the
+                          checkpoint while the invocation - including any configured
+                          client-side retries - completes, then acknowledge regardless
+                          of its outcome, or assured to acknowledge only on a 2xx
+                          response and otherwise hold the checkpoint and redeliver'
+                        enum:
+                        - fastack
+                        - besteffort
+                        - assured
+                        type: string
                       fastack:
-                        description: 'Webhooks only: When true the event will be acknowledged
+                        description: 'Webhooks only: Deprecated - please use a confirmationMode
+                          of fastack instead. When true the event will be acknowledged
                           before the webhook is invoked, allowing parallel invocations'
                         type: boolean
                       firstEvent:
@@ -32081,8 +32125,23 @@ paths:
                         to send events even when the batch hasn't filled.
                       nullable: true
                       type: string
+                    confirmationMode:
+                      description: 'Webhooks only: Determines whether a webhook delivery
+                        must be confirmed before the subscription checkpoint advances.
+                        Use fastack to acknowledge the event before the webhook is
+                        invoked, besteffort (the default) to hold the checkpoint while
+                        the invocation - including any configured client-side retries
+                        - completes, then acknowledge regardless of its outcome, or
+                        assured to acknowledge only on a 2xx response and otherwise
+                        hold the checkpoint and redeliver'
+                      enum:
+                      - fastack
+                      - besteffort
+                      - assured
+                      type: string
                     fastack:
-                      description: 'Webhooks only: When true the event will be acknowledged
+                      description: 'Webhooks only: Deprecated - please use a confirmationMode
+                        of fastack instead. When true the event will be acknowledged
                         before the webhook is invoked, allowing parallel invocations'
                       type: boolean
                     firstEvent:
@@ -32360,8 +32419,23 @@ paths:
                           to send events even when the batch hasn't filled.
                         nullable: true
                         type: string
+                      confirmationMode:
+                        description: 'Webhooks only: Determines whether a webhook
+                          delivery must be confirmed before the subscription checkpoint
+                          advances. Use fastack to acknowledge the event before the
+                          webhook is invoked, besteffort (the default) to hold the
+                          checkpoint while the invocation - including any configured
+                          client-side retries - completes, then acknowledge regardless
+                          of its outcome, or assured to acknowledge only on a 2xx
+                          response and otherwise hold the checkpoint and redeliver'
+                        enum:
+                        - fastack
+                        - besteffort
+                        - assured
+                        type: string
                       fastack:
-                        description: 'Webhooks only: When true the event will be acknowledged
+                        description: 'Webhooks only: Deprecated - please use a confirmationMode
+                          of fastack instead. When true the event will be acknowledged
                           before the webhook is invoked, allowing parallel invocations'
                         type: boolean
                       firstEvent:
@@ -32712,8 +32786,23 @@ paths:
                           to send events even when the batch hasn't filled.
                         nullable: true
                         type: string
+                      confirmationMode:
+                        description: 'Webhooks only: Determines whether a webhook
+                          delivery must be confirmed before the subscription checkpoint
+                          advances. Use fastack to acknowledge the event before the
+                          webhook is invoked, besteffort (the default) to hold the
+                          checkpoint while the invocation - including any configured
+                          client-side retries - completes, then acknowledge regardless
+                          of its outcome, or assured to acknowledge only on a 2xx
+                          response and otherwise hold the checkpoint and redeliver'
+                        enum:
+                        - fastack
+                        - besteffort
+                        - assured
+                        type: string
                       fastack:
-                        description: 'Webhooks only: When true the event will be acknowledged
+                        description: 'Webhooks only: Deprecated - please use a confirmationMode
+                          of fastack instead. When true the event will be acknowledged
                           before the webhook is invoked, allowing parallel invocations'
                         type: boolean
                       firstEvent:
@@ -40816,10 +40905,24 @@ paths:
                             to send events even when the batch hasn't filled.
                           nullable: true
                           type: string
+                        confirmationMode:
+                          description: 'Webhooks only: Determines whether a webhook
+                            delivery must be confirmed before the subscription checkpoint
+                            advances. Use fastack to acknowledge the event before
+                            the webhook is invoked, besteffort (the default) to hold
+                            the checkpoint while the invocation - including any configured
+                            client-side retries - completes, then acknowledge regardless
+                            of its outcome, or assured to acknowledge only on a 2xx
+                            response and otherwise hold the checkpoint and redeliver'
+                          enum:
+                          - fastack
+                          - besteffort
+                          - assured
+                          type: string
                         fastack:
-                          description: 'Webhooks only: When true the event will be
-                            acknowledged before the webhook is invoked, allowing parallel
-                            invocations'
+                          description: 'Webhooks only: Deprecated - please use a confirmationMode
+                            of fastack instead. When true the event will be acknowledged
+                            before the webhook is invoked, allowing parallel invocations'
                           type: boolean
                         firstEvent:
                           description: Whether your application would like to receive
@@ -41102,8 +41205,23 @@ paths:
                         to send events even when the batch hasn't filled.
                       nullable: true
                       type: string
+                    confirmationMode:
+                      description: 'Webhooks only: Determines whether a webhook delivery
+                        must be confirmed before the subscription checkpoint advances.
+                        Use fastack to acknowledge the event before the webhook is
+                        invoked, besteffort (the default) to hold the checkpoint while
+                        the invocation - including any configured client-side retries
+                        - completes, then acknowledge regardless of its outcome, or
+                        assured to acknowledge only on a 2xx response and otherwise
+                        hold the checkpoint and redeliver'
+                      enum:
+                      - fastack
+                      - besteffort
+                      - assured
+                      type: string
                     fastack:
-                      description: 'Webhooks only: When true the event will be acknowledged
+                      description: 'Webhooks only: Deprecated - please use a confirmationMode
+                        of fastack instead. When true the event will be acknowledged
                         before the webhook is invoked, allowing parallel invocations'
                       type: boolean
                     firstEvent:
@@ -41381,8 +41499,23 @@ paths:
                           to send events even when the batch hasn't filled.
                         nullable: true
                         type: string
+                      confirmationMode:
+                        description: 'Webhooks only: Determines whether a webhook
+                          delivery must be confirmed before the subscription checkpoint
+                          advances. Use fastack to acknowledge the event before the
+                          webhook is invoked, besteffort (the default) to hold the
+                          checkpoint while the invocation - including any configured
+                          client-side retries - completes, then acknowledge regardless
+                          of its outcome, or assured to acknowledge only on a 2xx
+                          response and otherwise hold the checkpoint and redeliver'
+                        enum:
+                        - fastack
+                        - besteffort
+                        - assured
+                        type: string
                       fastack:
-                        description: 'Webhooks only: When true the event will be acknowledged
+                        description: 'Webhooks only: Deprecated - please use a confirmationMode
+                          of fastack instead. When true the event will be acknowledged
                           before the webhook is invoked, allowing parallel invocations'
                         type: boolean
                       firstEvent:
@@ -41663,8 +41796,23 @@ paths:
                         to send events even when the batch hasn't filled.
                       nullable: true
                       type: string
+                    confirmationMode:
+                      description: 'Webhooks only: Determines whether a webhook delivery
+                        must be confirmed before the subscription checkpoint advances.
+                        Use fastack to acknowledge the event before the webhook is
+                        invoked, besteffort (the default) to hold the checkpoint while
+                        the invocation - including any configured client-side retries
+                        - completes, then acknowledge regardless of its outcome, or
+                        assured to acknowledge only on a 2xx response and otherwise
+                        hold the checkpoint and redeliver'
+                      enum:
+                      - fastack
+                      - besteffort
+                      - assured
+                      type: string
                     fastack:
-                      description: 'Webhooks only: When true the event will be acknowledged
+                      description: 'Webhooks only: Deprecated - please use a confirmationMode
+                        of fastack instead. When true the event will be acknowledged
                         before the webhook is invoked, allowing parallel invocations'
                       type: boolean
                     firstEvent:
@@ -41942,8 +42090,23 @@ paths:
                           to send events even when the batch hasn't filled.
                         nullable: true
                         type: string
+                      confirmationMode:
+                        description: 'Webhooks only: Determines whether a webhook
+                          delivery must be confirmed before the subscription checkpoint
+                          advances. Use fastack to acknowledge the event before the
+                          webhook is invoked, besteffort (the default) to hold the
+                          checkpoint while the invocation - including any configured
+                          client-side retries - completes, then acknowledge regardless
+                          of its outcome, or assured to acknowledge only on a 2xx
+                          response and otherwise hold the checkpoint and redeliver'
+                        enum:
+                        - fastack
+                        - besteffort
+                        - assured
+                        type: string
                       fastack:
-                        description: 'Webhooks only: When true the event will be acknowledged
+                        description: 'Webhooks only: Deprecated - please use a confirmationMode
+                          of fastack instead. When true the event will be acknowledged
                           before the webhook is invoked, allowing parallel invocations'
                         type: boolean
                       firstEvent:
@@ -42280,8 +42443,23 @@ paths:
                           to send events even when the batch hasn't filled.
                         nullable: true
                         type: string
+                      confirmationMode:
+                        description: 'Webhooks only: Determines whether a webhook
+                          delivery must be confirmed before the subscription checkpoint
+                          advances. Use fastack to acknowledge the event before the
+                          webhook is invoked, besteffort (the default) to hold the
+                          checkpoint while the invocation - including any configured
+                          client-side retries - completes, then acknowledge regardless
+                          of its outcome, or assured to acknowledge only on a 2xx
+                          response and otherwise hold the checkpoint and redeliver'
+                        enum:
+                        - fastack
+                        - besteffort
+                        - assured
+                        type: string
                       fastack:
-                        description: 'Webhooks only: When true the event will be acknowledged
+                        description: 'Webhooks only: Deprecated - please use a confirmationMode
+                          of fastack instead. When true the event will be acknowledged
                           before the webhook is invoked, allowing parallel invocations'
                         type: boolean
                       firstEvent:

@@ -4871,8 +4871,13 @@ subscription that lasts only for the duration that the connection is active.</p>
 </tr>
 <tr>
 <td><code>fastack</code></td>
-<td>Webhooks only: When true the event will be acknowledged before the webhook is invoked, allowing parallel invocations</td>
+<td>Webhooks only: Deprecated - please use a confirmationMode of fastack instead. When true the event will be acknowledged before the webhook is invoked, allowing parallel invocations</td>
 <td><code>bool</code></td>
+</tr>
+<tr>
+<td><code>confirmationMode</code></td>
+<td>Webhooks only: Determines whether a webhook delivery must be confirmed before the subscription checkpoint advances. Use fastack to acknowledge the event before the webhook is invoked, besteffort (the default) to hold the checkpoint while the invocation - including any configured client-side retries - completes, then acknowledge regardless of its outcome, or assured to acknowledge only on a 2xx response and otherwise hold the checkpoint and redeliver</td>
+<td><code>FFEnum</code>:<br/><code>"fastack"</code><br/><code>"besteffort"</code><br/><code>"assured"</code></td>
 </tr>
 <tr>
 <td><code>url</code></td>

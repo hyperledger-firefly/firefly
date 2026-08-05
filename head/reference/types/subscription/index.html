@@ -4894,10 +4894,13 @@ allowing you to customize your HTTP requests as follows:</p>
 <li>To retry requests to your Webhook on a non-<code>2xx</code> HTTP status code
     or other error, you should enable and configure
     <a href="#webhookretryoptions">options.retry</a></li>
-<li>The event is acknowledged once the request (with any retries), is
+<li>By default the event is acknowledged once the request (with any retries), is
     completed - regardless of whether the outcome was a success or failure.</li>
+<li>Use <code>confirmationMode</code> to choose whether a delivery has to be confirmed before
+  the subscription checkpoint advances (see below).</li>
 <li>Use <code>fastack</code> to acknowledge against FireFly immediately and make multiple
-  parallel calls to the HTTP API in a fire-and-forget fashion.</li>
+  parallel calls to the HTTP API in a fire-and-forget fashion. <strong>Deprecated</strong>:
+  please use <code>confirmationMode: fastack</code> instead.</li>
 <li>Set the HTTP request details dynamically from <code>message_confirmed</code> events:</li>
 <li>Map data out of the first <code>data</code> element in message events</li>
 <li>Requires <code>withData</code> to be set on the subscription, in addition to the
@@ -4907,6 +4910,51 @@ allowing you to customize your HTTP requests as follows:</p>
 <li>Sets the <code>cid</code> and <code>topic</code> in the reply message to match the request</li>
 <li>Sets a <code>tag</code> in the reply message, per the configuration, or dynamically
     based on a field in the input request data.</li>
+</ul>
+<h4 id="delivery-confirmation">Delivery confirmation<a class="headerlink" href="#delivery-confirmation" title="Permanent link">&para;</a></h4>
+<p>The <code>confirmationMode</code> option determines whether - and when - a Webhook delivery
+causes the subscription checkpoint to advance:</p>
+<table>
+<thead>
+<tr>
+<th><code>confirmationMode</code></th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fastack</code></td>
+<td>Acknowledge each event <em>before</em> the delivery is attempted. The delivery runs detached, and its outcome never affects the checkpoint. Equivalent to the deprecated <code>fastack: true</code> option.</td>
+</tr>
+<tr>
+<td><code>besteffort</code></td>
+<td>Deliver synchronously - holding the checkpoint while the invocation, including any configured <a href="#webhookretryoptions">options.retry</a> attempts, completes - then acknowledge each event regardless of the response status or any error. <strong>This is the default</strong>, and the behavior of all releases before this option existed.</td>
+</tr>
+<tr>
+<td><code>assured</code></td>
+<td>Deliver synchronously and acknowledge only on a <code>2xx</code> response. Anything else - including a connection failure - holds the subscription checkpoint, so the event(s) are redelivered.</td>
+</tr>
+</tbody>
+</table>
+<p>Use <code>assured</code> when your application needs at-least-once semantics and would
+rather the subscription stall on a broken endpoint than silently skip past
+events it never received. Note that this means a persistently failing endpoint
+will block that subscription, so configure
+<a href="#webhookretryoptions">options.retry</a> to suit, and monitor for a subscription
+that stops progressing.</p>
+<blockquote>
+<p>Delivery confirmation does not apply when <code>reply</code> is enabled. In reply mode
+the Webhook response - whatever its status - <em>is</em> the payload relayed back to
+the original caller, so there is nothing to hold the checkpoint for.</p>
+</blockquote>
+<p>The <code>fastack</code> boolean is retained for backwards compatibility, but is
+deprecated in favor of <code>confirmationMode</code>:</p>
+<ul>
+<li><code>fastack: true</code> with no <code>confirmationMode</code> resolves to <code>confirmationMode: fastack</code></li>
+<li>Neither set resolves to <code>confirmationMode: besteffort</code> - today's default, unchanged</li>
+<li><code>fastack: true</code> combined with any <code>confirmationMode</code> other than <code>fastack</code> is
+  rejected when the subscription is created or updated, as the two are saying
+  contradictory things</li>
 </ul>
 <h4 id="batching-events">Batching events<a class="headerlink" href="#batching-events" title="Permanent link">&para;</a></h4>
 <p>Webhooks have the ability to batch events into a single HTTP request instead of sending an event per HTTP request. The interface will be a JSON array of events instead of a top level JSON object with a single event. The size of the batch will be set by the <code>readAhead</code> limit and an optional timeout can be specified to send the events when the batch hasn't filled.</p>
@@ -5153,8 +5201,13 @@ allowing you to customize your HTTP requests as follows:</p>
 </tr>
 <tr>
 <td><code>fastack</code></td>
-<td>Webhooks only: When true the event will be acknowledged before the webhook is invoked, allowing parallel invocations</td>
+<td>Webhooks only: Deprecated - please use a confirmationMode of fastack instead. When true the event will be acknowledged before the webhook is invoked, allowing parallel invocations</td>
 <td><code>bool</code></td>
+</tr>
+<tr>
+<td><code>confirmationMode</code></td>
+<td>Webhooks only: Determines whether a webhook delivery must be confirmed before the subscription checkpoint advances. Use fastack to acknowledge the event before the webhook is invoked, besteffort (the default) to hold the checkpoint while the invocation - including any configured client-side retries - completes, then acknowledge regardless of its outcome, or assured to acknowledge only on a 2xx response and otherwise hold the checkpoint and redeliver</td>
+<td><code>FFEnum</code>:<br/><code>"fastack"</code><br/><code>"besteffort"</code><br/><code>"assured"</code></td>
 </tr>
 <tr>
 <td><code>url</code></td>
