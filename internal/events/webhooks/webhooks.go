@@ -263,7 +263,49 @@ func (wh *WebHooks) buildRequest(ctx context.Context, restyClient *resty.Client,
 	return req, err
 }
 
+// confirmationModeFor resolves the effective delivery-confirmation mode for a subscription,
+// falling back to the deprecated `fastack` boolean for subscriptions created before
+// `confirmationMode` existed. Never returns an empty string - an unset option resolves to
+// "besteffort", which is the behavior of every release prior to this option existing.
+func confirmationModeFor(sub *core.Subscription) core.WebhookConfirmationMode {
+	opts := sub.Options.TransportOptions()
+	if mode := opts.GetString("confirmationMode"); mode != "" {
+		return core.WebhookConfirmationMode(strings.ToLower(mode))
+	}
+	if opts.GetBool("fastack") { // deprecated - retained for backwards compatibility only
+		return core.WebhookConfirmationModeFastAck
+	}
+	return core.WebhookConfirmationModeBestEffort // today's default, unchanged
+}
+
+func (wh *WebHooks) validateConfirmationMode(ctx context.Context, options *core.SubscriptionOptions) error {
+	transportOptions := options.TransportOptions()
+	rawMode := transportOptions.GetString("confirmationMode")
+	mode := core.WebhookConfirmationMode(strings.ToLower(rawMode))
+	if rawMode != "" && !fftypes.FFEnumValid(ctx, "webhookconfirmationmode", mode) {
+		validModes := make([]string, len(core.WebhookConfirmationModes))
+		for i, m := range core.WebhookConfirmationModes {
+			validModes[i] = string(m)
+		}
+		return i18n.NewError(ctx, coremsgs.MsgWebhooksInvalidConfirmationMode, rawMode, strings.Join(validModes, ", "))
+	}
+	// `fastack` is deprecated in favor of `confirmationMode`. It is fine on its own - that is how a
+	// subscription created before `confirmationMode` existed, with the deprecated boolean explicitly
+	// set, is configured (most existing subscriptions set neither, and resolve to "besteffort") - and
+	// fine alongside an explicit "fastack" mode.
+	// Any other combination is contradictory, and resolving it silently in either direction would
+	// surprise someone - so reject it at create/update time instead.
+	if transportOptions.GetBool("fastack") && rawMode != "" && mode != core.WebhookConfirmationModeFastAck {
+		return i18n.NewError(ctx, coremsgs.MsgWebhooksFastackConfirmationModeConflict, rawMode)
+	}
+	return nil
+}
+
 func (wh *WebHooks) ValidateOptions(ctx context.Context, options *core.SubscriptionOptions) error {
+	if err := wh.validateConfirmationMode(ctx, options); err != nil {
+		return err
+	}
+
 	if options.WithData == nil {
 		defaultTrue := true
 		options.WithData = &defaultTrue
@@ -437,7 +479,14 @@ func (wh *WebHooks) attemptRequest(ctx context.Context, sub *core.Subscription, 
 	return req, res, nil
 }
 
-func (wh *WebHooks) doDelivery(ctx context.Context, connID string, reply bool, sub *core.Subscription, events []*core.CombinedEventDataDelivery, fastAck, batched bool) {
+// doDelivery performs the webhook invocation and emits the per-event delivery responses.
+//
+// It returns a non-nil error only in "assured" confirmation mode, on a non-2xx response. That
+// error propagates back through DeliveryRequest/BatchDeliveryRequest to the event dispatcher,
+// which holds the subscription checkpoint and redelivers rather than advancing past a delivery
+// that never landed. In every other mode - including "besteffort", the default - this returns
+// nil regardless of the response, exactly as it did before `confirmationMode` existed.
+func (wh *WebHooks) doDelivery(ctx context.Context, connID string, reply bool, sub *core.Subscription, events []*core.CombinedEventDataDelivery, fastAck, batched bool) error {
 	req, res, gwErr := wh.attemptRequest(ctx, sub, events, batched)
 	if gwErr != nil {
 		// Generate a bad-gateway error response - we always want to send something back,
@@ -456,6 +505,15 @@ func (wh *WebHooks) doDelivery(ctx context.Context, connID string, reply bool, s
 	}
 	b, _ := json.Marshal(&res)
 	log.L(ctx).Tracef("Webhook response: %s", string(b))
+
+	// Reply mode is exempt regardless of confirmation mode: the webhook response *is* the payload
+	// relayed back to the caller, so there is nothing to hold the checkpoint for.
+	if !reply && confirmationModeFor(sub) == core.WebhookConfirmationModeAssured &&
+		(res.Status < 200 || res.Status >= 300) {
+		log.L(ctx).Errorf("Webhook delivery returned status %d in '%s' confirmation mode - holding the subscription checkpoint and redelivering %d event(s)",
+			res.Status, core.WebhookConfirmationModeAssured, len(events))
+		return i18n.NewError(ctx, coremsgs.MsgWebhooksDeliveryFailedStatus, res.Status)
+	}
 
 	// For each event emit a response
 	for _, combinedEvent := range events {
@@ -500,6 +558,7 @@ func (wh *WebHooks) doDelivery(ctx context.Context, connID string, reply bool, s
 		}
 	}
 
+	return nil
 }
 
 func (wh *WebHooks) DeliveryRequest(ctx context.Context, connID string, sub *core.Subscription, event *core.EventDelivery, data core.DataArray) error {
@@ -523,7 +582,7 @@ func (wh *WebHooks) DeliveryRequest(ctx context.Context, connID string, sub *cor
 	// In fastack mode we drive calls in parallel to the backend, immediately acknowledging the event
 	// NOTE: We cannot use this with reply mode, as when we're sending a reply the `DeliveryResponse`
 	//       callback must include the reply in-line.
-	if !reply && sub.Options.TransportOptions().GetBool("fastack") {
+	if !reply && confirmationModeFor(sub) == core.WebhookConfirmationModeFastAck {
 		if cb, ok := wh.callbacks.handlers[sub.Namespace]; ok {
 			cb.DeliveryResponse(connID, &core.EventDeliveryResponse{
 				ID:           event.ID,
@@ -531,15 +590,19 @@ func (wh *WebHooks) DeliveryRequest(ctx context.Context, connID string, sub *cor
 				Subscription: event.Subscription,
 			})
 		}
-		go wh.doDelivery(ctx, connID, reply, sub, []*core.CombinedEventDataDelivery{{Event: event, Data: data}}, true, false)
+		go func() {
+			// The event is already acknowledged, so the outcome of this detached delivery cannot
+			// affect the subscription checkpoint. doDelivery never returns an error in this mode.
+			_ = wh.doDelivery(ctx, connID, reply, sub, []*core.CombinedEventDataDelivery{{Event: event, Data: data}}, true, false)
+		}()
 		return nil
 	}
 
 	// NOTE: We could check here for batching and accumulate but we can't return because this causes the offset to jump...
 
-	// TODO we don't look at the error here?
-	wh.doDelivery(ctx, connID, reply, sub, []*core.CombinedEventDataDelivery{{Event: event, Data: data}}, false, false)
-	return nil
+	// A non-nil error here (only possible in "assured" mode) causes the dispatcher to hold the
+	// checkpoint and redeliver, rather than advancing past a failed delivery.
+	return wh.doDelivery(ctx, connID, reply, sub, []*core.CombinedEventDataDelivery{{Event: event, Data: data}}, false, false)
 }
 
 func (wh *WebHooks) BatchDeliveryRequest(ctx context.Context, connID string, sub *core.Subscription, events []*core.CombinedEventDataDelivery) error {
@@ -573,7 +636,7 @@ func (wh *WebHooks) BatchDeliveryRequest(ctx context.Context, connID string, sub
 	// // In fastack mode we drive calls in parallel to the backend, immediately acknowledging the event
 	// NOTE: We cannot use this with reply mode, as when we're sending a reply the `DeliveryResponse`
 	//       callback must include the reply in-line.
-	if !reply && sub.Options.TransportOptions().GetBool("fastack") {
+	if !reply && confirmationModeFor(sub) == core.WebhookConfirmationModeFastAck {
 		for _, combinedEvent := range events {
 			event := combinedEvent.Event
 			if cb, ok := wh.callbacks.handlers[sub.Namespace]; ok {
@@ -584,12 +647,17 @@ func (wh *WebHooks) BatchDeliveryRequest(ctx context.Context, connID string, sub
 				})
 			}
 		}
-		go wh.doDelivery(ctx, connID, reply, sub, events, true, true)
+		go func() {
+			// The events are already acknowledged, so the outcome of this detached delivery cannot
+			// affect the subscription checkpoint. doDelivery never returns an error in this mode.
+			_ = wh.doDelivery(ctx, connID, reply, sub, events, true, true)
+		}()
 		return nil
 	}
 
-	wh.doDelivery(ctx, connID, reply, sub, events, false, true)
-	return nil
+	// A non-nil error here (only possible in "assured" mode) causes the dispatcher to hold the
+	// checkpoint and redeliver the whole batch, rather than advancing past a failed delivery.
+	return wh.doDelivery(ctx, connID, reply, sub, events, false, true)
 }
 
 func (wh *WebHooks) NamespaceRestarted(ns string, startTime time.Time) {

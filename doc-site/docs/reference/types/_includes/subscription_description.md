@@ -171,10 +171,13 @@ allowing you to customize your HTTP requests as follows:
   - To retry requests to your Webhook on a non-`2xx` HTTP status code
     or other error, you should enable and configure
     [options.retry](#webhookretryoptions)
-  - The event is acknowledged once the request (with any retries), is
+  - By default the event is acknowledged once the request (with any retries), is
     completed - regardless of whether the outcome was a success or failure.
+- Use `confirmationMode` to choose whether a delivery has to be confirmed before
+  the subscription checkpoint advances (see below).
 - Use `fastack` to acknowledge against FireFly immediately and make multiple
-  parallel calls to the HTTP API in a fire-and-forget fashion.
+  parallel calls to the HTTP API in a fire-and-forget fashion. **Deprecated**:
+  please use `confirmationMode: fastack` instead.
 - Set the HTTP request details dynamically from `message_confirmed` events:
   - Map data out of the first `data` element in message events
   - Requires `withData` to be set on the subscription, in addition to the
@@ -184,6 +187,37 @@ allowing you to customize your HTTP requests as follows:
   - Sets the `cid` and `topic` in the reply message to match the request
   - Sets a `tag` in the reply message, per the configuration, or dynamically
     based on a field in the input request data.
+
+#### Delivery confirmation
+
+The `confirmationMode` option determines whether - and when - a Webhook delivery
+causes the subscription checkpoint to advance:
+
+| `confirmationMode` | Behavior |
+| ------------------ | -------- |
+| `fastack`     | Acknowledge each event *before* the delivery is attempted. The delivery runs detached, and its outcome never affects the checkpoint. Equivalent to the deprecated `fastack: true` option. |
+| `besteffort`  | Deliver synchronously - holding the checkpoint while the invocation, including any configured [options.retry](#webhookretryoptions) attempts, completes - then acknowledge each event regardless of the response status or any error. **This is the default**, and the behavior of all releases before this option existed. |
+| `assured`     | Deliver synchronously and acknowledge only on a `2xx` response. Anything else - including a connection failure - holds the subscription checkpoint, so the event(s) are redelivered. |
+
+Use `assured` when your application needs at-least-once semantics and would
+rather the subscription stall on a broken endpoint than silently skip past
+events it never received. Note that this means a persistently failing endpoint
+will block that subscription, so configure
+[options.retry](#webhookretryoptions) to suit, and monitor for a subscription
+that stops progressing.
+
+> Delivery confirmation does not apply when `reply` is enabled. In reply mode
+> the Webhook response - whatever its status - *is* the payload relayed back to
+> the original caller, so there is nothing to hold the checkpoint for.
+
+The `fastack` boolean is retained for backwards compatibility, but is
+deprecated in favor of `confirmationMode`:
+
+- `fastack: true` with no `confirmationMode` resolves to `confirmationMode: fastack`
+- Neither set resolves to `confirmationMode: besteffort` - today's default, unchanged
+- `fastack: true` combined with any `confirmationMode` other than `fastack` is
+  rejected when the subscription is created or updated, as the two are saying
+  contradictory things
 
 #### Batching events
 

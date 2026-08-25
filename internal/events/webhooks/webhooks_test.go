@@ -28,11 +28,11 @@ import (
 	"fmt"
 	"log"
 	"math/big"
-	"strings"
 	"net"
 	"net/http"
 	"net/http/httptest"
 	"os"
+	"strings"
 	"testing"
 	"time"
 
@@ -1600,6 +1600,367 @@ func TestLoggingContextPreserved(t *testing.T) {
 		}
 	}
 	assert.True(t, found, "expected log entry with preserved httpReq, webhook, and sub fields")
+
+	mcb.AssertExpectations(t)
+}
+
+// --- confirmationMode -------------------------------------------------------------------------
+//
+// See https://github.com/hyperledger-firefly/firefly/issues/1770. The critical property under
+// test is that nothing changes for a subscription that does not set `confirmationMode`, and that
+// only the new "assured" mode ever returns an error to the dispatcher (which is what holds the
+// subscription checkpoint and drives redelivery).
+
+// newConfirmationModeTestSub builds a webhook subscription pointing at a test server that always
+// responds with the given status, plus a single event to deliver over it.
+func newConfirmationModeTestSub(t *testing.T, status int) (sub *core.Subscription, event *core.EventDelivery, called *bool, closeServer func()) {
+	t.Helper()
+	wasCalled := false
+	r := mux.NewRouter()
+	r.HandleFunc("/myapi", func(res http.ResponseWriter, req *http.Request) {
+		wasCalled = true
+		res.WriteHeader(status)
+		_, _ = res.Write([]byte(`{}`))
+	}).Methods(http.MethodPost)
+	server := httptest.NewServer(r)
+
+	subID := fftypes.NewUUID()
+	sub = &core.Subscription{
+		SubscriptionRef: core.SubscriptionRef{
+			ID:        subID,
+			Namespace: "ns1",
+		},
+	}
+	sub.Options.TransportOptions()["url"] = fmt.Sprintf("http://%s/myapi", server.Listener.Addr())
+	event = &core.EventDelivery{
+		EnrichedEvent: core.EnrichedEvent{
+			Event: core.Event{
+				ID:       fftypes.NewUUID(),
+				Sequence: 12345,
+			},
+			Message: &core.Message{
+				Header: core.MessageHeader{
+					ID:   fftypes.NewUUID(),
+					Type: core.MessageTypeBroadcast,
+				},
+			},
+		},
+		Subscription: core.SubscriptionRef{
+			ID:        subID,
+			Namespace: "ns1",
+		},
+	}
+	return sub, event, &wasCalled, server.Close
+}
+
+func TestConfirmationModeForUnsetIsBestEffort(t *testing.T) {
+	sub := &core.Subscription{}
+	// Today's default, and the whole reason this is a non-breaking change
+	assert.Equal(t, core.WebhookConfirmationModeBestEffort, confirmationModeFor(sub))
+}
+
+func TestConfirmationModeForDeprecatedFastackFallback(t *testing.T) {
+	// The migration case: a subscription created before confirmationMode existed
+	sub := &core.Subscription{}
+	sub.Options.TransportOptions()["fastack"] = true
+	assert.Equal(t, core.WebhookConfirmationModeFastAck, confirmationModeFor(sub))
+
+	// An explicit false is not a signal of anything - still the default
+	sub2 := &core.Subscription{}
+	sub2.Options.TransportOptions()["fastack"] = false
+	assert.Equal(t, core.WebhookConfirmationModeBestEffort, confirmationModeFor(sub2))
+}
+
+func TestConfirmationModeForExplicitModes(t *testing.T) {
+	for _, mode := range core.WebhookConfirmationModes {
+		sub := &core.Subscription{}
+		sub.Options.TransportOptions()["confirmationMode"] = string(mode)
+		assert.Equal(t, mode, confirmationModeFor(sub))
+	}
+
+	// An explicit mode takes precedence over the deprecated boolean (only legal when they agree,
+	// per ValidateOptions, but resolution must not depend on that)
+	sub := &core.Subscription{}
+	sub.Options.TransportOptions()["fastack"] = true
+	sub.Options.TransportOptions()["confirmationMode"] = string(core.WebhookConfirmationModeFastAck)
+	assert.Equal(t, core.WebhookConfirmationModeFastAck, confirmationModeFor(sub))
+}
+
+func TestValidateOptionsConfirmationModeValid(t *testing.T) {
+	wh, cancel := newTestWebHooks(t)
+	defer cancel()
+
+	for _, mode := range append([]core.WebhookConfirmationMode{""}, core.WebhookConfirmationModes...) {
+		opts := &core.SubscriptionOptions{}
+		opts.TransportOptions()["url"] = "/anything"
+		if mode != "" {
+			opts.TransportOptions()["confirmationMode"] = string(mode)
+		}
+		err := wh.ValidateOptions(wh.ctx, opts)
+		assert.NoError(t, err, "confirmationMode '%s' should be accepted", mode)
+	}
+}
+
+func TestValidateOptionsConfirmationModeInvalid(t *testing.T) {
+	wh, cancel := newTestWebHooks(t)
+	defer cancel()
+
+	opts := &core.SubscriptionOptions{}
+	opts.TransportOptions()["url"] = "/anything"
+	opts.TransportOptions()["confirmationMode"] = "strict" // plausible typo, not a real mode
+	err := wh.ValidateOptions(wh.ctx, opts)
+	assert.Regexp(t, "FF10487", err)
+}
+
+func TestValidateOptionsFastackConfirmationModeConflict(t *testing.T) {
+	wh, cancel := newTestWebHooks(t)
+	defer cancel()
+
+	// fastack:true says "ack before delivery", the mode says otherwise - refuse to pick a winner
+	for _, mode := range []core.WebhookConfirmationMode{core.WebhookConfirmationModeBestEffort, core.WebhookConfirmationModeAssured} {
+		opts := &core.SubscriptionOptions{}
+		opts.TransportOptions()["url"] = "/anything"
+		opts.TransportOptions()["fastack"] = true
+		opts.TransportOptions()["confirmationMode"] = string(mode)
+		err := wh.ValidateOptions(wh.ctx, opts)
+		assert.Regexp(t, "FF10488", err, "fastack + confirmationMode '%s' should conflict", mode)
+	}
+}
+
+func TestValidateOptionsFastackConfirmationModeAgree(t *testing.T) {
+	wh, cancel := newTestWebHooks(t)
+	defer cancel()
+
+	// Saying the same thing twice is redundant, but not contradictory
+	opts := &core.SubscriptionOptions{}
+	opts.TransportOptions()["url"] = "/anything"
+	opts.TransportOptions()["fastack"] = true
+	opts.TransportOptions()["confirmationMode"] = string(core.WebhookConfirmationModeFastAck)
+	err := wh.ValidateOptions(wh.ctx, opts)
+	assert.NoError(t, err)
+
+	// As is the deprecated option on its own - every existing subscription looks like this
+	opts2 := &core.SubscriptionOptions{}
+	opts2.TransportOptions()["url"] = "/anything"
+	opts2.TransportOptions()["fastack"] = true
+	err = wh.ValidateOptions(wh.ctx, opts2)
+	assert.NoError(t, err)
+}
+
+func TestDeliveryRequestDefaultAcksOnNon2XX(t *testing.T) {
+	// No confirmationMode set: a 500 is still acknowledged and the checkpoint still advances.
+	// This is the no-regression test - if this one changes, the change is breaking.
+	wh, cancel := newTestWebHooks(t)
+	defer cancel()
+
+	sub, event, called, closeServer := newConfirmationModeTestSub(t, 500)
+	defer closeServer()
+
+	mcb := wh.callbacks.handlers["ns1"].(*eventsmocks.Callbacks)
+	mcb.On("DeliveryResponse", mock.Anything, mock.MatchedBy(func(response *core.EventDeliveryResponse) bool {
+		return !response.Rejected
+	})).Return(nil)
+
+	err := wh.DeliveryRequest(wh.ctx, mock.Anything, sub, event, core.DataArray{})
+	assert.NoError(t, err)
+	assert.True(t, *called)
+
+	mcb.AssertExpectations(t)
+}
+
+func TestDeliveryRequestBestEffortAcksOnNon2XX(t *testing.T) {
+	// Naming today's behavior explicitly must behave identically to leaving it unset
+	wh, cancel := newTestWebHooks(t)
+	defer cancel()
+
+	sub, event, called, closeServer := newConfirmationModeTestSub(t, 500)
+	defer closeServer()
+	sub.Options.TransportOptions()["confirmationMode"] = string(core.WebhookConfirmationModeBestEffort)
+
+	mcb := wh.callbacks.handlers["ns1"].(*eventsmocks.Callbacks)
+	mcb.On("DeliveryResponse", mock.Anything, mock.MatchedBy(func(response *core.EventDeliveryResponse) bool {
+		return !response.Rejected
+	})).Return(nil)
+
+	err := wh.DeliveryRequest(wh.ctx, mock.Anything, sub, event, core.DataArray{})
+	assert.NoError(t, err)
+	assert.True(t, *called)
+
+	mcb.AssertExpectations(t)
+}
+
+func TestDeliveryRequestAssuredHoldsCheckpointOnNon2XX(t *testing.T) {
+	// The new behavior: no ack at all, and an error back to the dispatcher, which nacks and
+	// rewinds the polling offset so these events are redelivered.
+	wh, cancel := newTestWebHooks(t)
+	defer cancel()
+
+	sub, event, called, closeServer := newConfirmationModeTestSub(t, 500)
+	defer closeServer()
+	sub.Options.TransportOptions()["confirmationMode"] = string(core.WebhookConfirmationModeAssured)
+
+	// Deliberately no DeliveryResponse expectation - any acknowledgement here is a failure,
+	// because the dispatcher is about to nack this event on the back of the error we return.
+	mcb := wh.callbacks.handlers["ns1"].(*eventsmocks.Callbacks)
+
+	err := wh.DeliveryRequest(wh.ctx, mock.Anything, sub, event, core.DataArray{})
+	assert.Regexp(t, "FF10486", err)
+	assert.True(t, *called)
+
+	mcb.AssertExpectations(t)
+}
+
+func TestDeliveryRequestAssuredAcksOn2XX(t *testing.T) {
+	wh, cancel := newTestWebHooks(t)
+	defer cancel()
+
+	sub, event, called, closeServer := newConfirmationModeTestSub(t, 200)
+	defer closeServer()
+	sub.Options.TransportOptions()["confirmationMode"] = string(core.WebhookConfirmationModeAssured)
+
+	mcb := wh.callbacks.handlers["ns1"].(*eventsmocks.Callbacks)
+	mcb.On("DeliveryResponse", mock.Anything, mock.MatchedBy(func(response *core.EventDeliveryResponse) bool {
+		return !response.Rejected
+	})).Return(nil)
+
+	err := wh.DeliveryRequest(wh.ctx, mock.Anything, sub, event, core.DataArray{})
+	assert.NoError(t, err)
+	assert.True(t, *called)
+
+	mcb.AssertExpectations(t)
+}
+
+func TestDeliveryRequestAssuredHoldsCheckpointOnNetworkFailure(t *testing.T) {
+	// A connection failure is synthesized into a 502 before it reaches the mode check, so it must
+	// hold the checkpoint too - nothing was delivered.
+	wh, cancel := newTestWebHooks(t)
+	defer cancel()
+
+	sub, event, _, closeServer := newConfirmationModeTestSub(t, 200)
+	closeServer() // nothing is listening on that address any more
+	sub.Options.TransportOptions()["confirmationMode"] = string(core.WebhookConfirmationModeAssured)
+
+	mcb := wh.callbacks.handlers["ns1"].(*eventsmocks.Callbacks)
+
+	err := wh.DeliveryRequest(wh.ctx, mock.Anything, sub, event, core.DataArray{})
+	assert.Regexp(t, "FF10486", err)
+
+	mcb.AssertExpectations(t)
+}
+
+func TestDeliveryRequestAssuredReplyModeStillAcksOnNon2XX(t *testing.T) {
+	// Reply mode is exempt from confirmationMode: the webhook response *is* the payload relayed
+	// back to the original caller, whatever its status, so there is nothing to hold open.
+	wh, cancel := newTestWebHooks(t)
+	defer cancel()
+
+	sub, event, called, closeServer := newConfirmationModeTestSub(t, 500)
+	defer closeServer()
+	sub.Options.TransportOptions()["confirmationMode"] = string(core.WebhookConfirmationModeAssured)
+	sub.Options.TransportOptions()["reply"] = true
+
+	mcb := wh.callbacks.handlers["ns1"].(*eventsmocks.Callbacks)
+	mcb.On("DeliveryResponse", mock.Anything, mock.MatchedBy(func(response *core.EventDeliveryResponse) bool {
+		assert.False(t, response.Rejected)
+		assert.Equal(t, float64(500), response.Reply.InlineData[0].Value.JSONObject()["status"])
+		return true
+	})).Return(nil)
+
+	err := wh.DeliveryRequest(wh.ctx, mock.Anything, sub, event, core.DataArray{})
+	assert.NoError(t, err)
+	assert.True(t, *called)
+
+	mcb.AssertExpectations(t)
+}
+
+func TestDeliveryRequestConfirmationModeFastackIsDetached(t *testing.T) {
+	// confirmationMode: fastack must behave exactly like the deprecated boolean - ack up front,
+	// deliver detached, and never surface the outcome.
+	wh, cancel := newTestWebHooks(t)
+	defer cancel()
+
+	sub, event, _, closeServer := newConfirmationModeTestSub(t, 500)
+	defer closeServer()
+	sub.Options.TransportOptions()["confirmationMode"] = string(core.WebhookConfirmationModeFastAck)
+
+	acked := make(chan struct{})
+	mcb := wh.callbacks.handlers["ns1"].(*eventsmocks.Callbacks)
+	mcb.On("DeliveryResponse", mock.Anything, mock.MatchedBy(func(response *core.EventDeliveryResponse) bool {
+		return !response.Rejected
+	})).Return(nil).Run(func(a mock.Arguments) {
+		close(acked)
+	})
+
+	err := wh.DeliveryRequest(wh.ctx, mock.Anything, sub, event, core.DataArray{})
+	assert.NoError(t, err)
+	<-acked
+
+	mcb.AssertExpectations(t)
+}
+
+func TestBatchDeliveryRequestDefaultAcksOnNon2XX(t *testing.T) {
+	wh, cancel := newTestWebHooks(t)
+	defer cancel()
+
+	sub, event, called, closeServer := newConfirmationModeTestSub(t, 500)
+	defer closeServer()
+
+	mcb := wh.callbacks.handlers["ns1"].(*eventsmocks.Callbacks)
+	mcb.On("DeliveryResponse", mock.Anything, mock.MatchedBy(func(response *core.EventDeliveryResponse) bool {
+		return !response.Rejected
+	})).Return(nil).Twice()
+
+	err := wh.BatchDeliveryRequest(wh.ctx, mock.Anything, sub, []*core.CombinedEventDataDelivery{
+		{Event: event, Data: core.DataArray{}},
+		{Event: event, Data: core.DataArray{}},
+	})
+	assert.NoError(t, err)
+	assert.True(t, *called)
+
+	mcb.AssertExpectations(t)
+}
+
+func TestBatchDeliveryRequestAssuredHoldsCheckpointOnNon2XX(t *testing.T) {
+	// A failed batch nacks the whole batch, matching the existing batch nack semantics
+	wh, cancel := newTestWebHooks(t)
+	defer cancel()
+
+	sub, event, called, closeServer := newConfirmationModeTestSub(t, 500)
+	defer closeServer()
+	sub.Options.TransportOptions()["confirmationMode"] = string(core.WebhookConfirmationModeAssured)
+
+	// Again, no DeliveryResponse expectation - nothing in the batch may be acknowledged
+	mcb := wh.callbacks.handlers["ns1"].(*eventsmocks.Callbacks)
+
+	err := wh.BatchDeliveryRequest(wh.ctx, mock.Anything, sub, []*core.CombinedEventDataDelivery{
+		{Event: event, Data: core.DataArray{}},
+		{Event: event, Data: core.DataArray{}},
+	})
+	assert.Regexp(t, "FF10486", err)
+	assert.True(t, *called)
+
+	mcb.AssertExpectations(t)
+}
+
+func TestBatchDeliveryRequestAssuredAcksOn2XX(t *testing.T) {
+	wh, cancel := newTestWebHooks(t)
+	defer cancel()
+
+	sub, event, called, closeServer := newConfirmationModeTestSub(t, 200)
+	defer closeServer()
+	sub.Options.TransportOptions()["confirmationMode"] = string(core.WebhookConfirmationModeAssured)
+
+	mcb := wh.callbacks.handlers["ns1"].(*eventsmocks.Callbacks)
+	mcb.On("DeliveryResponse", mock.Anything, mock.MatchedBy(func(response *core.EventDeliveryResponse) bool {
+		return !response.Rejected
+	})).Return(nil).Twice()
+
+	err := wh.BatchDeliveryRequest(wh.ctx, mock.Anything, sub, []*core.CombinedEventDataDelivery{
+		{Event: event, Data: core.DataArray{}},
+		{Event: event, Data: core.DataArray{}},
+	})
+	assert.NoError(t, err)
+	assert.True(t, *called)
 
 	mcb.AssertExpectations(t)
 }

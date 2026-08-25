@@ -324,4 +324,7 @@ var (
 	MsgInvalidCardanoAddress                   = ffe("FF10483", "Supplied cardano address is invalid", 400)
 	MsgCardanoconnectRESTErr                   = ffe("FF10484", "Error from cardano connector: %s")
 	MsgEmptyCustomTopic                        = ffe("FF10485", "Custom topic at index %d is empty. Each custom topic for the definition broadcast message must be a non-empty string", 400)
+	MsgWebhooksDeliveryFailedStatus            = ffe("FF10486", "Webhook delivery failed with status %d", 502)
+	MsgWebhooksInvalidConfirmationMode         = ffe("FF10487", "Webhook subscription option 'confirmationMode' value '%s' is invalid. Must be one of: %s", 400)
+	MsgWebhooksFastackConfirmationModeConflict = ffe("FF10488", "Webhook subscription option 'fastack' cannot be combined with 'confirmationMode' of '%s'. The deprecated 'fastack' option is equivalent to 'confirmationMode' of 'fastack'", 400)
 )
