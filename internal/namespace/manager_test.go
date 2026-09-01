@@ -1930,6 +1930,33 @@ func TestWaitStop(t *testing.T) {
 	nmm.mae.AssertExpectations(t)
 }
 
+func TestWaitStopBeforeInit(t *testing.T) {
+	nm := &namespaceManager{}
+	nm.WaitStop()
+}
+
+func TestCancelCtxSuppressedWhenStopping(t *testing.T) {
+	nm, nmm, cleanup := newTestNamespaceManager(t, false)
+	defer cleanup()
+
+	nmm.mei[0].On("Init", mock.Anything, mock.Anything).Return(nil)
+	nmm.mei[1].On("Init", mock.Anything, mock.Anything).Return(nil)
+	nmm.mei[2].On("Init", mock.Anything, mock.Anything).Return(nil)
+
+	ctx, cancelRunCtx := context.WithCancel(context.Background())
+	rootCancelled := false
+	err := nm.Init(ctx, func() { rootCancelled = true }, nm.reset, nm.reloadConfig)
+	assert.NoError(t, err)
+
+	nm.cancelCtx() // propagate a request to stop while we're running
+	assert.True(t, rootCancelled)
+
+	rootCancelled = false
+	cancelRunCtx()
+	nm.cancelCtx() // if we're already stopping, it's a no-op
+	assert.False(t, rootCancelled)
+}
+
 func TestReset(t *testing.T) {
 	nm, _, cleanup := newTestNamespaceManager(t, true)
 	defer cleanup()

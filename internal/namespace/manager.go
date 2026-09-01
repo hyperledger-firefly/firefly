@@ -191,7 +191,12 @@ func (nm *namespaceManager) Init(ctx context.Context, cancelCtx context.CancelFu
 	nm.reset = reset               // channel to ask our parent to reload us
 	nm.reloadConfig = reloadConfig // function to cause our parent to call InitConfig on all components, including us
 	nm.ctx = ctx
-	nm.cancelCtx = cancelCtx
+	nm.cancelCtx = func() {
+		// only propagate a process-stop request while our own context is still active
+		if ctx.Err() == nil {
+			cancelCtx()
+		}
+	}
 
 	initTimeRawConfig := nm.dumpRootConfig()
 	nm.loadManagers(ctx)
@@ -424,12 +429,15 @@ func (nm *namespaceManager) WaitStop() {
 	for k, v := range nm.namespaces {
 		namespaces[k] = v
 	}
+	adminEvents := nm.adminEvents // copy in mux
 	nm.nsMux.Unlock()
 
 	for _, ns := range namespaces {
 		nm.stopNamespace(nm.ctx, ns)
 	}
-	nm.adminEvents.WaitStop()
+	if adminEvents != nil {
+		adminEvents.WaitStop()
+	}
 }
 
 func (nm *namespaceManager) Reset(ctx context.Context) error {
