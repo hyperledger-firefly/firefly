@@ -1106,13 +1106,32 @@ func (cm *contractManager) AddContractListener(ctx context.Context, listener *co
 		return nil, err
 	}
 
-	if err = cm.blockchain.AddContractListener(ctx, &listener.ContractListener, ""); err != nil {
+	if listener.Name == "" {
+		listener.Name = listener.ID.String() // default to the same name as the ID (cannot use the backendID here as not created yet)
+	}
+
+	// Placeholder backend ID until we've created in the backend - which happens after we store in the DB (see below)
+	listener.BackendID = "pending-" + listener.ID.String()
+
+	// Create the listener in our DB, checking for duplicates (only one concurrent API can win here)
+	if err = cm.database.InsertContractListener(ctx, verifiedContractListener); err != nil {
+		if existing, lookupErr := cm.database.GetContractListener(ctx, cm.namespace, listener.Name); lookupErr == nil && existing != nil && !existing.ID.Equals(listener.ID) {
+			return nil, i18n.NewError(ctx, coremsgs.MsgContractListenerNameExists, cm.namespace, listener.Name)
+		}
 		return nil, err
 	}
-	if listener.Name == "" {
-		listener.Name = listener.BackendID
+
+	if err = cm.blockchain.AddContractListener(ctx, &listener.ContractListener, ""); err != nil {
+		// Cleanup our DB record before return, in case of a failure to create in the backend
+		if delErr := cm.database.DeleteContractListenerByID(ctx, cm.namespace, listener.ID); delErr != nil {
+			log.L(ctx).Errorf("Failed to delete listener %s after connector subscription creation failed: %s", listener.ID, delErr)
+		}
+		return nil, err
 	}
-	if err = cm.database.InsertContractListener(ctx, verifiedContractListener); err != nil {
+
+	// Store the backend ID now we've created it
+	if err = cm.database.UpdateContractListener(ctx, cm.namespace, listener.ID,
+		database.ContractListenerQueryFactory.NewUpdate(ctx).Set("backendid", listener.BackendID)); err != nil {
 		return nil, err
 	}
 
