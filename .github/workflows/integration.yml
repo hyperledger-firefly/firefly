@@ -50,7 +50,7 @@ jobs:
             blockchain-node: besu
       fail-fast: false
     steps:
-      - uses: actions/checkout@v7.0.0
+      - uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
 
@@ -87,7 +87,7 @@ jobs:
   migration-test:
     runs-on: firefly-ubuntu-latest
     steps:
-      - uses: actions/checkout@v7.0.0
+      - uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
 
