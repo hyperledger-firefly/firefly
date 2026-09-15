@@ -765,6 +765,47 @@ func TestInsertBlockchainEventPartialBatch(t *testing.T) {
 
 }
 
+func TestInsertBlockchainEventDuplicateInBatch(t *testing.T) {
+
+	// Two entries with the same protocolID in one batch must produce a single
+	// FF event, even though the GetEvents pre-existing-notification check has
+	// no rows to find for the second entry.
+
+	txHelper, _, _ := NewTestTransactionHelper()
+	defer txHelper.cleanup(t)
+	ctx := context.Background()
+
+	protocolID := "000037063142/000000/000001"
+	chainEvent1 := &core.BlockchainEvent{
+		ID:         fftypes.NewUUID(),
+		Namespace:  "ns1",
+		ProtocolID: protocolID,
+	}
+	chainEvent2 := &core.BlockchainEvent{
+		ID:         fftypes.NewUUID(),
+		Namespace:  "ns1",
+		ProtocolID: protocolID,
+	}
+	batch := []*core.BlockchainEvent{chainEvent1, chainEvent2}
+
+	txHelper.mdi.On("InsertBlockchainEvents", ctx, batch, mock.Anything).Return(fmt.Errorf("optimization bypass"))
+	// First entry inserts fresh; second entry finds the existing row.
+	txHelper.mdi.On("InsertOrGetBlockchainEvent", ctx, chainEvent1).Return(nil, nil).Once()
+	txHelper.mdi.On("InsertOrGetBlockchainEvent", ctx, chainEvent2).Return(&core.BlockchainEvent{
+		ID:         chainEvent1.ID,
+		Namespace:  "ns1",
+		ProtocolID: protocolID,
+	}, nil).Once()
+	// GetEvents is intentionally not mocked — the dedupe should short-circuit
+	// before it is called, and an unexpected call would fail the test.
+
+	result, err := txHelper.InsertNewBlockchainEvents(ctx, batch)
+	assert.NoError(t, err)
+	assert.Len(t, result, 1, "duplicate entry within batch must not produce a second FF event")
+	assert.Equal(t, chainEvent1.ID, result[0].ID)
+
+}
+
 func TestInsertBlockchainEventErr(t *testing.T) {
 
 	mdi := &databasemocks.Plugin{}
