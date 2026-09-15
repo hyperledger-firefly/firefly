@@ -199,7 +199,7 @@ func (mm *multipartyManager) resolveFireFlyContract(ctx context.Context, contrac
 	return &blockchain.MultipartyContract{
 		Location:   location,
 		FirstEvent: firstEvent,
-	}, err
+	}, nil
 }
 
 func (mm *multipartyManager) TerminateContract(ctx context.Context, location *fftypes.JSONAny, termination *blockchain.Event) (err error) {
