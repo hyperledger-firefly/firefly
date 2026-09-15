@@ -15,7 +15,6 @@
 // limitations under the License.
 
 //go:build !reference
-// +build !reference
 
 package apiserver
 
