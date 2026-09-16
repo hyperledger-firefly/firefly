@@ -348,6 +348,13 @@ func (t *transactionHelper) InsertNewBlockchainEvents(ctx context.Context, event
 		}
 
 		if existing != nil {
+			// Skip if this row was already handled earlier in the same batch — the
+			// GetEvents check below cannot see FF events we are about to insert.
+			if existing.ID != nil && containsBlockchainEventID(inserted, existing.ID) {
+				log.L(ctx).Debugf("Ignoring duplicate blockchain event %s within batch", existing.ProtocolID)
+				t.addBlockchainEventToCache(existing)
+				continue
+			}
 			// It's possible the batch insert was partially successful, and this is actually a "new" row.
 			// Look to see if the corresponding entry also exists in the "events" table.
 			fb := database.EventQueryFactory.NewFilter(ctx)
@@ -372,6 +379,15 @@ func (t *transactionHelper) InsertNewBlockchainEvents(ctx context.Context, event
 	}
 
 	return inserted, nil
+}
+
+func containsBlockchainEventID(events []*core.BlockchainEvent, id *fftypes.UUID) bool {
+	for _, e := range events {
+		if e.ID != nil && e.ID.Equals(id) {
+			return true
+		}
+	}
+	return false
 }
 
 func (t *transactionHelper) FindOperationInTransaction(ctx context.Context, tx *fftypes.UUID, opType core.OpType) (*core.Operation, error) {
