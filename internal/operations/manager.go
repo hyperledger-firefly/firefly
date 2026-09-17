@@ -78,7 +78,7 @@ type operationsManager struct {
 	cache     cache.CInterface
 }
 
-// SubmitBulkOperationUpdate implements Manager.
+// SubmitBulkOperationUpdates implements Manager.
 func (om *operationsManager) SubmitBulkOperationUpdates(ctx context.Context, updates []*core.OperationUpdate) error {
 	for _, update := range updates {
 		errString := ""
