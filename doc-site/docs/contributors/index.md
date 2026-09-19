@@ -33,7 +33,7 @@ Here are some other suggestions of places to get started, based on experience yo
 
 ### Any level of experience
 
-If you looking to make your first open source contribution the [FireFly documentation](https://github.com/hyperledger-firefly/firefly/tree/main/docs) is a great place to make small, easy improvements. These improvements are also very valuable, because they help the next person that may want to know the same thing.
+If you are looking to make your first open source contribution the [FireFly documentation](https://github.com/hyperledger/firefly/tree/main/doc-site/docs) is a great place to make small, easy improvements. These improvements are also very valuable, because they help the next person that may want to know the same thing.
 
 Here are some detailed instructions on [Contributing to Documentation](./docs_setup.md)
 
