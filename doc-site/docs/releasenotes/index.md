@@ -82,7 +82,7 @@ What's New:
    - See [FFBigInt](../reference/types/simpletypes.md#ffbigint) for detailed explanation
    - Support added to FireFly core, including the UI, FireFly Transaction Manager, and FireFly EVMConnect
 - Ability to install FireFly CLI with Brew for MacOS users
-    See [Brew](../gettingstarted/firefly_cli.md#install-via-homebrew-macOS) 
+    See [Brew](../gettingstarted/firefly_cli.md#install-via-homebrew-macos) 
 - Miscellaneous bug fixes and minor improvements
 - FireFly has been upgraded to use Go 1.22
 

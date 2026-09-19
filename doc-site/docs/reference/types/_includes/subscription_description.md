@@ -1,4 +1,4 @@
-Each [Subscription](#subscription) tracks delivery of events to a particular
+Each Subscription tracks delivery of events to a particular
 application, and allows FireFly to ensure that messages are delivered reliably
 to that application.
 
