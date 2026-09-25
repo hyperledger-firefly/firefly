@@ -186,7 +186,7 @@ func (dm *dataManager) getValidatorForDatatype(ctx context.Context, validator co
 	return v, err
 }
 
-// GetMessageWithData performs a cached lookup of a message with all of the associated data.
+// GetMessageWithDataCached performs a cached lookup of a message with all of the associated data.
 //   - Use this in performance sensitive code, but note mutable fields like the status of the
 //     message CANNOT be relied upon (due to the caching).
 func (dm *dataManager) GetMessageWithDataCached(ctx context.Context, msgID *fftypes.UUID, options ...CacheReadOption) (msg *core.Message, data core.DataArray, foundAllData bool, err error) {
@@ -201,7 +201,7 @@ func (dm *dataManager) GetMessageWithDataCached(ctx context.Context, msgID *ffty
 	return msg, data, foundAllData, err
 }
 
-// GetMessageData looks for all the data attached to the message, including caching.
+// GetMessageDataCached looks for all the data attached to the message, including caching.
 // It only returns persistence errors.
 // For all cases where the data is not found (or the hashes mismatch)
 func (dm *dataManager) GetMessageDataCached(ctx context.Context, msg *core.Message, options ...CacheReadOption) (data core.DataArray, foundAll bool, err error) {
