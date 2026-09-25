@@ -15,7 +15,6 @@
 // limitations under the License.
 
 //go:build cgo
-// +build cgo
 
 package difactory
 
