@@ -3200,7 +3200,7 @@ func TestInvokeContractMethodNotFound(t *testing.T) {
 
 	_, err := cm.InvokeContract(context.Background(), req, false)
 
-	assert.Regexp(t, "FF10315", err)
+	assert.Regexp(t, "FF10315.*set: pop$", err)
 }
 
 func TestInvokeContractErrorsFail(t *testing.T) {
