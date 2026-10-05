@@ -1309,7 +1309,7 @@ func TestValidateParentTypeCustomToNode(t *testing.T) {
 	}
 
 	err := im.validateParentType(ctx, id2, id1)
-	assert.Regexp(t, "FF10365", err)
+	assert.Regexp(t, "FF10365.*of type custom$", err)
 
 }
 

@@ -209,7 +209,7 @@ var (
 	MsgAuthorIncorrectForRootReg               = ffe("FF10357", "Author namespace '%s' and DID '%s' combination invalid for root organization registration", 400)
 	MsgKeyIdentityMissing                      = ffe("FF10358", "Identity owner of key '%s' not found", 500)
 	MsgIdentityChainLoop                       = ffe("FF10364", "Loop detected on identity %s in chain for %s (%s)", 400)
-	MsgInvalidIdentityParentType               = ffe("FF10365", "Parent %s (%s) of type %s is invalid for child %s (%s) of type", 400)
+	MsgInvalidIdentityParentType               = ffe("FF10365", "Parent %s (%s) of type %s is invalid for child %s (%s) of type %s", 400)
 	MsgParentIdentityMissingClaim              = ffe("FF10366", "Parent %s (%s) is invalid (missing claim)", 400)
 	MsgDXInfoMissingID                         = ffe("FF10367", "Data exchange endpoint info missing 'id' field", 500)
 	MsgEventNotFound                           = ffe("FF10370", "Event with name '%s' not found", 400)

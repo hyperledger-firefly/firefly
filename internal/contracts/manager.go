@@ -555,7 +555,7 @@ func (cm *contractManager) resolveInvokeContractRequest(ctx context.Context, req
 		}
 		req.Method, err = cm.database.GetFFIMethod(ctx, cm.namespace, req.Interface, req.MethodPath)
 		if err != nil || req.Method == nil {
-			return i18n.NewError(ctx, coremsgs.MsgContractMethodResolveError, req.MethodPath, err)
+			return i18n.WrapError(ctx, err, coremsgs.MsgContractMethodResolveError, req.MethodPath)
 		}
 		fb := database.FFIErrorQueryFactory.NewFilter(ctx)
 		req.Errors, _, err = cm.database.GetFFIErrors(ctx, cm.namespace, fb.Eq("interface", req.Interface))
