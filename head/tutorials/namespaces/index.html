@@ -9,28 +9,28 @@
       
       
       
-        <link rel="prev" href="../identity/">
+        <link rel="prev" href="../events/">
       
       
-        <link rel="next" href="../namespace/">
+        <link rel="next" href="../private_send/">
       
       
         
       
       
-      <link rel="icon" href="../../../assets/favicon.ico">
+      <link rel="icon" href="../../assets/favicon.ico">
       <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
-        <title>Message - Hyperledger FireFly</title>
+        <title>Adding a Namespace with the FireFly Helm Chart - Hyperledger FireFly</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -49,9 +49,9 @@
       
     
     
-      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -84,7 +84,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#hash" class="md-skip">
+        <a href="#adding-a-namespace-with-the-firefly-helm-chart" class="md-skip">
           Skip to content
         </a>
       
@@ -99,12 +99,12 @@
             <div class="md-banner__inner md-grid md-typeset">
               
   You're not viewing the latest version.
-  <a href="../../../.."> 
+  <a href="../../.."> 
     <strong>Click here to go to latest.</strong>
   </a>
 
             </div>
-            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
           </aside>
         
       </div>
@@ -116,9 +116,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="Hyperledger FireFly" class="md-header__button md-logo" aria-label="Hyperledger FireFly" data-md-component="logo">
+    <a href="../.." title="Hyperledger FireFly" class="md-header__button md-logo" aria-label="Hyperledger FireFly" data-md-component="logo">
       
-  <img src="../../../assets/FireFly_Logo_White.svg" alt="logo">
+  <img src="../../assets/FireFly_Logo_White.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -135,7 +135,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Message
+              Adding a Namespace with the FireFly Helm Chart
             
           </span>
         </div>
@@ -225,9 +225,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="Hyperledger FireFly" class="md-nav__button md-logo" aria-label="Hyperledger FireFly" data-md-component="logo">
+    <a href="../.." title="Hyperledger FireFly" class="md-nav__button md-logo" aria-label="Hyperledger FireFly" data-md-component="logo">
       
-  <img src="../../../assets/FireFly_Logo_White.svg" alt="logo">
+  <img src="../../assets/FireFly_Logo_White.svg" alt="logo">
 
     </a>
     Hyperledger FireFly
@@ -254,7 +254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -342,7 +342,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../overview/supernode_concept/" class="md-nav__link">
+      <a href="../../overview/supernode_concept/" class="md-nav__link">
         
   
   
@@ -370,7 +370,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../overview/usage_patterns/" class="md-nav__link">
+      <a href="../../overview/usage_patterns/" class="md-nav__link">
         
   
   
@@ -430,7 +430,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../overview/key_components/" class="md-nav__link ">
+            <a href="../../overview/key_components/" class="md-nav__link ">
               
   
   
@@ -474,7 +474,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../overview/key_components/apps/" class="md-nav__link">
+      <a href="../../overview/key_components/apps/" class="md-nav__link">
         
   
   
@@ -502,7 +502,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../overview/key_components/connectors/" class="md-nav__link">
+      <a href="../../overview/key_components/connectors/" class="md-nav__link">
         
   
   
@@ -530,7 +530,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../overview/key_components/digital_assets/" class="md-nav__link">
+      <a href="../../overview/key_components/digital_assets/" class="md-nav__link">
         
   
   
@@ -558,7 +558,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../overview/key_components/flows/" class="md-nav__link">
+      <a href="../../overview/key_components/flows/" class="md-nav__link">
         
   
   
@@ -586,7 +586,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../overview/key_components/orchestration_engine/" class="md-nav__link">
+      <a href="../../overview/key_components/orchestration_engine/" class="md-nav__link">
         
   
   
@@ -614,7 +614,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../overview/key_components/security/" class="md-nav__link">
+      <a href="../../overview/key_components/security/" class="md-nav__link">
         
   
   
@@ -642,7 +642,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../overview/key_components/tools/" class="md-nav__link">
+      <a href="../../overview/key_components/tools/" class="md-nav__link">
         
   
   
@@ -678,7 +678,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../overview/gateway_features/" class="md-nav__link">
+      <a href="../../overview/gateway_features/" class="md-nav__link">
         
   
   
@@ -732,7 +732,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../overview/multiparty/" class="md-nav__link ">
+            <a href="../../overview/multiparty/" class="md-nav__link ">
               
   
   
@@ -776,7 +776,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../overview/multiparty/broadcast/" class="md-nav__link">
+      <a href="../../overview/multiparty/broadcast/" class="md-nav__link">
         
   
   
@@ -804,7 +804,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../overview/multiparty/data_exchange/" class="md-nav__link">
+      <a href="../../overview/multiparty/data_exchange/" class="md-nav__link">
         
   
   
@@ -832,7 +832,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../overview/multiparty/deterministic/" class="md-nav__link">
+      <a href="../../overview/multiparty/deterministic/" class="md-nav__link">
         
   
   
@@ -860,7 +860,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../overview/multiparty/multiparty_flow/" class="md-nav__link">
+      <a href="../../overview/multiparty/multiparty_flow/" class="md-nav__link">
         
   
   
@@ -896,7 +896,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../overview/public_vs_permissioned/" class="md-nav__link">
+      <a href="../../overview/public_vs_permissioned/" class="md-nav__link">
         
   
   
@@ -955,7 +955,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../gettingstarted/" class="md-nav__link ">
+            <a href="../../gettingstarted/" class="md-nav__link ">
               
   
   
@@ -999,7 +999,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../gettingstarted/firefly_cli/" class="md-nav__link">
+      <a href="../../gettingstarted/firefly_cli/" class="md-nav__link">
         
   
   
@@ -1027,7 +1027,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../gettingstarted/setup_env/" class="md-nav__link">
+      <a href="../../gettingstarted/setup_env/" class="md-nav__link">
         
   
   
@@ -1055,7 +1055,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../gettingstarted/sandbox/" class="md-nav__link">
+      <a href="../../gettingstarted/sandbox/" class="md-nav__link">
         
   
   
@@ -1087,8 +1087,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -1120,11 +1122,11 @@
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -1145,7 +1147,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1163,7 +1165,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/basic_auth/" class="md-nav__link">
+      <a href="../basic_auth/" class="md-nav__link">
         
   
   
@@ -1191,7 +1193,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/broadcast_data/" class="md-nav__link">
+      <a href="../broadcast_data/" class="md-nav__link">
         
   
   
@@ -1219,7 +1221,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/create_custom_identity/" class="md-nav__link">
+      <a href="../create_custom_identity/" class="md-nav__link">
         
   
   
@@ -1247,7 +1249,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/define_datatype/" class="md-nav__link">
+      <a href="../define_datatype/" class="md-nav__link">
         
   
   
@@ -1275,7 +1277,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/events/" class="md-nav__link">
+      <a href="../events/" class="md-nav__link">
         
   
   
@@ -1300,10 +1302,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../../tutorials/namespaces/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding a Namespace with the FireFly Helm Chart
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1319,6 +1348,103 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#minimal-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimal configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apply-the-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Apply the configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#access-the-firefly-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Access the FireFly API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verify-the-namespace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify the namespace
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verify-the-namespace-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify the namespace configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-the-namespace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using the namespace
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1331,7 +1457,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/private_send/" class="md-nav__link">
+      <a href="../private_send/" class="md-nav__link">
         
   
   
@@ -1359,7 +1485,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/query_messages/" class="md-nav__link">
+      <a href="../query_messages/" class="md-nav__link">
         
   
   
@@ -1387,7 +1513,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/rotate_dx_certs/" class="md-nav__link">
+      <a href="../rotate_dx_certs/" class="md-nav__link">
         
   
   
@@ -1453,7 +1579,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../tutorials/chains/" class="md-nav__link ">
+            <a href="../chains/" class="md-nav__link ">
               
   
   
@@ -1497,7 +1623,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/chains/arbitrum/" class="md-nav__link">
+      <a href="../chains/arbitrum/" class="md-nav__link">
         
   
   
@@ -1525,7 +1651,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/chains/avalanche/" class="md-nav__link">
+      <a href="../chains/avalanche/" class="md-nav__link">
         
   
   
@@ -1553,7 +1679,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/chains/binance_smart_chain/" class="md-nav__link">
+      <a href="../chains/binance_smart_chain/" class="md-nav__link">
         
   
   
@@ -1581,7 +1707,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/chains/cardano/" class="md-nav__link">
+      <a href="../chains/cardano/" class="md-nav__link">
         
   
   
@@ -1609,7 +1735,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/chains/fabric_test_network/" class="md-nav__link">
+      <a href="../chains/fabric_test_network/" class="md-nav__link">
         
   
   
@@ -1637,7 +1763,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/chains/moonbeam/" class="md-nav__link">
+      <a href="../chains/moonbeam/" class="md-nav__link">
         
   
   
@@ -1665,7 +1791,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/chains/optimism/" class="md-nav__link">
+      <a href="../chains/optimism/" class="md-nav__link">
         
   
   
@@ -1693,7 +1819,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/chains/polygon_testnet/" class="md-nav__link">
+      <a href="../chains/polygon_testnet/" class="md-nav__link">
         
   
   
@@ -1721,7 +1847,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/chains/tezos_testnet/" class="md-nav__link">
+      <a href="../chains/tezos_testnet/" class="md-nav__link">
         
   
   
@@ -1749,7 +1875,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/chains/zksync_testnet/" class="md-nav__link">
+      <a href="../chains/zksync_testnet/" class="md-nav__link">
         
   
   
@@ -1813,7 +1939,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../tutorials/custom_contracts/" class="md-nav__link ">
+            <a href="../custom_contracts/" class="md-nav__link ">
               
   
   
@@ -1857,7 +1983,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/custom_contracts/cardano/" class="md-nav__link">
+      <a href="../custom_contracts/cardano/" class="md-nav__link">
         
   
   
@@ -1885,7 +2011,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/custom_contracts/ethereum/" class="md-nav__link">
+      <a href="../custom_contracts/ethereum/" class="md-nav__link">
         
   
   
@@ -1913,7 +2039,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/custom_contracts/fabric/" class="md-nav__link">
+      <a href="../custom_contracts/fabric/" class="md-nav__link">
         
   
   
@@ -1941,7 +2067,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/custom_contracts/pinning/" class="md-nav__link">
+      <a href="../custom_contracts/pinning/" class="md-nav__link">
         
   
   
@@ -1969,7 +2095,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/custom_contracts/tezos/" class="md-nav__link">
+      <a href="../custom_contracts/tezos/" class="md-nav__link">
         
   
   
@@ -2029,7 +2155,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../tutorials/tokens/" class="md-nav__link ">
+            <a href="../tokens/" class="md-nav__link ">
               
   
   
@@ -2073,7 +2199,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/tokens/erc1155/" class="md-nav__link">
+      <a href="../tokens/erc1155/" class="md-nav__link">
         
   
   
@@ -2101,7 +2227,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/tokens/erc20/" class="md-nav__link">
+      <a href="../tokens/erc20/" class="md-nav__link">
         
   
   
@@ -2129,7 +2255,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/tokens/erc721/" class="md-nav__link">
+      <a href="../tokens/erc721/" class="md-nav__link">
         
   
   
@@ -2169,10 +2295,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -2206,11 +2330,11 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
@@ -2231,7 +2355,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2249,7 +2373,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api_post_syntax/" class="md-nav__link">
+      <a href="../../reference/api_post_syntax/" class="md-nav__link">
         
   
   
@@ -2277,7 +2401,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api_query_syntax/" class="md-nav__link">
+      <a href="../../reference/api_query_syntax/" class="md-nav__link">
         
   
   
@@ -2305,7 +2429,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../blockchain_operation_errors/" class="md-nav__link">
+      <a href="../../reference/blockchain_operation_errors/" class="md-nav__link">
         
   
   
@@ -2333,7 +2457,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../blockchain_operation_status/" class="md-nav__link">
+      <a href="../../reference/blockchain_operation_status/" class="md-nav__link">
         
   
   
@@ -2361,7 +2485,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../config/" class="md-nav__link">
+      <a href="../../reference/config/" class="md-nav__link">
         
   
   
@@ -2389,7 +2513,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../events/" class="md-nav__link">
+      <a href="../../reference/events/" class="md-nav__link">
         
   
   
@@ -2417,7 +2541,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../firefly_interface_format/" class="md-nav__link">
+      <a href="../../reference/firefly_interface_format/" class="md-nav__link">
         
   
   
@@ -2445,7 +2569,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../idempotency/" class="md-nav__link">
+      <a href="../../reference/idempotency/" class="md-nav__link">
         
   
   
@@ -2473,7 +2597,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../identities/" class="md-nav__link">
+      <a href="../../reference/identities/" class="md-nav__link">
         
   
   
@@ -2501,7 +2625,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../namespaces/" class="md-nav__link">
+      <a href="../../reference/namespaces/" class="md-nav__link">
         
   
   
@@ -2529,7 +2653,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tls/" class="md-nav__link">
+      <a href="../../reference/tls/" class="md-nav__link">
         
   
   
@@ -2608,7 +2732,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../microservices/fftokens/" class="md-nav__link">
+      <a href="../../reference/microservices/fftokens/" class="md-nav__link">
         
   
   
@@ -2641,10 +2765,8 @@
                 
   
   
-    
   
   
-  
     
     
       
@@ -2702,11 +2824,11 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_13" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_13" >
         
           
           <label class="md-nav__link" for="__nav_5_13" id="__nav_5_13_label" tabindex="0">
@@ -2727,7 +2849,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_13_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_13_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_13">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2745,7 +2867,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../batch/" class="md-nav__link">
+      <a href="../../reference/types/batch/" class="md-nav__link">
         
   
   
@@ -2773,7 +2895,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../blockchainevent/" class="md-nav__link">
+      <a href="../../reference/types/blockchainevent/" class="md-nav__link">
         
   
   
@@ -2801,7 +2923,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../contractapi/" class="md-nav__link">
+      <a href="../../reference/types/contractapi/" class="md-nav__link">
         
   
   
@@ -2829,7 +2951,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../contractlistener/" class="md-nav__link">
+      <a href="../../reference/types/contractlistener/" class="md-nav__link">
         
   
   
@@ -2857,7 +2979,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data/" class="md-nav__link">
+      <a href="../../reference/types/data/" class="md-nav__link">
         
   
   
@@ -2885,7 +3007,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../datatype/" class="md-nav__link">
+      <a href="../../reference/types/datatype/" class="md-nav__link">
         
   
   
@@ -2913,7 +3035,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../event/" class="md-nav__link">
+      <a href="../../reference/types/event/" class="md-nav__link">
         
   
   
@@ -2941,7 +3063,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ffi/" class="md-nav__link">
+      <a href="../../reference/types/ffi/" class="md-nav__link">
         
   
   
@@ -2969,7 +3091,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../group/" class="md-nav__link">
+      <a href="../../reference/types/group/" class="md-nav__link">
         
   
   
@@ -2997,7 +3119,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../identity/" class="md-nav__link">
+      <a href="../../reference/types/identity/" class="md-nav__link">
         
   
   
@@ -3022,35 +3144,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Message
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../reference/types/message/" class="md-nav__link">
         
   
   
@@ -3066,134 +3163,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#hash" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Hash
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#tag" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tag
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#topics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Topics
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#transaction-type" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Transaction type
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#in-line-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        In-line data
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#field-descriptions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Field Descriptions
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#messageheader" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        MessageHeader
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#transactionref" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        TransactionRef
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dataref" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        DataRef
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3206,7 +3175,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../namespace/" class="md-nav__link">
+      <a href="../../reference/types/namespace/" class="md-nav__link">
         
   
   
@@ -3234,7 +3203,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../nextpin/" class="md-nav__link">
+      <a href="../../reference/types/nextpin/" class="md-nav__link">
         
   
   
@@ -3262,7 +3231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../operation/" class="md-nav__link">
+      <a href="../../reference/types/operation/" class="md-nav__link">
         
   
   
@@ -3290,7 +3259,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../operationwithdetail/" class="md-nav__link">
+      <a href="../../reference/types/operationwithdetail/" class="md-nav__link">
         
   
   
@@ -3318,7 +3287,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../simpletypes/" class="md-nav__link">
+      <a href="../../reference/types/simpletypes/" class="md-nav__link">
         
   
   
@@ -3346,7 +3315,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../subscription/" class="md-nav__link">
+      <a href="../../reference/types/subscription/" class="md-nav__link">
         
   
   
@@ -3374,7 +3343,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tokenapproval/" class="md-nav__link">
+      <a href="../../reference/types/tokenapproval/" class="md-nav__link">
         
   
   
@@ -3402,7 +3371,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tokenpool/" class="md-nav__link">
+      <a href="../../reference/types/tokenpool/" class="md-nav__link">
         
   
   
@@ -3430,7 +3399,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tokentransfer/" class="md-nav__link">
+      <a href="../../reference/types/tokentransfer/" class="md-nav__link">
         
   
   
@@ -3458,7 +3427,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../transaction/" class="md-nav__link">
+      <a href="../../reference/types/transaction/" class="md-nav__link">
         
   
   
@@ -3486,7 +3455,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../verifier/" class="md-nav__link">
+      <a href="../../reference/types/verifier/" class="md-nav__link">
         
   
   
@@ -3514,7 +3483,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../wsack/" class="md-nav__link">
+      <a href="../../reference/types/wsack/" class="md-nav__link">
         
   
   
@@ -3542,7 +3511,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../wserror/" class="md-nav__link">
+      <a href="../../reference/types/wserror/" class="md-nav__link">
         
   
   
@@ -3570,7 +3539,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../wsstart/" class="md-nav__link">
+      <a href="../../reference/types/wsstart/" class="md-nav__link">
         
   
   
@@ -3674,7 +3643,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../architecture/blockchain_connector_framework/" class="md-nav__link">
+      <a href="../../architecture/blockchain_connector_framework/" class="md-nav__link">
         
   
   
@@ -3702,7 +3671,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../architecture/internal_event_sequencing/" class="md-nav__link">
+      <a href="../../architecture/internal_event_sequencing/" class="md-nav__link">
         
   
   
@@ -3730,7 +3699,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../architecture/multiparty_event_sequencing/" class="md-nav__link">
+      <a href="../../architecture/multiparty_event_sequencing/" class="md-nav__link">
         
   
   
@@ -3758,7 +3727,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../architecture/node_component_architecture/" class="md-nav__link">
+      <a href="../../architecture/node_component_architecture/" class="md-nav__link">
         
   
   
@@ -3786,7 +3755,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../architecture/ping_pong_txflow/" class="md-nav__link">
+      <a href="../../architecture/ping_pong_txflow/" class="md-nav__link">
         
   
   
@@ -3814,7 +3783,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../architecture/plugin_architecture/" class="md-nav__link">
+      <a href="../../architecture/plugin_architecture/" class="md-nav__link">
         
   
   
@@ -3883,7 +3852,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../contributors/" class="md-nav__link ">
+            <a href="../../contributors/" class="md-nav__link ">
               
   
   
@@ -3927,7 +3896,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributors/advanced_cli_usage/" class="md-nav__link">
+      <a href="../../contributors/advanced_cli_usage/" class="md-nav__link">
         
   
   
@@ -3955,7 +3924,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributors/code_hierarchy/" class="md-nav__link">
+      <a href="../../contributors/code_hierarchy/" class="md-nav__link">
         
   
   
@@ -3983,7 +3952,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributors/code_overview/" class="md-nav__link">
+      <a href="../../contributors/code_overview/" class="md-nav__link">
         
   
   
@@ -4011,7 +3980,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributors/code_repositories/" class="md-nav__link">
+      <a href="../../contributors/code_repositories/" class="md-nav__link">
         
   
   
@@ -4039,7 +4008,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributors/dev_environment_setup/" class="md-nav__link">
+      <a href="../../contributors/dev_environment_setup/" class="md-nav__link">
         
   
   
@@ -4067,7 +4036,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributors/docs_setup/" class="md-nav__link">
+      <a href="../../contributors/docs_setup/" class="md-nav__link">
         
   
   
@@ -4095,7 +4064,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributors/release_guide/" class="md-nav__link">
+      <a href="../../contributors/release_guide/" class="md-nav__link">
         
   
   
@@ -4123,7 +4092,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributors/version_scheme/" class="md-nav__link">
+      <a href="../../contributors/version_scheme/" class="md-nav__link">
         
   
   
@@ -4158,7 +4127,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../swagger/" class="md-nav__link">
+      <a href="../../swagger/" class="md-nav__link">
         
   
   
@@ -4185,7 +4154,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../faqs/" class="md-nav__link">
+      <a href="../../faqs/" class="md-nav__link">
         
   
   
@@ -4232,7 +4201,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../troubleshooting/" class="md-nav__link ">
+            <a href="../../troubleshooting/" class="md-nav__link ">
               
   
   
@@ -4276,7 +4245,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../troubleshooting/undelivered_messages/" class="md-nav__link">
+      <a href="../../troubleshooting/undelivered_messages/" class="md-nav__link">
         
   
   
@@ -4335,7 +4304,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../releasenotes/" class="md-nav__link ">
+            <a href="../../releasenotes/" class="md-nav__link ">
               
   
   
@@ -4379,7 +4348,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../releasenotes/1.1_migration_guide/" class="md-nav__link">
+      <a href="../../releasenotes/1.1_migration_guide/" class="md-nav__link">
         
   
   
@@ -4407,7 +4376,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../releasenotes/1.2_migration_guide/" class="md-nav__link">
+      <a href="../../releasenotes/1.2_migration_guide/" class="md-nav__link">
         
   
   
@@ -4435,7 +4404,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../releasenotes/1.3_migration_guide/" class="md-nav__link">
+      <a href="../../releasenotes/1.3_migration_guide/" class="md-nav__link">
         
   
   
@@ -4480,6 +4449,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -4488,10 +4459,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#hash" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Hash
+        Prerequisites
       
     </span>
   </a>
@@ -4499,10 +4470,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tag" class="md-nav__link">
+  <a href="#minimal-configuration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Tag
+        Minimal configuration
       
     </span>
   </a>
@@ -4510,10 +4481,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#topics" class="md-nav__link">
+  <a href="#apply-the-configuration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Topics
+        Apply the configuration
       
     </span>
   </a>
@@ -4521,10 +4492,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#transaction-type" class="md-nav__link">
+  <a href="#access-the-firefly-api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Transaction type
+        Access the FireFly API
       
     </span>
   </a>
@@ -4532,10 +4503,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#in-line-data" class="md-nav__link">
+  <a href="#verify-the-namespace" class="md-nav__link">
     <span class="md-ellipsis">
       
-        In-line data
+        Verify the namespace
       
     </span>
   </a>
@@ -4543,10 +4514,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
+  <a href="#verify-the-namespace-configuration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Example
+        Verify the namespace configuration
       
     </span>
   </a>
@@ -4554,43 +4525,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#field-descriptions" class="md-nav__link">
+  <a href="#using-the-namespace" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Field Descriptions
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#messageheader" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        MessageHeader
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#transactionref" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        TransactionRef
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dataref" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        DataRef
+        Using the namespace
       
     </span>
   </a>
@@ -4622,7 +4560,7 @@
   
   
     <li class="md-path__item">
-      <a href="../../.." class="md-path__link">
+      <a href="../.." class="md-path__link">
         
   <span class="md-ellipsis">
     Home
@@ -4640,28 +4578,10 @@
     
     
       <li class="md-path__item">
-        <a href="../../api_post_syntax/" class="md-path__link">
+        <a href="../basic_auth/" class="md-path__link">
           
   <span class="md-ellipsis">
-    Reference
-  </span>
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-    
-    
-      <li class="md-path__item">
-        <a href="../batch/" class="md-path__link">
-          
-  <span class="md-ellipsis">
-    Types
+    Tutorials
   </span>
 
         </a>
@@ -4683,326 +4603,78 @@
   
 
 
-  <h1>Message</h1>
-
-<p>Message is the envelope by which coordinated data exchange can happen between parties in the network. Data is passed by reference in these messages, and a chain of hashes covering the data and the details of the message, provides a verification against tampering.</p>
-<p>A message is made up of three sections:</p>
-<ol>
-<li>The header - a set of metadata that determines how the message is ordered, who should receive it, and how they should process it</li>
-<li>The data - an array of data attachments</li>
-<li>Status information - fields that are calculated independently by each node, and hence update as the message makes it way through the system</li>
-</ol>
-<h3 id="hash">Hash<a class="headerlink" href="#hash" title="Permanent link">&para;</a></h3>
-<p>Sections (1) and (2) are fixed once the message is sent, and a <code>hash</code> is generated that provides tamper protection.</p>
-<p>The hash is a function of the header, and all of the data payloads. Calculated as follows:</p>
-<ul>
-<li>The hash of each Data element is calculated individually</li>
-<li>A JSON array of <code>[{"id":"{{DATA_UUID}}","hash":"{{DATA_HASH}}"}]</code> is hashed, and that hash is stored in <code>header.datahash</code></li>
-<li>The <code>header</code> is serialized as JSON with the deterministic order (listed <a href="#messageheader">below</a>) and hashed</li>
-<li>JSON data is serialized without whitespace to hash it.</li>
-<li>The hashing algorithm is SHA-256</li>
-</ul>
-<p>Each node independently calculates the hash, and the hash is included in the manifest of the <a href="../batch/">Batch</a> by the
-node that sends the message.
-Because the hash of that batch manifest is included in the blockchain transaction, a message transferred to
-a node that does not match the original message hash is rejected.</p>
-<h3 id="tag">Tag<a class="headerlink" href="#tag" title="Permanent link">&para;</a></h3>
-<p>The <code>header.tag</code> tells the processors of the message how it should be processed, and what data they should expect it to contain.</p>
-<p>If you think of your decentralized application like a state machine, then you need to have a set of well defined transitions
-that can be performed between states. Each of these transitions that requires off-chain transfer of private data
-(optionally coordinated with an on-chain transaction) should be expressed as a type of message, with a particular <code>tag</code>.</p>
-<p>Every copy of the application that runs in the participants of the network should look at this <code>tag</code> to determine what
-logic to execute against it.</p>
+<h1 id="adding-a-namespace-with-the-firefly-helm-chart">Adding a Namespace with the FireFly Helm Chart<a class="headerlink" href="#adding-a-namespace-with-the-firefly-helm-chart" title="Permanent link">&para;</a></h1>
+<p>When deploying FireFly with the <a href="https://github.com/hyperledger/firefly-helm-charts">FireFly Helm chart</a>, additional predefined namespaces can be configured through <code>config.extraNamespaces</code>.</p>
+<p>The Helm chart creates the <code>default</code> FireFly namespace automatically. To add another namespace, provide the additional namespace definition through <code>config.extraNamespaces</code>.</p>
 <blockquote>
-<p>Note: For consistency in ordering, the sender should also wait to process the state machine transitions associated
-with the message they send until it is ordered by the blockchain. They should not consider themselves special because
-they sent the message, and process it immediately - otherwise they could end up processing it in a different order
-to other parties in the network that are also processing the message.</p>
+<p><strong>Note:</strong> <code>extraNamespaces</code> adds FireFly namespaces to the FireFly configuration. It does not create a Kubernetes namespace.</p>
 </blockquote>
-<h3 id="topics">Topics<a class="headerlink" href="#topics" title="Permanent link">&para;</a></h3>
-<p>The <code>header.topics</code> strings allow you to set the the <em>ordering context</em> for each message you send, and you are strongly
-encouraged to set it explicitly on every message you send (falling back to the <code>default</code> topic is not recommended).</p>
-<p>A key difference between blockchain backed decentralized applications and other event-driven applications, is
-that there is a single source of truth for the order in which things happen.</p>
-<p>In a multi-party system with off-chain transfer of data as well as on-chain transfer of data, the two sets of
-data need to be coordinated together. The off-chain transfer might happen at different times, and is subject to the reliability
-of the parties &amp; network links involved in that off-chain communication.</p>
-<p>A "stop the world" approach to handling a single piece of missing data is not practical for a high volume
-production business network.</p>
-<p>The ordering context is a function of:</p>
-<ol>
-<li>Whether the message is broadcast or private</li>
-<li>If it is private, the privacy group associated with the message</li>
-<li>The <code>topic</code> of the message</li>
-</ol>
-<p>When an on-chain transaction is detected by FireFly, it can determine the above ordering - noting that privacy is preserved
-for private messages by masking this ordering context message-by-message with a nonce and the group ID, so that only the
-participants in that group can decode the ordering context.</p>
-<p>If a piece of off-chain data is unavailable, then the FireFly node will block only streams of data that are associated
-with that ordering context.</p>
-<p>For your application, you should choose the most granular identifier you can for your <code>topic</code> to minimize the scope
-of any blockage if one item of off-chain data fails to be delivered or is delayed. Some good examples are:</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<p>This guide assumes that:</p>
 <ul>
-<li>A business transaction identifier - to ensure all data related to particular business transaction are processed in order</li>
-<li>A globally agreed customer identifier - to ensure all data related to a particular business entity are processed in order</li>
+<li>FireFly is already deployed using the FireFly Helm chart.</li>
+<li>Helm is installed and you have access to the Kubernetes cluster running FireFly.</li>
+<li>You have the values file used to deploy your existing FireFly release.</li>
 </ul>
-<h4 id="using-multiple-topics">Using multiple topics<a class="headerlink" href="#using-multiple-topics" title="Permanent link">&para;</a></h4>
-<p>There are some advanced scenarios where you need to <em>merge streams</em> of ordered data, so that two previously separately
-ordered streams of communication (different state machines) are joined together to process a critical decision/transition
-in a deterministic order.</p>
-<p>A <em>synchronization point</em> between two otherwise independent streams of communication.</p>
-<p>To do this, simply specify two <code>topics</code> in the message you sent, and the message will be independently ordered against
-both of those topics.</p>
-<blockquote>
-<p>You will also receive <strong>two events</strong> for the confirmation of that message, one for each topic.</p>
-</blockquote>
-<p>Some examples:</p>
-<ul>
-<li>Agreeing to join two previously separate business transactions with ids <code>000001</code> and <code>000002</code>, by discarding business transaction <code>000001</code> as a duplicate</li>
-<li>Specify <code>topics: ["000001","000002"]</code> on the special merge message, and then from that point onwards you would only need to specify <code>topics: ["000002"]</code>.</li>
-<li>Agreeing to join two previously separate entities with <code>id1</code> and <code>id2</code>, into a merged entity with <code>id3</code>.</li>
-<li>Specify <code>topics: ["id1","id2","id3"]</code> on the special merge message, and then from that point onwards you would only need to specify <code>topics: ["id3"]</code>.</li>
-</ul>
-<h3 id="transaction-type">Transaction type<a class="headerlink" href="#transaction-type" title="Permanent link">&para;</a></h3>
-<p>By default messages are pinned to the blockchain, within a <a href="../batch/">Batch</a>.</p>
-<p>For private messages, you can choose to disable this pinning by setting <code>header.txtype: "unpinned"</code>.</p>
-<p>Broadcast messages must be pinned to the blockchain.</p>
-<h3 id="in-line-data">In-line data<a class="headerlink" href="#in-line-data" title="Permanent link">&para;</a></h3>
-<p>When sending a message you can specify the array of <a href="../data/">Data</a> attachments in-line, as part of the same JSON payload.</p>
-<p>For example, a minimal broadcast message could be:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="s2">&quot;data&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">        </span><span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;hello world&quot;</span><span class="p">}</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="p">]</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">}</span>
+<h2 id="minimal-configuration">Minimal configuration<a class="headerlink" href="#minimal-configuration" title="Permanent link">&para;</a></h2>
+<p>The following example adds a <code>payments</code> namespace with a PostgreSQL database and Ethereum blockchain plugin:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">config</span><span class="p">:</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">extraNamespaces</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="no">- name: payments</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">      </span><span class="no">description: Payments namespace</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">      </span><span class="no">plugins:</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">        </span><span class="no">- database0</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span><span class="no">- eth0</span>
 </code></pre></div>
-<p>When you send this message with <code>/api/v1/namespaces/{ns}/messages/broadcast</code>:</p>
-<ul>
-<li>The <code>header</code> will be initialized with the default values, including <code>txtype: "batch_pin"</code></li>
-<li>The <code>data[0]</code> entry will be stored as a Data resource</li>
-<li>The message will be assembled into a batch and broadcast</li>
-</ul>
-<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="nt">&quot;header&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4ea27cce-a103-4187-b318-f7b20fd87bf3&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">        </span><span class="nt">&quot;cid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;00d20cba-76ed-431d-b9ff-f04b4cbee55c&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;private&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="nt">&quot;txtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;batch_pin&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">        </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;did:firefly:org/acme&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">        </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0xD53B0294B6a596D404809b1d51D1b4B3d1aD4945&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">        </span><span class="nt">&quot;created&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2022-05-16T01:23:10Z&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">        </span><span class="nt">&quot;namespace&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ns1&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">        </span><span class="nt">&quot;group&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;781caa6738a604344ae86ee336ada1b48a404a85e7041cf75b864e50e3b14a22&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">        </span><span class="nt">&quot;topics&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">            </span><span class="s2">&quot;topic1&quot;</span>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">        </span><span class="p">],</span>
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">        </span><span class="nt">&quot;tag&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;blue_message&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">        </span><span class="nt">&quot;datahash&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;c07be180b147049baced0b6219d9ce7a84ab48f2ca7ca7ae949abb3fe6491b54&quot;</span>
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">    </span><span class="p">},</span>
-<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">    </span><span class="nt">&quot;localNamespace&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ns1&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">    </span><span class="nt">&quot;state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;confirmed&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">    </span><span class="nt">&quot;confirmed&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2022-05-16T01:23:16Z&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">        </span><span class="p">{</span>
-<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;fdf9f118-eb81-4086-a63d-b06715b3bb4e&quot;</span><span class="p">,</span>
-<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">            </span><span class="nt">&quot;hash&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;34cf848d896c83cdf433ea7bd9490c71800b316a96aac3c3a78a42a4c455d67d&quot;</span>
-<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">        </span><span class="p">}</span>
-<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">    </span><span class="p">]</span>
-<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="p">}</span>
+<p>The values above assume that <code>database0</code> and <code>eth0</code> are already configured in the FireFly deployment. The <code>plugins</code> list selects which configured plugins are available to the namespace.</p>
+<p>For a basic namespace, this is the only additional configuration required.</p>
+<h2 id="apply-the-configuration">Apply the configuration<a class="headerlink" href="#apply-the-configuration" title="Permanent link">&para;</a></h2>
+<p>Save the namespace configuration in a separate values file, for example <code>extra-namespaces.yaml</code>.</p>
+<p>If you are using the FireFly Helm chart from a local checkout, upgrade the existing FireFly release with your existing values file and the additional namespace values:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>helm<span class="w"> </span>upgrade<span class="w"> </span>firefly<span class="w"> </span>./charts/firefly<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span>-f<span class="w"> </span>./charts/firefly/local-kind-values.yaml<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span>-f<span class="w"> </span>extra-namespaces.yaml
 </code></pre></div>
-<h3 id="field-descriptions">Field Descriptions<a class="headerlink" href="#field-descriptions" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Field Name</th>
-<th>Description</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>header</code></td>
-<td>The message header contains all fields that are used to build the message hash</td>
-<td><a href="#messageheader"><code>MessageHeader</code></a></td>
-</tr>
-<tr>
-<td><code>localNamespace</code></td>
-<td>The local namespace of the message</td>
-<td><code>string</code></td>
-</tr>
-<tr>
-<td><code>hash</code></td>
-<td>The hash of the message. Derived from the header, which includes the data hash</td>
-<td><code>Bytes32</code></td>
-</tr>
-<tr>
-<td><code>batch</code></td>
-<td>The UUID of the batch in which the message was pinned/transferred</td>
-<td><a href="../simpletypes/#uuid"><code>UUID</code></a></td>
-</tr>
-<tr>
-<td><code>txid</code></td>
-<td>The ID of the transaction used to order/deliver this message</td>
-<td><a href="../simpletypes/#uuid"><code>UUID</code></a></td>
-</tr>
-<tr>
-<td><code>state</code></td>
-<td>The current state of the message</td>
-<td><code>FFEnum</code>:<br/><code>"staged"</code><br/><code>"ready"</code><br/><code>"sent"</code><br/><code>"pending"</code><br/><code>"confirmed"</code><br/><code>"rejected"</code><br/><code>"cancelled"</code></td>
-</tr>
-<tr>
-<td><code>confirmed</code></td>
-<td>The timestamp of when the message was confirmed/rejected</td>
-<td><a href="../simpletypes/#fftime"><code>FFTime</code></a></td>
-</tr>
-<tr>
-<td><code>rejectReason</code></td>
-<td>If a message was rejected, provides details on the rejection reason</td>
-<td><code>string</code></td>
-</tr>
-<tr>
-<td><code>data</code></td>
-<td>The list of data elements attached to the message</td>
-<td><a href="#dataref"><code>DataRef[]</code></a></td>
-</tr>
-<tr>
-<td><code>pins</code></td>
-<td>For private messages, a unique pin hash:nonce is assigned for each topic</td>
-<td><code>string[]</code></td>
-</tr>
-<tr>
-<td><code>idempotencyKey</code></td>
-<td>An optional unique identifier for a message. Cannot be duplicated within a namespace, thus allowing idempotent submission of messages to the API. Local only - not transferred when the message is sent to other members of the network</td>
-<td><code>IdempotencyKey</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="messageheader">MessageHeader<a class="headerlink" href="#messageheader" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Field Name</th>
-<th>Description</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>id</code></td>
-<td>The UUID of the message. Unique to each message</td>
-<td><a href="../simpletypes/#uuid"><code>UUID</code></a></td>
-</tr>
-<tr>
-<td><code>cid</code></td>
-<td>The correlation ID of the message. Set this when a message is a response to another message</td>
-<td><a href="../simpletypes/#uuid"><code>UUID</code></a></td>
-</tr>
-<tr>
-<td><code>type</code></td>
-<td>The type of the message</td>
-<td><code>FFEnum</code>:<br/><code>"definition"</code><br/><code>"broadcast"</code><br/><code>"private"</code><br/><code>"groupinit"</code><br/><code>"transfer_broadcast"</code><br/><code>"transfer_private"</code><br/><code>"approval_broadcast"</code><br/><code>"approval_private"</code></td>
-</tr>
-<tr>
-<td><code>txtype</code></td>
-<td>The type of transaction used to order/deliver this message</td>
-<td><code>FFEnum</code>:<br/><code>"none"</code><br/><code>"unpinned"</code><br/><code>"batch_pin"</code><br/><code>"network_action"</code><br/><code>"token_pool"</code><br/><code>"token_transfer"</code><br/><code>"contract_deploy"</code><br/><code>"contract_invoke"</code><br/><code>"contract_invoke_pin"</code><br/><code>"token_approval"</code><br/><code>"data_publish"</code></td>
-</tr>
-<tr>
-<td><code>author</code></td>
-<td>The DID of identity of the submitter</td>
-<td><code>string</code></td>
-</tr>
-<tr>
-<td><code>key</code></td>
-<td>The on-chain signing key used to sign the transaction</td>
-<td><code>string</code></td>
-</tr>
-<tr>
-<td><code>created</code></td>
-<td>The creation time of the message</td>
-<td><a href="../simpletypes/#fftime"><code>FFTime</code></a></td>
-</tr>
-<tr>
-<td><code>namespace</code></td>
-<td>The namespace of the message within the multiparty network</td>
-<td><code>string</code></td>
-</tr>
-<tr>
-<td><code>topics</code></td>
-<td>A message topic associates this message with an ordered stream of data. A custom topic should be assigned - using the default topic is discouraged</td>
-<td><code>string[]</code></td>
-</tr>
-<tr>
-<td><code>tag</code></td>
-<td>The message tag indicates the purpose of the message to the applications that process it</td>
-<td><code>string</code></td>
-</tr>
-<tr>
-<td><code>datahash</code></td>
-<td>A single hash representing all data in the message. Derived from the array of data ids+hashes attached to this message</td>
-<td><code>Bytes32</code></td>
-</tr>
-<tr>
-<td><code>txparent</code></td>
-<td>The parent transaction that originally triggered this message</td>
-<td><a href="#transactionref"><code>TransactionRef</code></a></td>
-</tr>
-</tbody>
-</table>
-<h2 id="transactionref">TransactionRef<a class="headerlink" href="#transactionref" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Field Name</th>
-<th>Description</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>type</code></td>
-<td>The type of the FireFly transaction</td>
-<td><code>FFEnum</code>:</td>
-</tr>
-<tr>
-<td><code>id</code></td>
-<td>The UUID of the FireFly transaction</td>
-<td><a href="../simpletypes/#uuid"><code>UUID</code></a></td>
-</tr>
-</tbody>
-</table>
-<h2 id="dataref">DataRef<a class="headerlink" href="#dataref" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>Field Name</th>
-<th>Description</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>id</code></td>
-<td>The UUID of the referenced data resource</td>
-<td><a href="../simpletypes/#uuid"><code>UUID</code></a></td>
-</tr>
-<tr>
-<td><code>hash</code></td>
-<td>The hash of the referenced data</td>
-<td><code>Bytes32</code></td>
-</tr>
-</tbody>
-</table>
+<p>If you are using a different deployment or values file, use the corresponding chart and values files for your environment.</p>
+<p>The chart adds the entries from <code>config.extraNamespaces</code> to the <code>namespaces.predefined</code> section of the FireFly configuration.</p>
+<h2 id="access-the-firefly-api">Access the FireFly API<a class="headerlink" href="#access-the-firefly-api" title="Permanent link">&para;</a></h2>
+<p>If FireFly is running in Kubernetes and the API is not otherwise exposed, forward the FireFly API port locally:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>kubectl<span class="w"> </span>port-forward<span class="w"> </span>pod/firefly-0<span class="w"> </span><span class="m">8080</span>:5000
+</code></pre></div>
+<p>Keep the port-forward running while executing the API commands below.</p>
+<h2 id="verify-the-namespace">Verify the namespace<a class="headerlink" href="#verify-the-namespace" title="Permanent link">&para;</a></h2>
+<p>After the Helm upgrade, list the namespaces configured on the FireFly node:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>curl<span class="w"> </span>http://127.0.0.1:8080/api/v1/namespaces
+</code></pre></div>
+<p>Verify that the returned list contains the newly configured <code>payments</code> namespace.</p>
+<p>You can also retrieve the namespace directly:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>curl<span class="w"> </span>http://127.0.0.1:8080/api/v1/namespaces/payments
+</code></pre></div>
+<p>The response should contain the namespace name, network name, description, and creation timestamp.</p>
+<h2 id="verify-the-namespace-configuration">Verify the namespace configuration<a class="headerlink" href="#verify-the-namespace-configuration" title="Permanent link">&para;</a></h2>
+<p>Use the namespace status endpoint to verify which plugins are active:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>curl<span class="w"> </span>http://127.0.0.1:8080/api/v1/namespaces/payments/status
+</code></pre></div>
+<p>For the example above, the status should show:</p>
+<ul>
+<li><code>database0</code> as the PostgreSQL database plugin</li>
+<li><code>eth0</code> as the Ethereum blockchain plugin</li>
+<li>Multi-party mode disabled</li>
+<li>No data exchange or shared storage plugin configured</li>
+</ul>
+<p>This confirms that the namespace is using the plugins specified in <code>config.extraNamespaces</code>.</p>
+<h2 id="using-the-namespace">Using the namespace<a class="headerlink" href="#using-the-namespace" title="Permanent link">&para;</a></h2>
+<p>FireFly APIs that operate within a namespace can be accessed using the namespace-specific API path.</p>
+<p>For example, to query messages in the <code>payments</code> namespace:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>curl<span class="w"> </span>http://127.0.0.1:8080/api/v1/namespaces/payments/messages
+</code></pre></div>
+<p>A newly created namespace will normally return an empty list until messages have been created.</p>
 
 
 
 
 
 
-
-  
-  
 
 
 
@@ -5034,7 +4706,7 @@ both of those topics.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../identity/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Identity">
+          <a href="../events/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Listen for events">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -5044,20 +4716,20 @@ both of those topics.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                Identity
+                Listen for events
               </div>
             </div>
           </a>
         
         
           
-          <a href="../namespace/" class="md-footer__link md-footer__link--next" aria-label="Next: Namespace">
+          <a href="../private_send/" class="md-footer__link md-footer__link--next" aria-label="Next: Privately send data">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Namespace
+                Privately send data
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -5094,10 +4766,10 @@ both of those topics.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "navigation.footer", "navigation.instant", "navigation.top", "navigation.tracking", "navigation.path", "navigation.indexes"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.footer", "navigation.instant", "navigation.top", "navigation.tracking", "navigation.path", "navigation.indexes"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>
