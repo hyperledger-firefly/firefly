@@ -27,6 +27,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"time"
 
 	"github.com/getkin/kin-openapi/openapi3"
 	"github.com/go-resty/resty/v2"
@@ -97,6 +98,57 @@ func TestStartStopServer(t *testing.T) {
 	mgr.On("SPIEvents").Return(mae)
 	err := as.Serve(ctx, mgr)
 	assert.NoError(t, err)
+}
+
+func TestListeningClosedOnceBound(t *testing.T) {
+	coreconfig.Reset()
+	metrics.Clear()
+	InitConfig()
+	apiConfig.Set(httpserver.HTTPConfPort, 0)
+	spiConfig.Set(httpserver.HTTPConfPort, 0)
+	monitoringConfig.Set(httpserver.HTTPConfPort, 0)
+	config.Set(coreconfig.UIPath, "test")
+	ctx, cancel := context.WithCancel(context.Background())
+	as := NewAPIServer()
+	mgr := &namespacemocks.Manager{}
+
+	select {
+	case <-as.Listening():
+		assert.Fail(t, "listening before Serve was called")
+	default:
+	}
+
+	serveDone := make(chan error, 1)
+	go func() {
+		serveDone <- as.Serve(ctx, mgr)
+	}()
+
+	select {
+	case <-as.Listening():
+	case err := <-serveDone:
+		assert.Fail(t, "Serve returned before listening", "%v", err)
+	case <-time.After(5 * time.Second):
+		assert.Fail(t, "never listening")
+	}
+
+	cancel()
+	assert.NoError(t, <-serveDone)
+}
+
+func TestListeningNotClosedOnBindFailure(t *testing.T) {
+	coreconfig.Reset()
+	metrics.Clear()
+	InitConfig()
+	apiConfig.Set(httpserver.HTTPConfAddress, "...://")
+	as := NewAPIServer()
+	err := as.Serve(context.Background(), &namespacemocks.Manager{})
+	assert.Regexp(t, "FF00151", err)
+
+	select {
+	case <-as.Listening():
+		assert.Fail(t, "listening after a failure to bind")
+	default:
+	}
 }
 
 func TestStartLegacyAdminConfig(t *testing.T) {
@@ -578,7 +630,7 @@ func TestContractAPIDefaultNS(t *testing.T) {
 
 func TestMonitoringServerRoutes(t *testing.T) {
 	_, _, as := newTestServer()
-	s := httptest.NewServer(as.createMonitoringMuxRouter())
+	s := httptest.NewServer(as.createMonitoringMuxRouter(&namespacemocks.Manager{}))
 	defer s.Close()
 
 	res, err := http.Get(fmt.Sprintf("http://%s/livez", s.Listener.Addr()))
@@ -586,6 +638,81 @@ func TestMonitoringServerRoutes(t *testing.T) {
 	assert.Equal(t, 200, res.StatusCode)
 
 	res, err = http.Get(fmt.Sprintf("http://%s/metrics", s.Listener.Addr()))
+	assert.NoError(t, err)
+	assert.Equal(t, 200, res.StatusCode)
+}
+
+func getReady(t *testing.T, addr string) (int, *readyStatus) {
+	res, err := http.Get(fmt.Sprintf("http://%s/readyz", addr))
+	assert.NoError(t, err)
+	defer res.Body.Close()
+	assert.Equal(t, "application/json", res.Header.Get("Content-Type"))
+	var status readyStatus
+	assert.NoError(t, json.NewDecoder(res.Body).Decode(&status))
+	return res.StatusCode, &status
+}
+
+func TestReadyzAllNamespacesStarted(t *testing.T) {
+	mgr, _, as := newTestServer()
+	mgr.On("GetNamespaces", mock.Anything, true).Return([]*core.NamespaceWithInitStatus{
+		{Namespace: &core.Namespace{Name: "ns1"}},
+		{Namespace: &core.Namespace{Name: "ns2"}},
+	}, nil)
+
+	for _, r := range []*mux.Router{as.createMuxRouter(context.Background(), mgr), as.createMonitoringMuxRouter(mgr)} {
+		s := httptest.NewServer(r)
+		code, status := getReady(t, s.Listener.Addr().String())
+		s.Close()
+		assert.Equal(t, 200, code)
+		assert.True(t, status.Ready)
+		assert.Empty(t, status.Initializing)
+	}
+}
+
+func TestReadyzNoNamespaces(t *testing.T) {
+	mgr, _, as := newTestServer()
+	mgr.On("GetNamespaces", mock.Anything, true).Return([]*core.NamespaceWithInitStatus{}, nil)
+
+	s := httptest.NewServer(as.createMonitoringMuxRouter(mgr))
+	defer s.Close()
+	code, status := getReady(t, s.Listener.Addr().String())
+	assert.Equal(t, 200, code)
+	assert.True(t, status.Ready)
+}
+
+func TestReadyzNamespaceInitializing(t *testing.T) {
+	mgr, _, as := newTestServer()
+	mgr.On("GetNamespaces", mock.Anything, true).Return([]*core.NamespaceWithInitStatus{
+		{Namespace: &core.Namespace{Name: "ns1"}},
+		{Namespace: &core.Namespace{Name: "ns2"}, Initializing: true, InitializationError: "pop"},
+	}, nil)
+
+	for _, r := range []*mux.Router{as.createMuxRouter(context.Background(), mgr), as.createMonitoringMuxRouter(mgr)} {
+		s := httptest.NewServer(r)
+		code, status := getReady(t, s.Listener.Addr().String())
+		s.Close()
+		assert.Equal(t, 503, code)
+		assert.False(t, status.Ready)
+		assert.Equal(t, []string{"ns2"}, status.Initializing)
+	}
+}
+
+func TestReadyzManagerError(t *testing.T) {
+	mgr, _, as := newTestServer()
+	mgr.On("GetNamespaces", mock.Anything, true).Return(nil, fmt.Errorf("pop"))
+
+	s := httptest.NewServer(as.createMonitoringMuxRouter(mgr))
+	defer s.Close()
+	code, status := getReady(t, s.Listener.Addr().String())
+	assert.Equal(t, 503, code)
+	assert.False(t, status.Ready)
+}
+
+func TestLivezUnaffectedByNamespaceState(t *testing.T) {
+	mgr, _, as := newTestServer() // no GetNamespaces expectation: liveness must not depend on it
+	s := httptest.NewServer(as.createMonitoringMuxRouter(mgr))
+	defer s.Close()
+	res, err := http.Get(fmt.Sprintf("http://%s/livez", s.Listener.Addr()))
 	assert.NoError(t, err)
 	assert.Equal(t, 200, res.StatusCode)
 }

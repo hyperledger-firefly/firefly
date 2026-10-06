@@ -907,3 +907,104 @@ func TestDeleteDurableSubscriptionOk(t *testing.T) {
 	assert.Empty(t, sm.durableSubs)
 	<-ed.closed
 }
+
+func TestStartDispatchingIdempotent(t *testing.T) {
+	mei := &eventsmocks.Plugin{}
+	sm, cancel := newTestSubManager(t, mei)
+	defer cancel()
+
+	select {
+	case <-sm.dispatchReady:
+		assert.Fail(t, "dispatching started before requested")
+	default:
+	}
+
+	sm.startDispatching()
+	sm.startDispatching()
+
+	select {
+	case <-sm.dispatchReady:
+	default:
+		assert.Fail(t, "dispatching not started")
+	}
+}
+
+func TestDurableSubscriptionsHeldUntilStartDispatching(t *testing.T) {
+	sub1 := fftypes.NewUUID()
+
+	mei := &eventsmocks.Plugin{}
+	sm, cancel := newTestSubManager(t, mei)
+	defer cancel()
+	mei.On("ValidateOptions", mock.Anything, mock.Anything).Return(nil)
+
+	mdi := sm.database.(*databasemocks.Plugin)
+	mdi.On("GetSubscriptions", mock.Anything, "ns1", mock.Anything).Return([]*core.Subscription{
+		{SubscriptionRef: core.SubscriptionRef{ID: sub1, Namespace: "ns1", Name: "sub1"}, Transport: "ut"},
+	}, nil, nil)
+	sm.connections["conn1"] = &connection{
+		ei:          mei,
+		id:          "conn1",
+		transport:   "ut",
+		matcher:     func(sr core.SubscriptionRef) bool { return true },
+		dispatchers: map[fftypes.UUID]*eventDispatcher{},
+	}
+
+	assert.NoError(t, sm.start())
+
+	// The dispatcher exists, but is held back until dispatching is started
+	assert.Len(t, sm.connections["conn1"].dispatchers, 1)
+	sub := sm.durableSubs[*sub1]
+	assert.NotNil(t, sub.dispatchReady)
+	select {
+	case <-sub.dispatchReady:
+		assert.Fail(t, "released before dispatching was started")
+	default:
+	}
+	assert.Never(t, func() bool {
+		return len(sub.dispatcherElection) > 0
+	}, 50*time.Millisecond, time.Millisecond)
+
+	sm.startDispatching()
+	select {
+	case <-sub.dispatchReady:
+	default:
+		assert.Fail(t, "not released")
+	}
+	assert.Eventually(t, func() bool {
+		return len(sub.dispatcherElection) > 0
+	}, 5*time.Second, time.Millisecond)
+}
+
+func TestNewDurableSubscriptionHeldUntilStartDispatching(t *testing.T) {
+	mei := &eventsmocks.Plugin{}
+	sm, cancel := newTestSubManager(t, mei)
+	defer cancel()
+	mdi := sm.database.(*databasemocks.Plugin)
+	mei.On("ValidateOptions", mock.Anything, mock.Anything).Return(nil)
+
+	sm.connections["conn1"] = &connection{
+		ei:          mei,
+		id:          "conn1",
+		transport:   "ut",
+		matcher:     func(sr core.SubscriptionRef) bool { return true },
+		dispatchers: map[fftypes.UUID]*eventDispatcher{},
+	}
+	subID := fftypes.NewUUID()
+	mdi.On("GetSubscriptionByID", mock.Anything, "ns1", subID).Return(&core.Subscription{
+		SubscriptionRef: core.SubscriptionRef{ID: subID, Namespace: "ns1", Name: "sub1"},
+		Transport:       "ut",
+	}, nil)
+	sm.newOrUpdatedDurableSubscription(subID)
+
+	sub := sm.durableSubs[*subID]
+	assert.Equal(t, (<-chan struct{})(sm.dispatchReady), sub.dispatchReady)
+	assert.Never(t, func() bool {
+		return len(sub.dispatcherElection) > 0
+	}, 50*time.Millisecond, time.Millisecond)
+
+	// Once dispatching has started, new subscriptions are not held
+	sm.startDispatching()
+	assert.Eventually(t, func() bool {
+		return len(sub.dispatcherElection) > 0
+	}, 5*time.Second, time.Millisecond)
+}

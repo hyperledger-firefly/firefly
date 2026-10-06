@@ -158,6 +158,14 @@ func (ed *eventDispatcher) start() {
 func (ed *eventDispatcher) electAndStart() {
 	defer close(ed.closed)
 	l := log.L(ed.ctx)
+	if ready := ed.subscription.dispatchReady; ready != nil {
+		select {
+		case <-ready:
+		case <-ed.ctx.Done():
+			l.Debugf("Closed before dispatching was started")
+			return
+		}
+	}
 	l.Debugf("Dispatcher attempting to become leader")
 	select {
 	case ed.subscription.dispatcherElection <- true:

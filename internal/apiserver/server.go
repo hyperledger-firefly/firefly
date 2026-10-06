@@ -18,6 +18,7 @@ package apiserver
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"strings"
@@ -52,6 +53,8 @@ var (
 // Server is the external interface for the API Server
 type Server interface {
 	Serve(ctx context.Context, mgr namespace.Manager) error
+	// Listening is closed once all HTTP listeners are bound
+	Listening() <-chan struct{}
 }
 
 type apiServer struct {
@@ -64,6 +67,7 @@ type apiServer struct {
 	apiPublicURL             string
 	dynamicPublicURLHeader   string
 	defaultNamespace         string
+	listening                chan struct{}
 }
 
 func InitConfig() {
@@ -85,9 +89,14 @@ func NewAPIServer() Server {
 		deprecatedMetricsEnabled: config.GetBool(coreconfig.DeprecatedMetricsEnabled),
 		monitoringEnabled:        config.GetBool(coreconfig.MonitoringEnabled),
 		ffiSwaggerGen:            &ffiSwaggerGen{},
+		listening:                make(chan struct{}),
 	}
 	as.apiPublicURL = as.getPublicURL(apiConfig, "")
 	return as
+}
+
+func (as *apiServer) Listening() <-chan struct{} {
+	return as.listening
 }
 
 // Serve is the main entry point for the API Server
@@ -119,11 +128,11 @@ func (as *apiServer) Serve(ctx context.Context, mgr namespace.Manager) (err erro
 		var monitoringServer httpserver.HTTPServer
 		var err error
 		if as.monitoringEnabled {
-			monitoringServer, err = httpserver.NewHTTPServer(ctx, "monitoring", as.createMonitoringMuxRouter(), metricsErrChan, monitoringConfig, corsConfig, &httpserver.ServerOptions{
+			monitoringServer, err = httpserver.NewHTTPServer(ctx, "monitoring", as.createMonitoringMuxRouter(mgr), metricsErrChan, monitoringConfig, corsConfig, &httpserver.ServerOptions{
 				MaximumRequestTimeout: as.apiMaxTimeout,
 			})
 		} else {
-			monitoringServer, err = httpserver.NewHTTPServer(ctx, "metrics", as.createMonitoringMuxRouter(), metricsErrChan, deprecatedMetricsConfig, corsConfig, &httpserver.ServerOptions{
+			monitoringServer, err = httpserver.NewHTTPServer(ctx, "metrics", as.createMonitoringMuxRouter(mgr), metricsErrChan, deprecatedMetricsConfig, corsConfig, &httpserver.ServerOptions{
 				MaximumRequestTimeout: as.apiMaxTimeout,
 			})
 		}
@@ -132,6 +141,9 @@ func (as *apiServer) Serve(ctx context.Context, mgr namespace.Manager) (err erro
 		}
 		go monitoringServer.ServeHTTP(ctx)
 	}
+
+	// All listeners are bound
+	close(as.listening)
 
 	return as.waitForServerStop(httpErrChan, spiErrChan, metricsErrChan)
 }
@@ -397,6 +409,7 @@ func (as *apiServer) createMuxRouter(ctx context.Context, mgr namespace.Manager)
 	as.namespacedContractSwaggerUI(hf, r, as.apiPublicURL, `/api`)
 
 	r.HandleFunc(`/favicon{any:.*}.png`, favIcons)
+	r.HandleFunc(`/readyz`, as.readyHandler(mgr))
 
 	ws, _ := eifactory.GetPlugin(ctx, "websockets")
 	ws.(*websockets.WebSockets).SetAuthorizer(mgr)
@@ -480,7 +493,7 @@ func (as *apiServer) createAdminMuxRouter(mgr namespace.Manager) *mux.Router {
 	return r
 }
 
-func (as *apiServer) createMonitoringMuxRouter() *mux.Router {
+func (as *apiServer) createMonitoringMuxRouter(mgr namespace.Manager) *mux.Router {
 	r := mux.NewRouter()
 	metricsPath := config.GetString(coreconfig.DeprecatedMetricsPath)
 	if as.monitoringEnabled {
@@ -493,8 +506,38 @@ func (as *apiServer) createMonitoringMuxRouter() *mux.Router {
 		// a simple liveness check
 		return http.StatusOK, nil
 	}))
+	r.HandleFunc("/readyz", as.readyHandler(mgr))
 	r.NotFoundHandler = hf.APIWrapper(as.notFoundHandler)
 	return r
+}
+
+// readyHandler reports ready once every namespace has started (unlike /livez)
+func (as *apiServer) readyHandler(mgr namespace.Manager) http.HandlerFunc {
+	return func(res http.ResponseWriter, req *http.Request) {
+		result := &readyStatus{Ready: true, Initializing: []string{}}
+		status := http.StatusOK
+		namespaces, err := mgr.GetNamespaces(req.Context(), true)
+		if err != nil {
+			log.L(req.Context()).Errorf("Readiness check failed: %s", err)
+			result.Ready = false
+			status = http.StatusServiceUnavailable
+		}
+		for _, ns := range namespaces {
+			if ns.Initializing {
+				result.Ready = false
+				result.Initializing = append(result.Initializing, ns.Name)
+				status = http.StatusServiceUnavailable
+			}
+		}
+		res.Header().Set("Content-Type", "application/json")
+		res.WriteHeader(status)
+		_ = json.NewEncoder(res).Encode(result)
+	}
+}
+
+type readyStatus struct {
+	Ready        bool     `json:"ready"`
+	Initializing []string `json:"initializing"`
 }
 
 func syncRetcode(isSync bool) int {

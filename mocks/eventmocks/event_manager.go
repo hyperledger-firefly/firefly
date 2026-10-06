@@ -417,6 +417,11 @@ func (_m *EventManager) Start() error {
 	return r0
 }
 
+// StartDispatching provides a mock function with given fields:
+func (_m *EventManager) StartDispatching() {
+	_m.Called()
+}
+
 // SubscriptionUpdates provides a mock function with given fields:
 func (_m *EventManager) SubscriptionUpdates() chan<- *fftypes.UUID {
 	ret := _m.Called()

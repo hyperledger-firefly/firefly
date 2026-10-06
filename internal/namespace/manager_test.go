@@ -54,6 +54,7 @@ import (
 	"github.com/hyperledger-firefly/firefly/mocks/cachemocks"
 	"github.com/hyperledger-firefly/firefly/mocks/databasemocks"
 	"github.com/hyperledger-firefly/firefly/mocks/dataexchangemocks"
+	"github.com/hyperledger-firefly/firefly/mocks/eventmocks"
 	"github.com/hyperledger-firefly/firefly/mocks/eventsmocks"
 	"github.com/hyperledger-firefly/firefly/mocks/identitymocks"
 	"github.com/hyperledger-firefly/firefly/mocks/metricsmocks"
@@ -141,6 +142,7 @@ type nmMocks struct {
 	mai *authmocks.Plugin
 	mii *identitymocks.Plugin
 	mo  *orchestratormocks.Orchestrator
+	mem *eventmocks.EventManager
 }
 
 func (nmm *nmMocks) cleanup(t *testing.T) {
@@ -181,7 +183,10 @@ func mockPluginFactories(inm Manager) (nmm *nmMocks) {
 		mai: &authmocks.Plugin{},
 		mii: &identitymocks.Plugin{},
 		mo:  &orchestratormocks.Orchestrator{},
+		mem: &eventmocks.EventManager{},
 	}
+	nmm.mo.On("Events").Return(nmm.mem).Maybe()
+	nmm.mem.On("StartDispatching").Return().Maybe()
 	factoryMocks(&nmm.mbi.Mock, "ethereum")
 	factoryMocks(&nmm.mdi.Mock, "postgres")
 	factoryMocks(&nmm.mdx.Mock, "ffdx")
@@ -1868,6 +1873,64 @@ func TestStart(t *testing.T) {
 	waitInit.Wait()
 }
 
+func TestStartDispatchingOnlyAfterNamespaceStarted(t *testing.T) {
+	nm, nmm, cleanup := newTestNamespaceManager(t, true)
+	defer cleanup()
+
+	waitInit := namespaceInitWaiter(t, nmm, []string{"default"})
+
+	nmm.mdx.On("Start", mock.Anything).Return(nil)
+	nmm.mdi.On("GetNamespace", mock.Anything, "default").Return(nil, nil)
+	nmm.mdi.On("UpsertNamespace", mock.Anything, mock.AnythingOfType("*core.Namespace"), true).Return(nil)
+	nmm.mo.On("PreInit", mock.Anything, mock.Anything).Return(nil)
+	nmm.mo.On("Init").Return(nil)
+
+	dispatching := make(chan struct{})
+	nmm.mem.ExpectedCalls = nil
+	nmm.mem.On("StartDispatching").Run(func(args mock.Arguments) {
+		// Must only be called once the namespace is being served by the API
+		or, err := nm.Orchestrator(nm.ctx, "default", false)
+		assert.NoError(t, err)
+		assert.Equal(t, nmm.mo, or)
+		close(dispatching)
+	}).Return().Once()
+
+	nmm.mo.On("Start", mock.Anything).Return(nil).Run(func(args mock.Arguments) {
+		// While the orchestrator is starting (and so events could be dispatched), the namespace is not yet served
+		_, err := nm.Orchestrator(nm.ctx, "default", false)
+		assert.Regexp(t, "FF10441", err)
+		nmm.mem.AssertNotCalled(t, "StartDispatching")
+	})
+
+	err := nm.Start()
+	assert.NoError(t, err)
+
+	<-dispatching
+	waitInit.Wait()
+	nmm.mem.AssertNumberOfCalls(t, "StartDispatching", 1)
+}
+
+func TestStartDispatchingNotCalledOnStartFail(t *testing.T) {
+	nm, nmm, cleanup := newTestNamespaceManager(t, true)
+	defer cleanup()
+
+	nsStarted := make(chan struct{})
+	nmm.mo.On("Start", mock.Anything).Return(fmt.Errorf("pop")).Run(func(args mock.Arguments) {
+		nm.cancelCtx()
+		close(nsStarted)
+	})
+	nmm.mdi.On("GetNamespace", mock.Anything, "default").Return(nil, nil)
+	nmm.mdi.On("UpsertNamespace", mock.Anything, mock.AnythingOfType("*core.Namespace"), true).Return(nil)
+	nmm.mo.On("PreInit", mock.Anything, mock.Anything).Return()
+	nmm.mo.On("Init").Return(nil)
+
+	err := nm.startNamespacesAndPlugins(nm.namespaces, map[string]*plugin{})
+	assert.NoError(t, err)
+
+	<-nsStarted
+	nmm.mem.AssertNotCalled(t, "StartDispatching")
+}
+
 func TestStartDataExchangeFail(t *testing.T) {
 	nm, nmm, cleanup := newTestNamespaceManager(t, true)
 	defer cleanup()
@@ -2153,6 +2216,17 @@ func TestValidateNonMultipartyConfig(t *testing.T) {
 
 	_, err = nm.loadNamespaces(context.Background(), nm.dumpRootConfig(), nm.plugins)
 	assert.NoError(t, err)
+}
+
+func TestOrchestratorNotYetCreatedIncludingInitializing(t *testing.T) {
+	nm, _, cleanup := newTestNamespaceManager(t, true)
+	defer cleanup()
+
+	// The API can be listening before the namespaces begin to start, so there is no orchestrator yet
+	assert.Nil(t, nm.namespaces["default"].orchestrator)
+	or, err := nm.Orchestrator(nm.ctx, "default", true)
+	assert.Regexp(t, "FF10441", err)
+	assert.Nil(t, or)
 }
 
 func TestOrchestratorWhileInitializing(t *testing.T) {

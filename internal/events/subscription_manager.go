@@ -42,6 +42,7 @@ type subscription struct {
 	definition *core.Subscription
 
 	dispatcherElection chan bool
+	dispatchReady      <-chan struct{} // durable subs only: delivery waits for this
 	eventMatcher       *regexp.Regexp
 	messageFilter      *messageFilter
 	blockchainFilter   *blockchainFilter
@@ -90,6 +91,8 @@ type subscriptionManager struct {
 	cancelCtx                 func()
 	newOrUpdatedSubscriptions chan *fftypes.UUID
 	deletedSubscriptions      chan *fftypes.UUID
+	dispatchReady             chan struct{}
+	dispatchReadyOnce         sync.Once
 	retry                     retry.Retry
 
 	defaultBatchSize    uint
@@ -109,6 +112,7 @@ func newSubscriptionManager(ctx context.Context, ns *core.Namespace, enricher *e
 		durableSubs:               make(map[fftypes.UUID]*subscription),
 		newOrUpdatedSubscriptions: make(chan *fftypes.UUID),
 		deletedSubscriptions:      make(chan *fftypes.UUID),
+		dispatchReady:             make(chan struct{}),
 		maxSubs:                   uint64(config.GetUint(coreconfig.SubscriptionMax)),
 		cancelCtx:                 cancelCtx,
 		eventNotifier:             en,
@@ -149,6 +153,7 @@ func (sm *subscriptionManager) start() error {
 			log.L(sm.ctx).Warnf("Failed to reload subscription %s:%s [%s]: %s", subDef.Namespace, subDef.Name, subDef.ID, err)
 			continue
 		}
+		newSub.dispatchReady = sm.dispatchReady
 		sm.durableSubs[*subDef.ID] = newSub
 		for _, conn := range sm.connections {
 			sm.matchSubToConnLocked(conn, newSub)
@@ -157,6 +162,11 @@ func (sm *subscriptionManager) start() error {
 	log.L(sm.ctx).Infof("Subscription manager started - loaded %d durable subscriptions", len(sm.durableSubs))
 	go sm.subscriptionEventListener()
 	return nil
+}
+
+// startDispatching lets durable subscriptions begin delivering events
+func (sm *subscriptionManager) startDispatching() {
+	sm.dispatchReadyOnce.Do(func() { close(sm.dispatchReady) })
 }
 
 func (sm *subscriptionManager) subscriptionEventListener() {
@@ -192,6 +202,7 @@ func (sm *subscriptionManager) newOrUpdatedDurableSubscription(id *fftypes.UUID)
 		log.L(sm.ctx).Errorf("Subscription rejected by subscription manager: %s", err)
 		return
 	}
+	newSub.dispatchReady = sm.dispatchReady
 
 	// Now we're ready to update our locked state, adding this subscription to our
 	// in-memory table, and creating any missing dispatchers

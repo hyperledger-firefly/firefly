@@ -22,6 +22,7 @@ import (
 	"os"
 	"syscall"
 	"testing"
+	"time"
 
 	"github.com/hyperledger-firefly/firefly/mocks/apiservermocks"
 	"github.com/hyperledger-firefly/firefly/mocks/namespacemocks"
@@ -159,8 +160,8 @@ func TestExecOkRestartConfigProblem(t *testing.T) {
 func TestAPIServerError(t *testing.T) {
 	o := &namespacemocks.Manager{}
 	o.On("Init", mock.Anything, mock.Anything, mock.Anything, mock.Anything).Return(nil)
-	o.On("Start").Return(nil)
 	as := &apiservermocks.Server{}
+	as.On("Listening").Return((<-chan struct{})(make(chan struct{}))) // never listens
 	as.On("Serve", mock.Anything, o).Return(fmt.Errorf("pop"))
 
 	errChan := make(chan error)
@@ -168,4 +169,87 @@ func TestAPIServerError(t *testing.T) {
 	go startFirefly(context.Background(), func() {}, o, as, errChan, resetChan, make(chan struct{}))
 	err := <-errChan
 	assert.EqualError(t, err, "pop")
+
+	// The namespaces must not have been started
+	o.AssertNotCalled(t, "Start")
+}
+
+func TestStartNamespacesOnlyAfterAPIListening(t *testing.T) {
+	listening := make(chan struct{})
+	serveDone := make(chan struct{})
+	startCalled := make(chan bool, 1)
+
+	o := &namespacemocks.Manager{}
+	o.On("Init", mock.Anything, mock.Anything, mock.Anything, mock.Anything).Return(nil)
+	o.On("Start").Run(func(args mock.Arguments) {
+		select {
+		case <-listening:
+			startCalled <- true
+		default:
+			startCalled <- false
+		}
+	}).Return(nil)
+	as := &apiservermocks.Server{}
+	as.On("Listening").Return((<-chan struct{})(listening))
+	as.On("Serve", mock.Anything, o).Run(func(args mock.Arguments) {
+		close(listening)
+		<-serveDone
+	}).Return(fmt.Errorf("pop"))
+
+	errChan := make(chan error, 1)
+	ffDone := make(chan struct{})
+	go startFirefly(context.Background(), func() {}, o, as, errChan, make(chan bool), ffDone)
+
+	// The namespaces are started, but only once the API is listening
+	select {
+	case wasListening := <-startCalled:
+		assert.True(t, wasListening)
+	case <-time.After(5 * time.Second):
+		assert.Fail(t, "namespaces never started")
+	}
+	close(serveDone)
+	assert.EqualError(t, <-errChan, "pop")
+	<-ffDone
+}
+
+func TestStartNamespacesFail(t *testing.T) {
+	listening := make(chan struct{})
+	close(listening)
+	serveDone := make(chan struct{})
+	defer close(serveDone)
+
+	o := &namespacemocks.Manager{}
+	o.On("Init", mock.Anything, mock.Anything, mock.Anything, mock.Anything).Return(nil)
+	o.On("Start").Return(fmt.Errorf("splutter"))
+	as := &apiservermocks.Server{}
+	as.On("Listening").Return((<-chan struct{})(listening))
+	as.On("Serve", mock.Anything, o).Run(func(args mock.Arguments) {
+		<-serveDone
+	}).Return(nil)
+
+	errChan := make(chan error, 1)
+	go startFirefly(context.Background(), func() {}, o, as, errChan, make(chan bool), make(chan struct{}))
+	assert.EqualError(t, <-errChan, "splutter")
+}
+
+func TestCancelBeforeAPIListening(t *testing.T) {
+	ctx, cancelCtx := context.WithCancel(context.Background())
+
+	o := &namespacemocks.Manager{}
+	o.On("Init", mock.Anything, mock.Anything, mock.Anything, mock.Anything).Return(nil)
+	as := &apiservermocks.Server{}
+	as.On("Listening").Return((<-chan struct{})(make(chan struct{}))) // never listens
+	as.On("Serve", mock.Anything, o).Run(func(args mock.Arguments) {
+		<-ctx.Done()
+	}).Return(nil)
+
+	errChan := make(chan error, 1)
+	ffDone := make(chan struct{})
+	go startFirefly(ctx, cancelCtx, o, as, errChan, make(chan bool), ffDone)
+	cancelCtx()
+	<-ffDone
+
+	// The server was stopped before startFirefly returned, and the namespaces were never started
+	o.AssertNotCalled(t, "Start")
+	assert.Empty(t, errChan)
 }

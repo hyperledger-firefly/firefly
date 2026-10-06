@@ -1303,3 +1303,77 @@ func TestEventDeliveryBatch(t *testing.T) {
 	mbm.AssertExpectations(t)
 	mms.AssertExpectations(t)
 }
+
+func newGatedTestDispatcher(ready <-chan struct{}) (*eventDispatcher, func()) {
+	ten := uint(10)
+	oldest := core.SubOptsFirstEventOldest
+	ed, cancel := newTestEventDispatcher(&subscription{
+		dispatcherElection: make(chan bool, 1),
+		dispatchReady:      ready,
+		definition: &core.Subscription{
+			SubscriptionRef: core.SubscriptionRef{Namespace: "ns1", Name: "sub1"},
+			Options: core.SubscriptionOptions{
+				SubscriptionCoreOptions: core.SubscriptionCoreOptions{
+					ReadAhead:  &ten,
+					FirstEvent: &oldest,
+				},
+			},
+		},
+	})
+	mdi := ed.database.(*databasemocks.Plugin)
+	mdi.On("GetEvents", mock.Anything, mock.Anything, mock.Anything).Return([]*core.Event{}, nil, nil).Maybe()
+	mdi.On("GetOffset", mock.Anything, mock.Anything, mock.Anything).Return(&core.Offset{RowID: 3333333, Current: 0}, nil).Maybe()
+	return ed, cancel
+}
+
+func TestEventDispatcherHeldUntilDispatchReady(t *testing.T) {
+	ready := make(chan struct{})
+	ed, cancel := newGatedTestDispatcher(ready)
+	defer cancel()
+
+	ed.start()
+
+	// Must not become leader, or begin polling for events to deliver, while held
+	assert.Never(t, func() bool {
+		return len(ed.subscription.dispatcherElection) > 0
+	}, 50*time.Millisecond, time.Millisecond)
+
+	close(ready)
+	assert.Eventually(t, func() bool {
+		return len(ed.subscription.dispatcherElection) > 0
+	}, 5*time.Second, time.Millisecond)
+
+	ed.close()
+}
+
+func TestEventDispatcherCloseWhileHeld(t *testing.T) {
+	ed, cancel := newGatedTestDispatcher(make(chan struct{})) // never released
+	defer cancel()
+
+	ed.start()
+
+	closed := make(chan struct{})
+	go func() {
+		ed.close()
+		close(closed)
+	}()
+	select {
+	case <-closed:
+	case <-time.After(5 * time.Second):
+		assert.Fail(t, "close blocked for a dispatcher that was held")
+	}
+	assert.False(t, ed.elected)
+	assert.Empty(t, ed.subscription.dispatcherElection)
+}
+
+func TestEventDispatcherNoGateWhenNotDurable(t *testing.T) {
+	ed, cancel := newGatedTestDispatcher(nil) // ephemeral subscriptions have no gate
+	defer cancel()
+
+	ed.start()
+	assert.Eventually(t, func() bool {
+		return len(ed.subscription.dispatcherElection) > 0
+	}, 5*time.Second, time.Millisecond)
+
+	ed.close()
+}

@@ -206,6 +206,23 @@ func TestStartStop(t *testing.T) {
 	em.WaitStop()
 }
 
+func TestStartDispatching(t *testing.T) {
+	em := newTestEventManager(t)
+	defer em.cleanup(t)
+
+	select {
+	case <-em.subManager.dispatchReady:
+		assert.Fail(t, "dispatching started before requested")
+	default:
+	}
+	em.StartDispatching()
+	select {
+	case <-em.subManager.dispatchReady:
+	default:
+		assert.Fail(t, "dispatching not started")
+	}
+}
+
 func TestStartStopBadDependencies(t *testing.T) {
 	_, err := NewEventManager(context.Background(), &core.Namespace{}, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil)
 	assert.Regexp(t, "FF10128", err)

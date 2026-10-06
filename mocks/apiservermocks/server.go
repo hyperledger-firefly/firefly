@@ -14,6 +14,26 @@ type Server struct {
 	mock.Mock
 }
 
+// Listening provides a mock function with given fields:
+func (_m *Server) Listening() <-chan struct{} {
+	ret := _m.Called()
+
+	if len(ret) == 0 {
+		panic("no return value specified for Listening")
+	}
+
+	var r0 <-chan struct{}
+	if rf, ok := ret.Get(0).(func() <-chan struct{}); ok {
+		r0 = rf()
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(<-chan struct{})
+		}
+	}
+
+	return r0
+}
+
 // Serve provides a mock function with given fields: ctx, mgr
 func (_m *Server) Serve(ctx context.Context, mgr namespace.Manager) error {
 	ret := _m.Called(ctx, mgr)

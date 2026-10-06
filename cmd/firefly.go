@@ -215,14 +215,29 @@ func startFirefly(ctx context.Context, cancelCtx context.CancelFunc, mgr namespa
 		errChan <- err
 		return
 	}
+
+	// Bind the API before starting namespaces, as event delivery can call back into it
+	serveErrChan := make(chan error, 1)
+	go func() {
+		serveErrChan <- as.Serve(ctx, mgr)
+	}()
+	select {
+	case <-as.Listening():
+	case err = <-serveErrChan:
+		errChan <- err
+		return
+	case <-ctx.Done():
+		// Wait for the server to close, so the ports are free to restart
+		<-serveErrChan
+		return
+	}
+
 	if err = mgr.Start(); err != nil {
 		errChan <- err
 		return
 	}
 
-	// Run the API Server
-
-	if err = as.Serve(ctx, mgr); err != nil {
+	if err = <-serveErrChan; err != nil {
 		errChan <- err
 	}
 }
