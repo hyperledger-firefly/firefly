@@ -26,6 +26,7 @@ import (
 	"mime/multipart"
 	"net/http"
 	"net/http/httptest"
+	"reflect"
 	"testing"
 
 	"github.com/getkin/kin-openapi/openapi3"
@@ -588,4 +589,21 @@ func TestMonitoringServerRoutes(t *testing.T) {
 	res, err = http.Get(fmt.Sprintf("http://%s/metrics", s.Listener.Addr()))
 	assert.NoError(t, err)
 	assert.Equal(t, 200, res.StatusCode)
+}
+
+func TestBaseSwaggerGenOptionsIdempotencyKeyMaxLength(t *testing.T) {
+	coreconfig.Reset()
+	customizer := (&apiServer{}).baseSwaggerGenOptions().AdditionalSchemaCustomizer
+	assert.NotNil(t, customizer)
+
+	idempotencyKey := openapi3.NewSchema()
+	err := customizer("idempotencyKey", reflect.TypeOf(core.IdempotencyKey("")), "", idempotencyKey)
+	assert.NoError(t, err)
+	assert.Equal(t, IdempotencyKeyMaxLength, *idempotencyKey.MaxLength)
+
+	// A plain string field must be left unconstrained, even though IdempotencyKey is a string type
+	key := openapi3.NewSchema()
+	err = customizer("key", reflect.TypeOf(""), "", key)
+	assert.NoError(t, err)
+	assert.Nil(t, key.MaxLength)
 }
