@@ -20,9 +20,11 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"reflect"
 	"strings"
 	"time"
 
+	"github.com/getkin/kin-openapi/openapi3"
 	"github.com/gorilla/mux"
 	"github.com/hyperledger-firefly/common/pkg/config"
 	"github.com/hyperledger-firefly/common/pkg/ffapi"
@@ -38,6 +40,7 @@ import (
 	"github.com/hyperledger-firefly/firefly/internal/metrics"
 	"github.com/hyperledger-firefly/firefly/internal/namespace"
 	"github.com/hyperledger-firefly/firefly/internal/orchestrator"
+	"github.com/hyperledger-firefly/firefly/pkg/core"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
@@ -178,15 +181,30 @@ func getOrchestrator(ctx context.Context, mgr namespace.Manager, tag string, r *
 	return nil, i18n.NewError(ctx, coremsgs.MsgMissingNamespace)
 }
 
+var idempotencyKeyType = reflect.TypeOf(core.IdempotencyKey(""))
+
+// IdempotencyKeyMaxLength is the maximum length of an idempotency key accepted by the API,
+// matching the width of the idempotency_key columns added by database migration 000101.
+const IdempotencyKeyMaxLength = uint64(256)
+
+func idempotencyKeySchemaCustomizer(_ string, t reflect.Type, _ reflect.StructTag, schema *openapi3.Schema) error {
+	if t == idempotencyKeyType {
+		maxLength := IdempotencyKeyMaxLength
+		schema.MaxLength = &maxLength
+	}
+	return nil
+}
+
 func (as *apiServer) baseSwaggerGenOptions() ffapi.SwaggerGenOptions {
 	return ffapi.SwaggerGenOptions{
-		Title:                     "Hyperledger FireFly",
-		Version:                   "1.0",
-		PanicOnMissingDescription: config.GetBool(coreconfig.APIOASPanicOnMissingDescription),
-		DefaultRequestTimeout:     config.GetDuration(coreconfig.APIRequestTimeout),
-		APIDefaultFilterLimit:     config.GetString(coreconfig.APIDefaultFilterLimit),
-		APIMaxFilterLimit:         config.GetUint(coreconfig.APIMaxFilterLimit),
-		APIMaxFilterSkip:          config.GetUint(coreconfig.APIMaxFilterSkip),
+		AdditionalSchemaCustomizer: idempotencyKeySchemaCustomizer,
+		Title:                      "Hyperledger FireFly",
+		Version:                    "1.0",
+		PanicOnMissingDescription:  config.GetBool(coreconfig.APIOASPanicOnMissingDescription),
+		DefaultRequestTimeout:      config.GetDuration(coreconfig.APIRequestTimeout),
+		APIDefaultFilterLimit:      config.GetString(coreconfig.APIDefaultFilterLimit),
+		APIMaxFilterLimit:          config.GetUint(coreconfig.APIMaxFilterLimit),
+		APIMaxFilterSkip:           config.GetUint(coreconfig.APIMaxFilterSkip),
 	}
 }
 

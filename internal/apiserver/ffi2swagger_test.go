@@ -131,6 +131,9 @@ func TestGenerate(t *testing.T) {
 	assert.ElementsMatch(t, []string{"input", "location", "options", "key", "idempotencyKey"}, paramNames(invokeMethod1.Properties))
 	assert.True(t, invokeMethod1.Properties["input"].Value.Type.Is("object"))
 	assert.ElementsMatch(t, []string{"x", "y", "z"}, paramNames(invokeMethod1.Properties["input"].Value.Properties))
+	idempotencyKey := invokeMethod1.Properties["idempotencyKey"].Value
+	assert.True(t, idempotencyKey.Type.Is("string"))
+	assert.Equal(t, IdempotencyKeyMaxLength, *idempotencyKey.MaxLength)
 
 	invokeMethod2 := doc.Paths.Value("/invoke/method2").Post.RequestBody.Value.Content.Get("application/json").Schema.Value
 	assert.True(t, invokeMethod2.Type.Is("object"))

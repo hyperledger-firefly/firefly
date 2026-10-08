@@ -172,6 +172,7 @@ func contractRequestJSONSchema(ctx context.Context, params *fftypes.FFIParams, h
 		},
 		"idempotencyKey": fftypes.JSONObject{
 			"type":        "string",
+			"maxLength":   IdempotencyKeyMaxLength,
 			"description": i18n.Expand(ctx, coremsgs.ContractCallIdempotencyKey),
 		},
 	}

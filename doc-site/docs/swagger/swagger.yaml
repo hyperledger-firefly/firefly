@@ -799,6 +799,7 @@ paths:
                 idempotencyKey:
                   description: An optional identifier to allow idempotent submission
                     of requests. Stored on the transaction uniquely within a namespace
+                  maxLength: 256
                   type: string
                 input:
                   additionalProperties:
@@ -975,6 +976,7 @@ paths:
                         be duplicated within a namespace, thus allowing idempotent
                         submission of messages to the API. Local only - not transferred
                         when the message is sent to other members of the network
+                      maxLength: 256
                       type: string
                   type: object
                 options:
@@ -2355,6 +2357,7 @@ paths:
                 idempotencyKey:
                   description: An optional identifier to allow idempotent submission
                     of requests. Stored on the transaction uniquely within a namespace
+                  maxLength: 256
                   type: string
                 input:
                   additionalProperties:
@@ -3297,6 +3300,7 @@ paths:
                 idempotencyKey:
                   description: An optional identifier to allow idempotent submission
                     of requests. Stored on the transaction uniquely within a namespace
+                  maxLength: 256
                   type: string
                 input:
                   description: An optional array of inputs passed to the smart contract's
@@ -5737,6 +5741,7 @@ paths:
                 idempotencyKey:
                   description: An optional identifier to allow idempotent submission
                     of requests. Stored on the transaction uniquely within a namespace
+                  maxLength: 256
                   type: string
                 input:
                   additionalProperties:
@@ -5922,6 +5927,7 @@ paths:
                         be duplicated within a namespace, thus allowing idempotent
                         submission of messages to the API. Local only - not transferred
                         when the message is sent to other members of the network
+                      maxLength: 256
                       type: string
                   type: object
                 method:
@@ -7399,6 +7405,7 @@ paths:
                 idempotencyKey:
                   description: An optional identifier to allow idempotent submission
                     of requests. Stored on the transaction uniquely within a namespace
+                  maxLength: 256
                   type: string
                 input:
                   additionalProperties:
@@ -8195,6 +8202,7 @@ paths:
                 idempotencyKey:
                   description: An optional identifier to allow idempotent submission
                     of requests. Stored on the transaction uniquely within a namespace
+                  maxLength: 256
                   type: string
               type: object
         required: true
@@ -8591,6 +8599,7 @@ paths:
                       be duplicated within a namespace, thus allowing idempotent submission
                       of messages to the API. Local only - not transferred when the
                       message is sent to other members of the network
+                    maxLength: 256
                     type: string
                   localNamespace:
                     description: The local namespace of the message
@@ -8828,6 +8837,7 @@ paths:
                 idempotencyKey:
                   description: An optional identifier to allow idempotent submission
                     of requests. Stored on the transaction uniquely within a namespace
+                  maxLength: 256
                   type: string
               type: object
         required: true
@@ -11227,6 +11237,7 @@ paths:
                         be duplicated within a namespace, thus allowing idempotent
                         submission of messages to the API. Local only - not transferred
                         when the message is sent to other members of the network
+                      maxLength: 256
                       type: string
                     localNamespace:
                       description: The local namespace of the message
@@ -11525,6 +11536,7 @@ paths:
                       be duplicated within a namespace, thus allowing idempotent submission
                       of messages to the API. Local only - not transferred when the
                       message is sent to other members of the network
+                    maxLength: 256
                     type: string
                   localNamespace:
                     description: The local namespace of the message
@@ -11903,6 +11915,7 @@ paths:
                     description: An optional unique identifier for a transaction.
                       Cannot be duplicated within a namespace, thus allowing idempotent
                       submission of transactions to the API
+                    maxLength: 256
                     type: string
                   namespace:
                     description: The namespace of the FireFly transaction
@@ -12052,6 +12065,7 @@ paths:
                     be duplicated within a namespace, thus allowing idempotent submission
                     of messages to the API. Local only - not transferred when the
                     message is sent to other members of the network
+                  maxLength: 256
                   type: string
               type: object
         required: true
@@ -12193,6 +12207,7 @@ paths:
                       be duplicated within a namespace, thus allowing idempotent submission
                       of messages to the API. Local only - not transferred when the
                       message is sent to other members of the network
+                    maxLength: 256
                     type: string
                   localNamespace:
                     description: The local namespace of the message
@@ -12365,6 +12380,7 @@ paths:
                       be duplicated within a namespace, thus allowing idempotent submission
                       of messages to the API. Local only - not transferred when the
                       message is sent to other members of the network
+                    maxLength: 256
                     type: string
                   localNamespace:
                     description: The local namespace of the message
@@ -12568,6 +12584,7 @@ paths:
                     be duplicated within a namespace, thus allowing idempotent submission
                     of messages to the API. Local only - not transferred when the
                     message is sent to other members of the network
+                  maxLength: 256
                   type: string
               type: object
         required: true
@@ -12716,6 +12733,7 @@ paths:
                       be duplicated within a namespace, thus allowing idempotent submission
                       of messages to the API. Local only - not transferred when the
                       message is sent to other members of the network
+                    maxLength: 256
                     type: string
                   localNamespace:
                     description: The local namespace of the message
@@ -12895,6 +12913,7 @@ paths:
                       be duplicated within a namespace, thus allowing idempotent submission
                       of messages to the API. Local only - not transferred when the
                       message is sent to other members of the network
+                    maxLength: 256
                     type: string
                   localNamespace:
                     description: The local namespace of the message
@@ -13094,6 +13113,7 @@ paths:
                     be duplicated within a namespace, thus allowing idempotent submission
                     of messages to the API. Local only - not transferred when the
                     message is sent to other members of the network
+                  maxLength: 256
                   type: string
               type: object
         required: true
@@ -13334,6 +13354,7 @@ paths:
                       be duplicated within a namespace, thus allowing idempotent submission
                       of messages to the API. Local only - not transferred when the
                       message is sent to other members of the network
+                    maxLength: 256
                     type: string
                   localNamespace:
                     description: The local namespace of the message
@@ -14341,6 +14362,7 @@ paths:
                 idempotencyKey:
                   description: An optional identifier to allow idempotent submission
                     of requests. Stored on the transaction uniquely within a namespace
+                  maxLength: 256
                   type: string
                 input:
                   additionalProperties:
@@ -14526,6 +14548,7 @@ paths:
                         be duplicated within a namespace, thus allowing idempotent
                         submission of messages to the API. Local only - not transferred
                         when the message is sent to other members of the network
+                      maxLength: 256
                       type: string
                   type: object
                 method:
@@ -16136,6 +16159,7 @@ paths:
                 idempotencyKey:
                   description: An optional identifier to allow idempotent submission
                     of requests. Stored on the transaction uniquely within a namespace
+                  maxLength: 256
                   type: string
                 input:
                   additionalProperties:
@@ -16321,6 +16345,7 @@ paths:
                         be duplicated within a namespace, thus allowing idempotent
                         submission of messages to the API. Local only - not transferred
                         when the message is sent to other members of the network
+                      maxLength: 256
                       type: string
                   type: object
                 method:
@@ -17364,6 +17389,7 @@ paths:
                 idempotencyKey:
                   description: An optional identifier to allow idempotent submission
                     of requests. Stored on the transaction uniquely within a namespace
+                  maxLength: 256
                   type: string
                 input:
                   description: An optional array of inputs passed to the smart contract's
@@ -19860,6 +19886,7 @@ paths:
                 idempotencyKey:
                   description: An optional identifier to allow idempotent submission
                     of requests. Stored on the transaction uniquely within a namespace
+                  maxLength: 256
                   type: string
                 input:
                   additionalProperties:
@@ -20045,6 +20072,7 @@ paths:
                         be duplicated within a namespace, thus allowing idempotent
                         submission of messages to the API. Local only - not transferred
                         when the message is sent to other members of the network
+                      maxLength: 256
                       type: string
                   type: object
                 method:
@@ -21564,6 +21592,7 @@ paths:
                 idempotencyKey:
                   description: An optional identifier to allow idempotent submission
                     of requests. Stored on the transaction uniquely within a namespace
+                  maxLength: 256
                   type: string
                 input:
                   additionalProperties:
@@ -21749,6 +21778,7 @@ paths:
                         be duplicated within a namespace, thus allowing idempotent
                         submission of messages to the API. Local only - not transferred
                         when the message is sent to other members of the network
+                      maxLength: 256
                       type: string
                   type: object
                 method:
@@ -22557,6 +22587,7 @@ paths:
                 idempotencyKey:
                   description: An optional identifier to allow idempotent submission
                     of requests. Stored on the transaction uniquely within a namespace
+                  maxLength: 256
                   type: string
               type: object
         required: true
@@ -22960,6 +22991,7 @@ paths:
                       be duplicated within a namespace, thus allowing idempotent submission
                       of messages to the API. Local only - not transferred when the
                       message is sent to other members of the network
+                    maxLength: 256
                     type: string
                   localNamespace:
                     description: The local namespace of the message
@@ -23211,6 +23243,7 @@ paths:
                 idempotencyKey:
                   description: An optional identifier to allow idempotent submission
                     of requests. Stored on the transaction uniquely within a namespace
+                  maxLength: 256
                   type: string
               type: object
         required: true
@@ -25722,6 +25755,7 @@ paths:
                         be duplicated within a namespace, thus allowing idempotent
                         submission of messages to the API. Local only - not transferred
                         when the message is sent to other members of the network
+                      maxLength: 256
                       type: string
                     localNamespace:
                       description: The local namespace of the message
@@ -26027,6 +26061,7 @@ paths:
                       be duplicated within a namespace, thus allowing idempotent submission
                       of messages to the API. Local only - not transferred when the
                       message is sent to other members of the network
+                    maxLength: 256
                     type: string
                   localNamespace:
                     description: The local namespace of the message
@@ -26426,6 +26461,7 @@ paths:
                     description: An optional unique identifier for a transaction.
                       Cannot be duplicated within a namespace, thus allowing idempotent
                       submission of transactions to the API
+                    maxLength: 256
                     type: string
                   namespace:
                     description: The namespace of the FireFly transaction
@@ -26622,6 +26658,7 @@ paths:
                     be duplicated within a namespace, thus allowing idempotent submission
                     of messages to the API. Local only - not transferred when the
                     message is sent to other members of the network
+                  maxLength: 256
                   type: string
               type: object
         required: true
@@ -26770,6 +26807,7 @@ paths:
                       be duplicated within a namespace, thus allowing idempotent submission
                       of messages to the API. Local only - not transferred when the
                       message is sent to other members of the network
+                    maxLength: 256
                     type: string
                   localNamespace:
                     description: The local namespace of the message
@@ -26949,6 +26987,7 @@ paths:
                       be duplicated within a namespace, thus allowing idempotent submission
                       of messages to the API. Local only - not transferred when the
                       message is sent to other members of the network
+                    maxLength: 256
                     type: string
                   localNamespace:
                     description: The local namespace of the message
@@ -27159,6 +27198,7 @@ paths:
                     be duplicated within a namespace, thus allowing idempotent submission
                     of messages to the API. Local only - not transferred when the
                     message is sent to other members of the network
+                  maxLength: 256
                   type: string
               type: object
         required: true
@@ -27307,6 +27347,7 @@ paths:
                       be duplicated within a namespace, thus allowing idempotent submission
                       of messages to the API. Local only - not transferred when the
                       message is sent to other members of the network
+                    maxLength: 256
                     type: string
                   localNamespace:
                     description: The local namespace of the message
@@ -27486,6 +27527,7 @@ paths:
                       be duplicated within a namespace, thus allowing idempotent submission
                       of messages to the API. Local only - not transferred when the
                       message is sent to other members of the network
+                    maxLength: 256
                     type: string
                   localNamespace:
                     description: The local namespace of the message
@@ -27692,6 +27734,7 @@ paths:
                     be duplicated within a namespace, thus allowing idempotent submission
                     of messages to the API. Local only - not transferred when the
                     message is sent to other members of the network
+                  maxLength: 256
                   type: string
               type: object
         required: true
@@ -27932,6 +27975,7 @@ paths:
                       be duplicated within a namespace, thus allowing idempotent submission
                       of messages to the API. Local only - not transferred when the
                       message is sent to other members of the network
+                    maxLength: 256
                     type: string
                   localNamespace:
                     description: The local namespace of the message
@@ -33617,6 +33661,7 @@ paths:
                 idempotencyKey:
                   description: An optional identifier to allow idempotent submission
                     of requests. Stored on the transaction uniquely within a namespace
+                  maxLength: 256
                   type: string
                 key:
                   description: The blockchain signing key for the approval request.
@@ -33776,6 +33821,7 @@ paths:
                         be duplicated within a namespace, thus allowing idempotent
                         submission of messages to the API. Local only - not transferred
                         when the message is sent to other members of the network
+                      maxLength: 256
                       type: string
                   type: object
                 operator:
@@ -34184,6 +34230,7 @@ paths:
                 idempotencyKey:
                   description: An optional identifier to allow idempotent submission
                     of requests. Stored on the transaction uniquely within a namespace
+                  maxLength: 256
                   type: string
                 key:
                   description: The blockchain signing key for the transfer. On input
@@ -34343,6 +34390,7 @@ paths:
                         be duplicated within a namespace, thus allowing idempotent
                         submission of messages to the API. Local only - not transferred
                         when the message is sent to other members of the network
+                      maxLength: 256
                       type: string
                   type: object
                 pool:
@@ -34657,6 +34705,7 @@ paths:
                 idempotencyKey:
                   description: An optional identifier to allow idempotent submission
                     of requests. Stored on the transaction uniquely within a namespace
+                  maxLength: 256
                   type: string
                 key:
                   description: The blockchain signing key for the transfer. On input
@@ -34816,6 +34865,7 @@ paths:
                         be duplicated within a namespace, thus allowing idempotent
                         submission of messages to the API. Local only - not transferred
                         when the message is sent to other members of the network
+                      maxLength: 256
                       type: string
                   type: object
                 pool:
@@ -35365,6 +35415,7 @@ paths:
                 idempotencyKey:
                   description: An optional identifier to allow idempotent submission
                     of requests. Stored on the transaction uniquely within a namespace
+                  maxLength: 256
                   type: string
                 interface:
                   description: A reference to an existing FFI, containing pre-registered
@@ -36454,6 +36505,7 @@ paths:
                 idempotencyKey:
                   description: An optional identifier to allow idempotent submission
                     of requests. Stored on the transaction uniquely within a namespace
+                  maxLength: 256
                   type: string
                 key:
                   description: The blockchain signing key for the transfer. On input
@@ -36613,6 +36665,7 @@ paths:
                         be duplicated within a namespace, thus allowing idempotent
                         submission of messages to the API. Local only - not transferred
                         when the message is sent to other members of the network
+                      maxLength: 256
                       type: string
                   type: object
                 pool:
@@ -37085,6 +37138,7 @@ paths:
                       description: An optional unique identifier for a transaction.
                         Cannot be duplicated within a namespace, thus allowing idempotent
                         submission of transactions to the API
+                      maxLength: 256
                       type: string
                     namespace:
                       description: The namespace of the FireFly transaction
@@ -37227,6 +37281,7 @@ paths:
                     description: An optional unique identifier for a transaction.
                       Cannot be duplicated within a namespace, thus allowing idempotent
                       submission of transactions to the API
+                    maxLength: 256
                     type: string
                   namespace:
                     description: The namespace of the FireFly transaction
@@ -43239,6 +43294,7 @@ paths:
                 idempotencyKey:
                   description: An optional identifier to allow idempotent submission
                     of requests. Stored on the transaction uniquely within a namespace
+                  maxLength: 256
                   type: string
                 key:
                   description: The blockchain signing key for the approval request.
@@ -43398,6 +43454,7 @@ paths:
                         be duplicated within a namespace, thus allowing idempotent
                         submission of messages to the API. Local only - not transferred
                         when the message is sent to other members of the network
+                      maxLength: 256
                       type: string
                   type: object
                 operator:
@@ -43792,6 +43849,7 @@ paths:
                 idempotencyKey:
                   description: An optional identifier to allow idempotent submission
                     of requests. Stored on the transaction uniquely within a namespace
+                  maxLength: 256
                   type: string
                 key:
                   description: The blockchain signing key for the transfer. On input
@@ -43951,6 +44009,7 @@ paths:
                         be duplicated within a namespace, thus allowing idempotent
                         submission of messages to the API. Local only - not transferred
                         when the message is sent to other members of the network
+                      maxLength: 256
                       type: string
                   type: object
                 pool:
@@ -44243,6 +44302,7 @@ paths:
                 idempotencyKey:
                   description: An optional identifier to allow idempotent submission
                     of requests. Stored on the transaction uniquely within a namespace
+                  maxLength: 256
                   type: string
                 key:
                   description: The blockchain signing key for the transfer. On input
@@ -44402,6 +44462,7 @@ paths:
                         be duplicated within a namespace, thus allowing idempotent
                         submission of messages to the API. Local only - not transferred
                         when the message is sent to other members of the network
+                      maxLength: 256
                       type: string
                   type: object
                 pool:
@@ -44937,6 +44998,7 @@ paths:
                 idempotencyKey:
                   description: An optional identifier to allow idempotent submission
                     of requests. Stored on the transaction uniquely within a namespace
+                  maxLength: 256
                   type: string
                 interface:
                   description: A reference to an existing FFI, containing pre-registered
@@ -45991,6 +46053,7 @@ paths:
                 idempotencyKey:
                   description: An optional identifier to allow idempotent submission
                     of requests. Stored on the transaction uniquely within a namespace
+                  maxLength: 256
                   type: string
                 key:
                   description: The blockchain signing key for the transfer. On input
@@ -46150,6 +46213,7 @@ paths:
                         be duplicated within a namespace, thus allowing idempotent
                         submission of messages to the API. Local only - not transferred
                         when the message is sent to other members of the network
+                      maxLength: 256
                       type: string
                   type: object
                 pool:
@@ -46608,6 +46672,7 @@ paths:
                       description: An optional unique identifier for a transaction.
                         Cannot be duplicated within a namespace, thus allowing idempotent
                         submission of transactions to the API
+                      maxLength: 256
                       type: string
                     namespace:
                       description: The namespace of the FireFly transaction
@@ -46743,6 +46808,7 @@ paths:
                     description: An optional unique identifier for a transaction.
                       Cannot be duplicated within a namespace, thus allowing idempotent
                       submission of transactions to the API
+                    maxLength: 256
                     type: string
                   namespace:
                     description: The namespace of the FireFly transaction
