@@ -531,7 +531,7 @@ func (bp *batchProcessor) updateMessagePins(ctx context.Context, messages []*cor
 	// It's important we update the message pins at this phase, as we have "spent" a nonce
 	// on this topic from the database. So this message has grabbed a slot in our queue.
 	// If we fail the dispatch, and redo the batch sealing process, we must not allocate
-	// a second nonce to it (and as such modifiy the batch payload).
+	// a second nonce to it (and as such modify the batch payload).
 	//
 	// Note to consider database transactions, we do not update the msg.Pins array, or the
 	// message cache, until after the Retry/RunAsGroup has ended in sealBatch.

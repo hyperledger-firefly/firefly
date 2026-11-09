@@ -46,7 +46,7 @@ type BlockchainCallbacks interface {
 	// BulkOperationUpdates is a synchronous way to update multiple operations and will return when the updates have been committed to the database or there has been an error
 	// An insertion ordering guarantee is only provided when this code is called on a single goroutine inside of the connector.
 	// It is the responsibility of the connector code to allocate that routine, and ensure that there is only one.
-	// Note: onComplete at each update level is not called, as this is a bulk operation and should be reponsibility of the caller to manage if needed.
+	// Note: onComplete at each update level is not called, as this is a bulk operation and should be responsibility of the caller to manage if needed.
 	BulkOperationUpdates(ctx context.Context, namespace string, updates []*core.OperationUpdate) error
 
 	OperationUpdate(ctx context.Context, plugin core.Named, nsOpID string, status core.OpStatus, blockchainTXID, errorMessage string, opOutput fftypes.JSONObject)
@@ -360,7 +360,7 @@ func buildBatchPin(ctx context.Context, event *blockchain.Event, params *BatchPi
 
 func GetNamespaceFromSubName(subName string) string {
 	// Subscription names post version 1.1 are in the format `ff-sub-<namespace>-<listener ID>`
-	// Priot to that they had the format `ff-sub-<listener ID>`
+	// Prior to that they had the format `ff-sub-<listener ID>`
 
 	// Strip the "ff-sub-" prefix from the beginning of the name
 	withoutPrefix := strings.TrimPrefix(subName, "ff-sub-")

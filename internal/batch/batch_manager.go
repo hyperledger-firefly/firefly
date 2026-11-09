@@ -551,7 +551,7 @@ func (bm *batchManager) maskContext(ctx context.Context, state *dispatchState, m
 		return "", nil, err
 	}
 
-	// Now we have the nonce, add that at the end of the hash to make it unqiue to this message
+	// Now we have the nonce, add that at the end of the hash to make it unique to this message
 	nonceBytes := make([]byte, 8)
 	//nolint:gosec
 	binary.BigEndian.PutUint64(nonceBytes, uint64(nonce))
